@@ -1,0 +1,26 @@
+    <link rel="stylesheet" href="../dist/css/client/layouts/header.css" type="text/css">
+    <link rel="stylesheet" href="../dist/css/reset.css" type="text/css">
+    <link rel="stylesheet" href="../dist/css/app.css" type="text/css">
+    <link rel="stylesheet" href="../dist/css/base.css" type="text/css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
+    <!--======== Login =========-->
+    <link rel="stylesheet" type="text/css" href="../../dist/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../dist/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../../dist/fonts/iconic/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" type="text/css" href="../../dist/vendor/animate/animate.css">
+    <link rel="stylesheet" type="text/css" href="../../dist/vendor/css-hamburgers/hamburgers.min.css">
+    <link rel="stylesheet" type="text/css" href="../../dist/vendor/animsition/css/animsition.min.css">
+    <link rel="stylesheet" type="text/css" href="../../dist/vendor/select2/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="../../dist/vendor/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" type="text/css" href="../../dist/css/client/pages/login/util.css">
+    <link rel="stylesheet" type="text/css" href="../../dist/css/client/pages/login/main.css">
+    <!--========= EndLogin ============-->
+
+    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
