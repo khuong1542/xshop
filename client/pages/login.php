@@ -1,10 +1,10 @@
 <?php
 require_once("../layouts/css.php");
-require_once("../../db.php");
+require_once("../../connect/db.php");
 session_start();
 $error = [];
 if (isset($_POST['submit'])) {
-    $email = isset($_POST['email']) ? $_POST['email'] : "";
+    $email = isset($_POST['email']) ? trim($_POST['email']) : "";
     $password = isset($_POST['password']) ? $_POST['password'] : "";
     if (empty($email)) {
         $error['email'] = 'Email không được để trống';
@@ -45,7 +45,7 @@ sleep(1);
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 
 <div class="limiter align-items-center">
-    <div class="container-login100" style="background-image: url('../../dist/images/bg-01.jpg');">
+    <div class="container-login100" style="background-image: url('../../dist/img/bg-01.jpg');">
         <div class="col-md-12">
             <a href="../index.php" style="color:#fff; text-decoration:underline">
                 <i class="fa fa-arrow-left"></i>

@@ -108,9 +108,11 @@ sleep(1);
                     <i class="fas fa-caret-down"></i>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right dropdown-custom" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item dropdown-item-custom" href="">
+                    <?php if($_SESSION['auth']['role_id'] == 1) : ?>
+                    <a class="dropdown-item dropdown-item-custom" href="<?php echo BASE_ADMIN ?>">
                         <i class="fas fa-users-cog"></i>Quản trị
                     </a>
+                    <?php endif ?>
                     <a class="dropdown-item dropdown-item-custom" href="">
                         <i class="fas fa-user"></i>Hồ sơ cá nhân
                     </a>

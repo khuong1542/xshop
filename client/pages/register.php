@@ -1,7 +1,7 @@
 <?php 
 session_start();
 require_once("../layouts/css.php");
-require_once("../../db.php");
+require_once("../../connect/db.php");
 
 $error = [];
 // $regex = '/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@(gmail.com|([a-z0-9]+).edu.vn)$/';
@@ -71,7 +71,7 @@ if(isset($_POST['register']))
 ?>
 
 <div class="limiter align-items-center">
-    <div class="container-login100" style="background-image: url('../../dist/images/bg-01.jpg');">
+    <div class="container-login100" style="background-image: url('../../dist/img/bg-01.jpg');">
         <div class="col-md-12">
             <a href="../index.php" style="color:#fff; text-decoration:underline">
                 <i class="fa fa-arrow-left"></i>
@@ -90,7 +90,7 @@ if(isset($_POST['register']))
                             <div class="m-b-25">
                                 <div class="wrap-input100">
                                     <span class="label-input100">Họ và tên*</span>
-                                    <input type="text" class="input100" name="name" placeholder="Nhập họ và tên">
+                                    <input type="text" class="input100" name="name" placeholder="Nhập họ và tên" value="<?php if(isset($_COOKIE["name"])) { echo $_COOKIE["name"]; } ?>">
                                     <span class="focus-input100" data-symbol="&#xf207;"></span>
                                 </div>
                                 <?php if (isset($error['name'])) : ?>
@@ -98,7 +98,7 @@ if(isset($_POST['register']))
                                 <?php endif ?>
                                 <div class="wrap-input100">
                                     <span class="label-input100">Tên tài khoản*</span>
-                                    <input type="text" class="input100" name="username" placeholder="Nhập tên tài khoản">
+                                    <input type="text" class="input100" name="username" placeholder="Nhập tên tài khoản" value="<?php if(isset($_COOKIE["username"])) { echo $_COOKIE["username"]; } ?>">
                                     <span class="focus-input100" data-symbol="&#xf207;"></span>
                                 </div>
                                 <?php if (isset($error['username'])) : ?>
