@@ -261,3 +261,28 @@
 	content: "";
 	margin: 0 auto;
 }
+.categories__item img{
+	width: 200px;
+	height: 180px;
+}
+.featured__item__text {
+	text-align: center;
+	padding-top: 15px;
+}
+.featured__item__text h4 a {
+	font-size: 16px;
+	font-weight: 700;
+	margin-bottom: 10px;
+	color:black;
+	/* background-color: #bdbdbd; */
+}
+
+.featured__item__text h6 a {
+	color: #252525;
+}
+
+.featured__item__text h5 {
+	color: #252525;
+	font-weight: 700;
+}
+

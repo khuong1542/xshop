@@ -56,33 +56,16 @@
                 <div class="container">
                     <div class="row">
                         <div class="categories__slider owl-carousel">
-                            <?php foreach($category as $cate) : ?>
-                            <div class="col-lg-3">
-                                <div class="categories__item set-bg" data-setbg="<?=BASE.'dist/img/categories/'.$cate['image']?>">
-                                    <h5><a href="#"><?=$cate['name']?></a></h5>
+                            <?php foreach($category as $cate): ?>
+                                <div class="col-lg-3 col-md-4 col-sm-6 mix fresh-meat vegetables">
+                                <div class="categories__item">
+                                    <img src="<?php echo BASE.'dist/img/categories/'.$cate['image']?>" alt="">
+                                    <div class="featured__item__text">
+                                        <h4><a href=""><?php echo $cate['name'] ?></a></h4>
+                                    </div>
                                 </div>
                             </div>
                             <?php endforeach ?>
-                            <!-- <div class="col-lg-3">
-                                <div class="categories__item set-bg" data-setbg="../dist/img/categories/cat-2.jpg">
-                                    <h5><a href="#">Dried Fruit</a></h5>
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="categories__item set-bg" data-setbg="../dist/img/categories/cat-3.jpg">
-                                    <h5><a href="#">Vegetables</a></h5>
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="categories__item set-bg" data-setbg="../dist/img/categories/cat-4.jpg">
-                                    <h5><a href="#">drink fruits</a></h5>
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="categories__item set-bg" data-setbg="../dist/img/categories/cat-5.jpg">
-                                    <h5><a href="#">drink fruits</a></h5>
-                                </div>
-                            </div> -->
                         </div>
                     </div>
                 </div>
