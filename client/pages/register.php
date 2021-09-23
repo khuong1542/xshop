@@ -1,7 +1,8 @@
 <?php 
+require_once("../../connect/base.php");
+require_once("../../connect/db.php");
 session_start();
 require_once("../layouts/css.php");
-require_once("../../connect/db.php");
 
 $error = [];
 // $regex = '/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@(gmail.com|([a-z0-9]+).edu.vn)$/';

@@ -1,6 +1,7 @@
 <?php
-require_once("../layouts/css.php");
+require_once("../../connect/base.php");
 require_once("../../connect/db.php");
+require_once("../layouts/css.php");
 session_start();
 $error = [];
 if (isset($_POST['submit'])) {
