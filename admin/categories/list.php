@@ -61,9 +61,6 @@ $categories = executeQuery($getListProductQuery);
                                                 <img src="<?=BASE?>/dist/img/categories/<?= $category['image'] ?>" alt="" width="100">
                                             </td>
                                             <td class="text-center"><?= date('Y-m-d',strtotime($category['created_at'])) ?></td>
-                                            <!-- <td>
-                                                    <a href="https://fontawesome.com/v4.7/icons/" data-toggle="modal" data-target="#logoutModal">Click</a>
-                                                </td> -->
                                             <td class="text-center">
                                                 <label class="custom-control custom-checkbox p-0 m-0 pointer "
                                                     style="cursor: pointer;">

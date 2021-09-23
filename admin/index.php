@@ -1,5 +1,9 @@
 <?php 
+session_start();
 require_once '../connect/base.php';
+require_once '../connect/db.php';
+$count = mysql_query("SELECT COUNT(*) from `categories`");
+$data=mysql_fetch_assoc($count);
 ?>
 
 <!DOCTYPE html>
@@ -42,7 +46,7 @@ require_once '../connect/base.php';
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 Earnings (Monthly)</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $countsk ?></div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -178,7 +182,7 @@ require_once '../connect/base.php';
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="col-lg-6 mb-4">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
@@ -315,23 +319,16 @@ require_once '../connect/base.php';
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
-                    </div>
-                </div>
-            </footer>
         </div>
     </div>
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
 
-    
+
     <?php require_once './layouts/script.php'; ?>
 
 </body>

@@ -1,6 +1,9 @@
 <?php
 // require_once '../db.php';
 
+function count(){
+    $count = "SELECT COUNT(*) from `categories`";
+}
 function show(){
     
 }

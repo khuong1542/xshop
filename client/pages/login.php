@@ -19,6 +19,7 @@ if (isset($_POST['submit'])) {
         if ($user && password_verify($password, $user['password'])) {
             $_SESSION['auth'] = [
                 "id" => $user['id'],
+                "name" => $user['name'],
                 "username" => $user['username'],
                 "avatar" => $user['avatar'],
                 "email" => $user['email'],
