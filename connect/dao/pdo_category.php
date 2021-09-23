@@ -1,11 +1,8 @@
 <?php
-// require_once '../db.php';
 
-function count(){
-    $count = "SELECT COUNT(*) from `categories`";
-}
 function show(){
-    
+    $result = "SELECT * from `categories`";
+    executeQuery($result);
 }
 
 function insert($name,$slug,$image,$status,$created_at){

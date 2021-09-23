@@ -1,4 +1,5 @@
 <?php 
+session_start();
 require_once '../../connect/base.php'; 
 require_once '../../connect/db.php'; 
 $getListProductQuery = "SELECT * FROM `sliders` order by id ASC";
