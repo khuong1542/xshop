@@ -1,4 +1,4 @@
-$('input#name').keyup(function(event){
+$('input#name').keyup(function(event) {
     var title, slug;
     title = $(this).val();
     slug = title.toLowerCase();

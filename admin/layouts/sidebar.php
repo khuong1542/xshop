@@ -1,6 +1,7 @@
 
 <?php 
 // require '../../connect/check-login.php';
+session_start();
 ?>
 <!-- Sidebar -->
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
@@ -52,8 +53,8 @@
         </a>
         <div id="authors" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="buttons.php">Danh sách</a>
-                <a class="collapse-item" href="cards.php">Thêm mới</a>
+            <a class="collapse-item" href="<?php echo BASE_ADMIN . 'authors/list.php' ?>">Danh sách</a>
+                <a class="collapse-item" href="<?php echo BASE_ADMIN . 'authors/add-form.php' ?>">Thêm mới</a>
             </div>
         </div>
     </li>
@@ -65,8 +66,8 @@
         </a>
         <div id="books" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="buttons.php">Danh sách</a>
-                <a class="collapse-item" href="cards.php">Thêm mới</a>
+            <a class="collapse-item" href="<?php echo BASE_ADMIN . 'books/list.php' ?>">Danh sách</a>
+                <a class="collapse-item" href="<?php echo BASE_ADMIN . 'books/add-form.php' ?>">Thêm mới</a>
             </div>
         </div>
     </li>
@@ -78,7 +79,7 @@
         </a>
         <div id="comments" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="buttons.php">Danh sách</a>
+                <a class="collapse-item" href="">Danh sách</a>
             </div>
         </div>
     </li>
@@ -94,8 +95,8 @@
         </a>
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="buttons.php">Danh sách tài khoản</a>
-                <a class="collapse-item" href="cards.php">Thêm mới admin</a>
+                <a class="collapse-item" href="">Danh sách tài khoản</a>
+                <a class="collapse-item" href="">Thêm mới admin</a>
             </div>
         </div>
     </li>

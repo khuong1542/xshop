@@ -1,35 +1,37 @@
 <?php
+// session_start();
 require_once '../../connect/base.php';
 require_once '../../connect/db.php';
 
 $id = $_GET['id'];
-$selectSlide = "SELECT * FROM sliders WHERE id = $id";
-$result = executeQuery($selectSlide, false);
+$selectCategory = "SELECT * FROM categories WHERE id = $id";
+$result = executeQuery($selectCategory, false);
 
 if (isset($_POST['submit'])) {
     $name = $_POST['name'];
+    $slug = $_POST['slug'];
     $status = $_POST['status'];
-    $updated_at = date('Y-m-d H:i:s');
+    $created_at = date('Y-m-d H:i:s');
     $file = $_FILES['image'];
-    require_once '../validate/sliders/validate-add.php';
+    require_once '../validate/categories/validate-add.php';
     if (!$error) {
 
-        $checkExistedQuery = "select * from sliders where name = '$name'";
+        $checkExistedQuery = "select * from categories where name = '$name'";
         $existedBook = executeQuery($checkExistedQuery, false);
 
-        $updateBookQuery = "UPDATE `sliders` SET `name`='$name',`status`='$status',`updated_at`='$updated_at'";
+        $updateBookQuery = "UPDATE `categories` SET `name`='$name',`slug`='$slug',`status`='$status',`updated_at`='$updated_at'";
         $name_image = "";
         if($file['size'] > 0){
-            $name_image = uniqid() . '-' . $file['name'];
-            move_uploaded_file($file['tmp_name'],'../../dist/img/sliders/' . $name_image);
-            $filename = trim($name_image);
+            $name_image = rand(100,999) . '-' . $file['name'];
+            move_uploaded_file($file['tmp_name'],'../../dist/img/categories/' . $name_image);
+            $filename = BASE.'dist/img/categories/'.$name_image;
             $updateBookQuery .= ", image = '$filename'";
         }
 
         $updateBookQuery .= "where id = $id";
         executeQuery($updateBookQuery);
 
-        header('location:' . BASE_ADMIN . 'sliders/list.php'); 
+        header('location:' . BASE_ADMIN . 'categories/list.php'); 
     }
 }
 ?>
@@ -66,24 +68,36 @@ if (isset($_POST['submit'])) {
                                 <form action="" method="post" enctype="multipart/form-data">
                                     <div class="add-form__name">
                                         <label for="">Tên slide</label>
-                                        <input type="text" class="form-control" name="name" placeholder="Tên silde" value="<?php echo $result['name'] ?>">
+                                        <input type="text" class="form-control" id="name" name="name"
+                                            placeholder="Tên silde" value="<?php echo $result['name'] ?>">
                                     </div>
                                     <?php if (isset($error['name'])) : ?>
-                                        <p class="text-danger"><?= $error['name'] ?></p>
+                                    <p class="text-danger"><?= $error['name'] ?></p>
+                                    <?php endif ?>
+                                    <div class="add-form__slug m-t-10">
+                                        <label for="">Tên slide</label>
+                                        <input type="text" class="form-control" id="slug" name="slug"
+                                            placeholder="Tên silde" value="<?php echo $result['slug'] ?>">
+                                    </div>
+                                    <?php if (isset($error['slug'])) : ?>
+                                    <p class="text-danger"><?= $error['slug'] ?></p>
                                     <?php endif ?>
                                     <div class="add-form__image m-t-10">
                                         <label for="">Ảnh</label>
                                         <input type="file" class="form-control" name="image">
-                                        <img width="300" style="margin-top:10px" src="<?= BASE . 'dist/img/sliders/' . $result['image'] ?>" alt="">
+                                        <img width="300" style="margin-top:10px"
+                                            src="<?= BASE . 'dist/img/categories/' . $result['image'] ?>" alt="">
                                     </div>
                                     <?php if (isset($error['image'])) : ?>
-                                        <p class="text-danger"><?= $error['image'] ?></p>
+                                    <p class="text-danger"><?= $error['image'] ?></p>
                                     <?php endif ?>
                                     <div class="add-form__image m-t-10">
                                         <label for="">Trạng thái</label>
                                         <select name="status" id="" class="form-control">
-                                            <option value="0" <?php if ($result['status']==0) {echo "selected";}?>>Hiển thị</option>
-                                            <option value="1" <?php if ($result['status']==1) {echo "selected";}?>>Ẩn</option>
+                                            <option value="0" <?php if ($result['status']==0) {echo "selected";}?>>Hiển
+                                                thị</option>
+                                            <option value="1" <?php if ($result['status']==1) {echo "selected";}?>>Ẩn
+                                            </option>
                                         </select>
                                     </div>
                                     <div class="add-form__image m-t-10">

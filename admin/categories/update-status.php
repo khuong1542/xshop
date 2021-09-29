@@ -11,7 +11,6 @@ if ($result) {
     return 'data updated';
 }
 
-// header('location:' . BASE_ADMIN . 'sliders/list.php');
 
 }
 ?>

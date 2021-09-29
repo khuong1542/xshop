@@ -1,4 +1,5 @@
 <?php 
+// session_start();
 require_once '../../connect/base.php'; 
 require_once '../../connect/db.php';
 require_once '../../connect/dao/pdo_category.php';
@@ -17,6 +18,11 @@ if (isset($_POST['submit'])) {
         $name_image = "";
         if($file['size'] > 0){
             $name_image = uniqid() . '-' . $file['name'];
+            move_uploaded_file($file['tmp_name'],'../../dist/img/categories/' . $name_image);
+            $filename = BASE.'dist/img/books/'.$name_image;
+        }
+        elseif(empty($file['size'])){
+            $name_image = 'https://tonsmb.org/wp-content/uploads/2014/03/default_image_01.png';
             move_uploaded_file($file['tmp_name'],'../../dist/img/categories/' . $name_image);
             $filename = trim($name_image);
         }
@@ -65,7 +71,7 @@ if (isset($_POST['submit'])) {
                                     <?php if (isset($error['name'])) : ?>
                                     <p class="text-danger"><?= $error['name'] ?></p>
                                     <?php endif ?>
-                                    <div class="add-form__slug">
+                                    <div class="add-form__slug m-t-10">
                                         <label for="">Đường dẫn</label>
                                         <input type="text" class="form-control" id="slug" name="slug" placeholder="Đường dẫn">
                                     </div>

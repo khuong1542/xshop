@@ -31,7 +31,7 @@ function executeQuery($exeSql, $fetchAll = true)
 	return $stmt->fetch();
 }
 function pdo_execute($sql){
-	$args = array_slice(func_get_args(), 0);
+	$args = array_slice(func_get_args(), 1);
 	try{
 		$connect = getConnect();
 		$stmt = $connect->prepare($sql);

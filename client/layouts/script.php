@@ -17,3 +17,4 @@
     <script src="../dist/js/home/mixitup.min.js"></script>
     <script src="../dist/js/home/owl.carousel.min.js"></script>
     <script src="../dist/js/home/main.js"></script>
+    <script src="<?= BASE.'dist/js/search.js'?>"></script>

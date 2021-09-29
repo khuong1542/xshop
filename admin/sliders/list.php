@@ -1,5 +1,5 @@
 <?php 
-session_start();
+// session_start();
 require_once '../../connect/base.php'; 
 require_once '../../connect/db.php'; 
 $getListProductQuery = "SELECT * FROM `sliders` order by id ASC";
@@ -59,7 +59,7 @@ $sliders = executeQuery($getListProductQuery);
                                             <td class="text-center">
                                                 <img src="<?=BASE?>/dist/img/sliders/<?= $slide['image'] ?>" alt="" width="100">
                                             </td>
-                                            <td class="text-center"><?= date('Y-m-d',strtotime($slide['created_at'])) ?></td>
+                                            <td class="text-center"><?= date('d-m-Y',strtotime($slide['created_at'])) ?></td>
                                             <!-- <td>
                                                     <a href="https://fontawesome.com/v4.7/icons/" data-toggle="modal" data-target="#logoutModal">Click</a>
                                                 </td> -->

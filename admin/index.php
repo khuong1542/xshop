@@ -1,5 +1,5 @@
 <?php 
-session_start();
+// session_start();
 require_once '../connect/base.php';
 require_once '../connect/db.php';
 require_once '../connect/dao/pdo_count.php';
@@ -25,7 +25,7 @@ $resultUser = "SELECT *from `users`";
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title><?php require_once 'layouts/title_admin.php' ?></title>
 
     <!-- <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link

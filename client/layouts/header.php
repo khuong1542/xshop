@@ -7,19 +7,19 @@ sleep(1);
 <header class="header header-desktop container">
 
     <div class="header__logo">
-        <a href=""><img src="../dist/img/logo.png" alt="" class="header__logo-img"></a>
+        <a href=""><img src="<?=BASE.'dist/img/logo.png'?>" alt="" class="header__logo-img"></a>
     </div>
 
     <ul class="header__nav">
-        <li class="header__nav-li"><a class="link" href="">Trang Chủ</a></li>
-        <li class="header__nav-li"><a class="link" href="">Danh Mục</a></li>
-        <li class="header__nav-li"><a class="link" href="">Bài Viết</a></li>
-        <li class="header__nav-li"><a class="link" href="">Liên Hệ</a></li>
+        <li class="header__nav-li"><a class="link" href="<?=BASE_CLIENT?>">Trang Chủ</a></li>
+        <li class="header__nav-li"><a class="link" href="<?=BASE_CLIENT.'pages/category.php'?>">Danh Mục</a></li>
+        <li class="header__nav-li"><a class="link" href="<?=BASE_CLIENT.'pages/post.php'?>">Bài Viết</a></li>
+        <li class="header__nav-li"><a class="link" href="<?=BASE_CLIENT.'pages/contact.php'?>">Liên Hệ</a></li>
     </ul>
     <div class="header__search">
-        <form action="" method="Get" class="search-form" autocomplete="off">
-            <input class="search-input" name="keyword" id="js-header-search-desktop" type="text" placeholder="Tìm kiếm theo tên sách, tác giả" value="">
-            <button class="search-btn">
+        <form action="<?=BASE_CLIENT.'pages/search.php' ?>" method="post" class="search-form"  enctype="multipart/form-data">
+            <input class="search-input" name="keyword" id="js-header-search-desktop" type="text" placeholder="Tìm kiếm theo tên sách" value="">
+            <button class="search-btn" name="submit">
                 <i class="fas fa-search"></i>
             </button>
         </form>
@@ -62,46 +62,6 @@ sleep(1);
     </div>
     <div class="header__information">
         <?php if(isset($_SESSION['auth'])) : ?>
-            <!-- <div class="header__information-notification ">
-                <div class="header-notification" id="header-notification">
-                    <button class=" header-notification__bell" id="alertsDropdown">
-                        <i class="fas fa-bell fa-fw"></i>
-                        <span class="badge badge-danger badge-counter" id="unread-notify"></span>
-                    </button>
-
-                    <div hidden id="menu_notification" aria-labelledby="alertsDropdown">
-                        <div class="notification-dropdown-header">
-                            <div class="notification-header__title">Thông báo</div>
-                            <div class="notification-header__more"><a href="">Đánh dấu tất cả là đã đọc</a></div>
-                        </div>
-                        <div class="notification-dropdown-body">
-                            <div id="notification-message"> Bạn chưa có thông báo mới</div>
-                            <div class=" notification-dropdown">
-                                <a class="notification-dropdown__link" href="">
-                                    <div class="notification-dropdown-wrapper">
-
-                                        <div class="notification-avatar">
-                                            <img src="" alt="">
-
-                                        </div>
-                                        <div class=" notification-body">
-                                            <div class="notification-body__content "></div>
-                                            <span class="notification-body__time "></span>
-                                        </div>
-                                        <div class=" notification-icon">
-                                            <i class="fas fa-circle"></i>
-                                            <i class="fas fa-check "></i>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-
-
-                        </div>
-                        <a class="load-more__notification" href="">Xem tất cả </a>
-                    </div>
-                </div>
-            </div> -->
             <div>
                 <a id="navbarDropdown" class="nav-link  header__information-info" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                     <img src="<?php echo $_SESSION['auth']['avatar'] ?>" alt="">
@@ -132,9 +92,10 @@ sleep(1);
                 </div>
             </div>
         <?php else: ?>
-            <a class="btn--login" href="pages/login.php">Đăng nhập</a>
+            <a class="btn--login" href="<?=BASE_CLIENT.'pages/login.php'?>">Đăng nhập</a>
         <?php endif ?>
     </div>
 </header>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment-with-locales.min.js" integrity="sha512-LGXaggshOkD/at6PFNcp2V2unf9LzFq6LE+sChH7ceMTDP0g2kn6Vxwgg7wkPP7AAtX+lmPqPdxB47A0Nz0cMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+

@@ -1,4 +1,5 @@
 <?php 
+// session_start();
 require_once '../../connect/base.php'; 
 require_once '../../connect/db.php'; 
 $getListProductQuery = "SELECT * FROM `categories` order by id ASC";
@@ -58,9 +59,9 @@ $categories = executeQuery($getListProductQuery);
                                             <td><?= $category['name'] ?></td>
                                             <td><a href="" style="text-decoration: underline;"><?= $category['slug'] ?></a></td>
                                             <td class="text-center">
-                                                <img src="<?=BASE?>/dist/img/categories/<?= $category['image'] ?>" alt="" width="100">
+                                                <img src="<?= $category['image'] ?>" alt="" width="100">
                                             </td>
-                                            <td class="text-center"><?= date('Y-m-d',strtotime($category['created_at'])) ?></td>
+                                            <td class="text-center"><?= date('d-m-Y',strtotime($category['created_at'])) ?></td>
                                             <td class="text-center">
                                                 <label class="custom-control custom-checkbox p-0 m-0 pointer "
                                                     style="cursor: pointer;">
