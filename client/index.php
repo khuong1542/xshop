@@ -37,6 +37,7 @@
         <?php require_once './layouts/header.php'; ?>
     </header>
     <div class="container">
+        <!-- Slider -->
         <div class="silder">
             <div id="carousel-example-1z" class="carousel slide carousel-fade" data-ride="carousel">
                 <ol class="carousel-indicators">
@@ -55,6 +56,9 @@
                 </a>
             </div>
         </div>
+        <!-- End Slide -->
+
+        <!-- Category -->
         <div class="category">
             <section class="featured spad">
                 <div class="container">
@@ -73,12 +77,14 @@
                         <div class="categories__slider owl-carousel">
                             <?php foreach($category as $cate): ?>
                             <div class="col-lg-3 col-md-4 col-sm-6 mix fresh-meat vegetables">
-                                <div class="categories__item">
-                                    <img src="<?= $cate['image']?>" alt="">
-                                    <div class="featured__item__text">
-                                        <h4><a href=""><?php echo $cate['name'] ?></a></h4>
+                                <a href="">
+                                    <div class="categories__item">
+                                        <img src="<?= $cate['image']?>" alt="">
+                                        <div class="featured__item__text">
+                                            <h4><?php echo $cate['name'] ?></h4>
+                                        </div>
                                     </div>
-                                </div>
+                                </a>
                             </div>
                             <?php endforeach ?>
                         </div>
@@ -86,42 +92,60 @@
                 </div>
             </section>
         </div>
-        <div class="product-special">
-            <div class="book-carouse book-carouse-mobile">
-                <div class="book-carouse__header">
-                    <div class="carouse-header__title">Sách đặc biệt</div>
-                </div>
+        <!-- End Category -->
+
+        <!-- Product Special -->
+        <div class="book-carouse special">
+            <div class="book-carouse__header">
+                <div class="carouse-header__title">Sách đặc biệt</div>
+            </div>
+            <div class="book-carouse__body">
                 <?php if (count($bookSpecials) > 0): ?>
-                <div class="book-carouse__body">
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <div class="book-carousel__wrapper">
-                                <?php foreach ($bookSpecials as $bookSpecial): ?>
-                                <div class="book-card ">
-                                    <div class="book-card__img">
-                                        <a href="">
-                                            <img src="<?=$bookSpecial['image'] ?>" alt="" />
-                                        </a>
-                                    </div>
-                                    <div class="book-card__title">
-                                        <a href="">
-                                            <h3><?=$bookSpecial['name'] ?></h3>
-                                        </a>
-                                    </div>
-                                    <div class="book-card__author" style="font-size: 10px">
-                                        Tác giả:
-                                        <a href="">
-                                            <?=$bookSpecial['author_name'] ?></a>
-                                    </div>
-                                    <div class="book-card__author">
-                                        <p> <span class="book-star">
-                                                <i class="fas fa-star"></i></p>
-                                    </div>
+                <div class="books__slider owl-carousel">
+                    <?php foreach($bookSpecials as $bookSpecial): ?>
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <a href="">
+                            <div class="book-card">
+                                <div class="book-card__img">
+                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php'?>">
+                                        <img src="<?= $bookSpecial['image']?>" alt="">
+                                    </a>
                                 </div>
-                                <?php endforeach ?>
+
+                                <div class="book-card__title">
+                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php'?>">
+                                        <h3><?=$bookSpecial['name'] ?></h3>
+                                    </a>
+                                </div>
+                                <div class="book-card__author" style="font-size: 10px">
+                                    Tác giả:
+                                    <a href="">
+                                        <?=$bookSpecial['author_name'] ?></a>
+                                </div>
+                                <div class="book-card__star">
+                                    <p> <span class="book-star">
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                    </p>
+                                </div>
+
+                                <div class="book-card__price">
+                                    <span><?=number_format($bookSpecial['sale'],0,'',',')?>đ</span>
+                                    <del><?=number_format($bookSpecial['price'],0,'',',')?>đ</del>
+                                </div>
+                                <div class="book-card__btn">
+                                    <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn"><i
+                                            class="fa fa-shopping-cart"></i></a>
+                                    <a href="{{ route('book.review', $book->slug) }}" class="review-btn">Chi tiết</a>
+                                </div>
+
                             </div>
-                        </div>
+                        </a>
                     </div>
+                    <?php endforeach ?>
                 </div>
                 <?php else: ?>
                 <div class="book-user-comment__message">
@@ -130,94 +154,129 @@
                 <?php endif ?>
             </div>
         </div>
-        <div class="product-new">
-            <div class="book-carouse book-carouse-mobile">
-                <div class="book-carouse__header">
-                    <div class="carouse-header__title">Sách mới nhất</div>
-                </div>
+        <!-- End Book Special -->
+
+        <!-- Book New -->
+        <div class="book-carouse new">
+            <div class="book-carouse__header">
+                <div class="carouse-header__title">Sách mới nhất</div>
+            </div>
+            <div class="book-carouse__body">
                 <?php if (count($bookNews) > 0): ?>
-                <div class="book-carouse__body">
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <div class="book-carousel__wrapper">
-                                <?php foreach ($bookNews as $bookNew): ?>
-                                <div class="book-card ">
-                                    <div class="book-card__img">
-                                        <a href="">
-                                            <img src="<?=$bookNew['image'] ?>" alt="" />
-                                        </a>
-                                    </div>
-                                    <div class="book-card__title">
-                                        <a href="">
-                                            <h3><?=$bookNew['name'] ?></h3>
-                                        </a>
-                                    </div>
-                                    <div class="book-card__author" style="font-size: 10px">
-                                        Tác giả:
-                                        <a href="">
-                                            <?=$bookNew['author_name'] ?></a>
-                                    </div>
-                                    <div class="book-card__author">
-                                        <p> <span class="book-star">
-                                                <i class="fas fa-star"></i></p>
-                                    </div>
+                <div class="books__slider owl-carousel">
+                    <?php foreach($bookNews as $bookNew): ?>
+                    <div class="col-lg-3 col-md-4 col-sm-6 mix fresh-meat vegetables">
+                        <a href="">
+                            <div class="book-card">
+                                <div class="item__hot">Mới</div>
+                                <div class="book-card__img">
+                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php'?>">
+                                        <img src="<?= $bookNew['image']?>" alt="">
+                                    </a>
                                 </div>
-                                <?php endforeach ?>
+
+                                <div class="book-card__title">
+                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php'?>">
+                                        <h3><?=$bookNew['name'] ?></h3>
+                                    </a>
+                                </div>
+                                <div class="book-card__author" style="font-size: 10px">
+                                    Tác giả:
+                                    <a href="">
+                                        <?=$bookNew['author_name'] ?></a>
+                                </div>
+                                <div class="book-card__star">
+                                    <p> <span class="book-star">
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                    </p>
+                                </div>
+                                <div class="book-card__price">
+                                    <span><?=number_format($bookNew['sale'],0,'',',')?>đ</span>
+                                    <del><?=number_format($bookNew['price'],0,'',',')?>đ</del>
+                                </div>
+                                <div class="book-card__btn">
+                                    <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn"><i
+                                            class="fa fa-shopping-cart"></i></a>
+                                    <a href="{{ route('book.review', $book->slug) }}" class="review-btn">Chi tiết</a>
+                                </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
+                    <?php endforeach ?>
                 </div>
                 <?php else: ?>
                 <div class="book-user-comment__message">
-                    <p style="font-size:10pt; text-align:center"> Chưa có sách đặc biệt nào!</p>
+                    <p style="font-size:10pt; text-align:center"> Chưa có sách mới nào!</p>
                 </div>
                 <?php endif ?>
             </div>
         </div>
-        <div class="product-favorite">
-            <div class="book-carouse book-carouse-mobile">
-                <div class="book-carouse__header">
-                    <div class="carouse-header__title">Sách được yêu thích nhiều nhất</div>
-                </div>
+        <!-- End Book New -->
+
+        <!-- Book Favorite -->
+        <div class="book-carouse favorite">
+            <div class="book-carouse__header">
+                <div class="carouse-header__title">Sách được yêu thích nhiều nhất</div>
+            </div>
+            <div class="book-carouse__body">
                 <?php if (count($bookFavorites) > 0): ?>
-                <div class="book-carouse__body">
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <div class="book-carousel__wrapper">
-                                <?php foreach ($bookFavorites as $bookFavorite): ?>
-                                <div class="book-card ">
-                                    <div class="book-card__img">
-                                        <a href="">
-                                            <img src="<?=$bookFavorite['image'] ?>" alt="" />
-                                        </a>
-                                    </div>
-                                    <div class="book-card__title">
-                                        <a href="">
-                                            <h3><?=$bookFavorite['name'] ?></h3>
-                                        </a>
-                                    </div>
-                                    <div class="book-card__author" style="font-size: 10px">
-                                        Tác giả:
-                                        <a href="">
-                                            <?=$bookFavorite['author_name'] ?></a>
-                                    </div>
-                                    <div class="book-card__author">
-                                        <p> <span class="book-star">
-                                                <i class="fas fa-star"></i></p>
-                                    </div>
+                <div class="books__slider owl-carousel">
+                    <?php foreach($bookFavorites as $bookFavorite): ?>
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <a href="">
+                            <div class="book-card">
+                                <div class="book-card__img">
+                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php'?>">
+                                        <img src="<?= $bookFavorite['image']?>" alt="">
+                                    </a>
                                 </div>
-                                <?php endforeach ?>
+
+                                <div class="book-card__title">
+                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php'?>">
+                                        <h3><?=$bookFavorite['name'] ?></h3>
+                                    </a>
+                                </div>
+                                <div class="book-card__author" style="font-size: 10px">
+                                    Tác giả:
+                                    <a href="">
+                                        <?=$bookFavorite['author_name'] ?></a>
+                                </div>
+                                <div class="book-card__star">
+                                    <p> <span class="book-star">
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                    </p>
+                                </div>
+                                <div class="book-card__price">
+                                    <span><?=number_format($bookFavorite['sale'],0,'',',')?>đ</span>
+                                    <del><?=number_format($bookFavorite['price'],0,'',',')?>đ</del>
+                                </div>
+                                <div class="book-card__btn">
+                                    <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn"><i
+                                            class="fa fa-shopping-cart"></i></a>
+                                    <a href="{{ route('book.review', $book->slug) }}" class="review-btn">Chi tiết</a>
+                                </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
+                    <?php endforeach ?>
                 </div>
                 <?php else: ?>
                 <div class="book-user-comment__message">
-                    <p style="font-size:10pt; text-align:center"> Chưa có sách đặc biệt nào!</p>
+                    <p style="font-size:10pt; text-align:center"> Chưa có sách được yêu thích nào!</p>
                 </div>
                 <?php endif ?>
+
             </div>
         </div>
+        <!-- End Book Favorite -->
     </div>
     <footer class="footer">
         <?php require_once './layouts/footer.php'; ?>

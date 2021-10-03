@@ -6,8 +6,8 @@
     <script type="application/javascript">
         function $init() {return true;}
     </script>
-    <script src="../dist/js/home.js"></script>
-    <script src="../dist/js/category.js"></script>
+    <!-- <script src="../dist/js/home.js"></script>
+    <script src="../dist/js/category.js"></script> -->
 
     <!-- <script src="../dist/js/home/jquery-3.3.1.min.js"></script>
     <script src="../dist/js/home/bootstrap.min.js"></script>
@@ -16,5 +16,5 @@
     <script src="../dist/js/home/jquery.slicknav.js"></script>
     <script src="../dist/js/home/mixitup.min.js"></script>
     <script src="../dist/js/home/owl.carousel.min.js"></script>
-    <script src="../dist/js/home/main.js"></script>
+    <script src="<?= BASE.'dist/js/home/main.js'?>"></script>
     <script src="<?= BASE.'dist/js/search.js'?>"></script>

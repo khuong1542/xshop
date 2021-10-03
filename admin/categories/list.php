@@ -51,6 +51,7 @@ $categories = executeQuery($getListProductQuery);
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <?php if(count($categories) > 0 ) : ?>
                                         <?php 
                                             $stt = 1;
                                             foreach($categories as $category):?>
@@ -81,6 +82,11 @@ $categories = executeQuery($getListProductQuery);
                                             </td>
                                         </tr>
                                         <?php endforeach ?>
+                                        <?php else: ?>
+                                        <tr>
+                                            <td colspan="10" class="text-center">Không tìm thấy danh mục nào !</td>
+                                        </tr>
+                                        <?php endif ?>
                                     </tbody>
                                 </table>
                             </div>

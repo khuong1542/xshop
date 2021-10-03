@@ -103,7 +103,7 @@ if (isset($_POST['submit'])) {
                                     </div>
                                     <div class="add-form__slug m-t-10">
                                         <label for="">Giới thiệu tác giả</label>
-                                        <textarea name="description" cols="30" rows="10" class="form-control" placeholder="Giới thiệu tác giả"></textarea>
+                                        <textarea id="editor1" name="description" cols="30" rows="10" class="form-control" placeholder="Giới thiệu tác giả"></textarea>
                                         <!-- <input type="text" class="form-control" id="slug" name="slug" placeholder="Đường dẫn"> -->
                                     </div>
                                     <?php if (isset($error['slug'])) : ?>

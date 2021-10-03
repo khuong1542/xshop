@@ -3,6 +3,7 @@
 require_once '../../connect/base.php'; 
 require_once '../../connect/db.php';
 require_once '../../connect/dao/pdo_book.php';
+require_once '../../connect/dao/pdo_category_book.php';
 $selectCategories = "SELECT * from categories where `status` = '0'";
 $selectAuthor = "SELECT * from authors where `status` = '0'";
 $categories = executeQuery($selectCategories);
@@ -37,9 +38,9 @@ if (isset($_POST['submit'])) {
             move_uploaded_file($file['tmp_name'],'../../dist/img/authors/' . $name_image);
             $filename = trim($name_image);
         }
-
         insert($name,$slug,$price,$sale,$filename,$description,$special,$cate_id,$author_id,$status,$created_at);
-        // executeQuery("INSERT into ")
+
+        // executeQuery("INSERT INTO category_book(book_id, category_id) VALUES ((SELECT id FROM books WHERE name = '$name'), $cate_id)");
 
         header('location:' . BASE_ADMIN . 'books/list.php'); 
     }
@@ -76,6 +77,10 @@ if (isset($_POST['submit'])) {
                         <div class="card-body">
                             <div class="table-responsive">
                                 <form action="" method="post" enctype="multipart/form-data">
+                                    <div class="add-form__name col-md-12" hidden>
+                                        <label for="">Tên sách</label>
+                                        <input type="text" class="form-control" name="id" placeholder="Tên sách">
+                                    </div>
                                     <div class="row">
                                         <div class="add-form__name col-md-6">
                                             <label for="">Tên sách</label>
@@ -98,9 +103,10 @@ if (isset($_POST['submit'])) {
                                         <div class="add-form__cate m-t-10 col-md-6">
                                             <label for="">Danh mục</label>
                                             <div class="select-box-a">
-                                                <select class="my-select form-control" name="cate_id" data-live-search="true">
+                                                <select class="my-select form-control" name="cate_id"
+                                                    data-live-search="true">
                                                     <?php foreach($categories as $cate): ?>
-                                                        <option value="<?= $cate['id']?>"><?= $cate['name']?></option>
+                                                    <option value="<?= $cate['id']?>"><?= $cate['name']?></option>
                                                     <?php endforeach ?>
                                                 </select>
                                             </div>
@@ -108,9 +114,10 @@ if (isset($_POST['submit'])) {
                                         <div class="add-form__cate m-t-10 col-md-6">
                                             <label for="">Tác giả</label>
                                             <div class="select-box">
-                                                <select class="my-select form-control" name="author_id" data-live-search="true">
+                                                <select class="my-select form-control" name="author_id"
+                                                    data-live-search="true">
                                                     <?php foreach($authors as $author): ?>
-                                                        <option value="<?= $author['id']?>"><?= $author['name']?></option>
+                                                    <option value="<?= $author['id']?>"><?= $author['name']?></option>
                                                     <?php endforeach ?>
                                                 </select>
                                             </div>
@@ -162,9 +169,9 @@ if (isset($_POST['submit'])) {
                                         </select>
                                     </div>
                                     <div class="add-form__slug m-t-10">
-                                        <label for="">Giới thiệu tác giả</label>
+                                        <label for="">Giới thiệu sách</label>
                                         <textarea name="description" id="editor1" cols="30" rows="10"
-                                            class="form-control" placeholder="Giới thiệu tác giả"></textarea>
+                                            class="form-control" placeholder="Giới thiệu sách"></textarea>
                                         <!-- <input type="text" class="form-control" id="slug" name="slug" placeholder="Đường dẫn"> -->
                                     </div>
                                     <?php if (isset($error['slug'])) : ?>

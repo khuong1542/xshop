@@ -9,7 +9,8 @@ $getListAuthorQuery = "SELECT * FROM `books` order by id ASC";
 $selectAllBookFavorite = "  SELECT books.*, categories.name as cate_name, authors.name as author_name
                             FROM books
                             INNER JOIN categories ON books.cate_id = categories.id
-                            INNER JOIN authors ON books.author_id = authors.id";
+                            INNER JOIN authors ON books.author_id = authors.id
+                            order by id desc";
 $books = executeQuery($selectAllBookFavorite);
 
 ?>
@@ -49,17 +50,19 @@ $books = executeQuery($selectAllBookFavorite);
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Tên sản phẩm</th>
+                                            <th width="200px">Tên sản phẩm</th>
                                             <th class="">Danh mục</th>
                                             <th class="">Tác giả</th>
                                             <th class="text-center">Ảnh</th>
                                             <th class="text-center">Giá</th>
                                             <th class="text-center">Giảm giá</th>
+                                            <th class="text-center">Đặc biệt</th>
                                             <th class="text-center">Trạng thái</th>
                                             <th class="text-center">Hành động</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <?php if(count($books) > 0) : ?>
                                         <?php 
                                             $stt = 1;
                                             foreach($books as $book):?>
@@ -75,6 +78,16 @@ $books = executeQuery($selectAllBookFavorite);
                                             </td>
                                             <td class="text-center"><?= number_format($book['price'],0,'',',') ?>đ</td>
                                             <td class="text-center"><?= number_format($book['sale'],0,'',',') ?>đ</td>
+                                            <td class="text-center">
+                                                <label class="custom-control custom-checkbox p-0 m-0 pointer "
+                                                    style="cursor: pointer;">
+                                                    <input type="checkbox" class="custom-control-input toggle-class-special"
+                                                        data-id="<?= $book['id'] ?>" name="my_checkbox"
+                                                        data-on="On" data-off="Off"
+                                                        <?php echo $book['special']=='0' ? 'checked' : ''?>>
+                                                    <span class="custom-control-indicator p-0 m-0 "></span>
+                                                </label>
+                                            </td>
                                             <td class="text-center">
                                                 <label class="custom-control custom-checkbox p-0 m-0 pointer "
                                                     style="cursor: pointer;">
@@ -95,6 +108,11 @@ $books = executeQuery($selectAllBookFavorite);
                                             </td>
                                         </tr>
                                         <?php endforeach ?>
+                                        <?php else: ?>
+                                        <tr>
+                                            <td colspan="10" class="text-center">Không tìm thấy cuốn sách nào !</td>
+                                        </tr>
+                                        <?php endif ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -118,6 +136,24 @@ $books = executeQuery($selectAllBookFavorite);
     <?php require_once '../layouts/script.php';?>
     <script>
     $(document).ready(function() {
+        $('.toggle-class-special').change(function() {
+            var special = $(this).prop('checked') == true ? '0' : '1';
+            var id = $(this).data('id');
+            console.log(special, id)
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: 'update-status.php',
+                data: {
+                    'special': special,
+                    'id': id
+                },
+                success: function(response) {
+                    console.log(response);
+                }
+            });
+        });
+        
         $('.toggle-class').change(function() {
             var status = $(this).prop('checked') == true ? '0' : '1';
             var id = $(this).data('id');

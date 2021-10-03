@@ -24,4 +24,4 @@
     <!--========= EndLogin ============-->
 
     <link rel="stylesheet" href="<?=BASE.'dist/css/client/pages/home/owl.carousel.min.css" type="text/css'?>">
-    <link rel="stylesheet" href="<?=BASE.'dist/css/client/pages/home/style.css" type="text/css'?>">
+    <!-- <link rel="stylesheet" href="<?=BASE.'dist/css/client/pages/home/style.css" type="text/css'?>"> -->

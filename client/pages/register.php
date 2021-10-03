@@ -1,6 +1,7 @@
 <?php 
 require_once("../../connect/base.php");
 require_once("../../connect/db.php");
+require_once("../../connect/dao/pdo_user.php");
 session_start();
 require_once("../layouts/css.php");
 
@@ -18,6 +19,7 @@ if(isset($_POST['register']))
     $username=$_POST['username'];
     $email=trim($_POST['email']);
     $password=password_hash($_POST['password'], PASSWORD_DEFAULT);
+    $created_at = date('Y-m-d H:i:s');
     $avatar= 'https://c0.klipartz.com/pngpicture/136/22/gratis-png-perfil-de-usuario-computadora-iconos-chica-cliente-avatar.png';
     
     if(empty($name)) {
@@ -61,9 +63,7 @@ if(isset($_POST['register']))
     
     
     if(!$error){
-        $sql_insert="INSERT INTO users values(null,'$name','$username','$avatar','$email','$password',1)";
-        $query=executeQuery($sql_insert);
-        echo "<p align='center'> Đăng ký thành công! </p>";
+        insert($name,$username,$avatar,$email,$password,0,$created_at);
         echo '<meta http-equiv="refresh" content="1;url=login.php">';
         die();
     }

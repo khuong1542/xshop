@@ -51,35 +51,38 @@ $authors = executeQuery($getListAuthorQuery);
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <?php if(count($authors) > 0): ?>
                                         <?php 
-                                            $stt = 1;
-                                            foreach($authors as $author):?>
+                                                $stt = 1;
+                                                foreach($authors as $author):?>
                                         <tr>
                                             <td><?= $author['id'] ?></td>
                                             <td><?= $author['name'] ?></td>
-                                            <td><a href="" style="text-decoration: underline;"><?= $author['slug'] ?></a></td>
+                                            <td><a href=""
+                                                    style="text-decoration: underline;"><?= $author['slug'] ?></a></td>
                                             <td class="text-center">
                                                 <img src="<?= $author['avatar'] ?>" alt="Ảnh tác giả" width="70">
                                             </td>
                                             <td class="text-center">
                                                 <?php if($author['birthday']!="0000-00-00"): ?>
-                                                    <?= date('d-m-Y',strtotime($author['birthday'])) ?>
+                                                <?= date('d-m-Y',strtotime($author['birthday'])) ?>
                                                 <?php else : ?>
-                                                    <p>Chưa xác định</p>
+                                                <p>Chưa xác định</p>
                                                 <?php endif ?>
                                             </td>
                                             <td class="text-center">
                                                 <label class="custom-control custom-checkbox p-0 m-0 pointer "
                                                     style="cursor: pointer;">
                                                     <input type="checkbox" class="custom-control-input toggle-class"
-                                                        data-id="<?= $author['id'] ?>" data-on="On" name="my_checkbox"
+                                                        data-id="<?= $author['id'] ?>" name="my_checkbox"
                                                         data-on="On" data-off="Off"
                                                         <?php echo $author['status']=='0' ? 'checked' : ''?>>
                                                     <span class="custom-control-indicator p-0 m-0 "></span>
                                                 </label>
                                             </td>
                                             <td class="text-center">
-                                                <a href="<?php echo BASE_ADMIN . 'authors/edit-form.php'?>?id=<?php echo $author['id']; ?>" class="fa fa-edit text-success p-1 btn-action"></a>
+                                                <a href="<?php echo BASE_ADMIN . 'authors/edit-form.php'?>?id=<?php echo $author['id']; ?>"
+                                                    class="fa fa-edit text-success p-1 btn-action"></a>
                                                 <a onclick="return Delete()"
                                                     href="<?php echo BASE_ADMIN . 'authors/delete.php'?>?id=<?php echo $author['id']; ?>"
                                                     class="fas fa-trash text-danger p-1 btn-action"></a>
@@ -87,6 +90,11 @@ $authors = executeQuery($getListAuthorQuery);
                                             </td>
                                         </tr>
                                         <?php endforeach ?>
+                                        <?php else: ?>
+                                        <tr>
+                                            <td colspan="10" class="text-center">Không tìm thấy tác giả nào !</td>
+                                        </tr>
+                                        <?php endif ?>
                                     </tbody>
                                 </table>
                             </div>

@@ -2,15 +2,15 @@
 
 require_once '../../connect/db.php';
 if (isset($_POST['status'])) {
-    
-$id = $_POST['id'];
-$status = $_POST['status'];
-$update = "UPDATE `books` SET `status`=$status WHERE id = $id"; 
-$result = executeQuery($update);
-// if ($result) {
-//     return 'data updated';
-// }
-
-
+    $id = $_POST['id'];
+    $status = $_POST['status'];
+    $updateStatus = "UPDATE `books` SET `status`=$status WHERE id = $id"; 
+    $result = executeQuery($updateStatus);
+}
+if (isset($_POST['special'])) {
+    $id = $_POST['id'];
+    $special = $_POST['special'];
+    $updateSpecial = "UPDATE `books` SET `special`=$special WHERE id = $id"; 
+    $result = executeQuery($updateSpecial);
 }
 ?>

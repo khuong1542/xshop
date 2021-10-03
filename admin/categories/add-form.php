@@ -19,7 +19,7 @@ if (isset($_POST['submit'])) {
         if($file['size'] > 0){
             $name_image = uniqid() . '-' . $file['name'];
             move_uploaded_file($file['tmp_name'],'../../dist/img/categories/' . $name_image);
-            $filename = BASE.'dist/img/books/'.$name_image;
+            $filename = BASE.'dist/img/categories/'.$name_image;
         }
         elseif(empty($file['size'])){
             $name_image = 'https://tonsmb.org/wp-content/uploads/2014/03/default_image_01.png';

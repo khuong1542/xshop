@@ -50,6 +50,7 @@ $sliders = executeQuery($getListProductQuery);
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <?php if(count($sliders) > 0) : ?>
                                         <?php 
                                             $stt = 1;
                                             foreach($sliders as $slide):?>
@@ -82,6 +83,11 @@ $sliders = executeQuery($getListProductQuery);
                                             </td>
                                         </tr>
                                         <?php endforeach ?>
+                                        <?php else: ?>
+                                        <tr>
+                                            <td colspan="10" class="text-center">Không tìm thấy silde nào !</td>
+                                        </tr>
+                                        <?php endif ?>
                                     </tbody>
                                 </table>
                             </div>

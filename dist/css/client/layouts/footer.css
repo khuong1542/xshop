@@ -4,7 +4,7 @@ footer {
     bottom: -1rem;
     /* background-color: var(--base-color); */
     transition: 0.7%;
-    background-image: url('https://lh3.googleusercontent.com/proxy/lg0Bb6sTHPlUOg-19i2VSVWqwjRdfRddFl3kujtso3b91ECk5zRjviBGfMb84QqttXkchzEUjhs3LnR101Ebh7dReO5xsiQgMQbbiSJLyEITFN9zGt-PTlSjjnWNAqzyDA');
+    background-image: url('../../../img/footers/footer.jpg');
 }
 
 .grid__full-width {

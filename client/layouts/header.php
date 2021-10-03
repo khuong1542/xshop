@@ -85,7 +85,7 @@ sleep(1);
                     <a class="dropdown-item dropdown-item-custom" href="">
                         <i class="fas fa-star"></i>Đánh giá
                     </a>
-                    <a class="dropdown-item dropdown-item-custom" href="pages/logout.php">
+                    <a class="dropdown-item dropdown-item-custom" href="<?=BASE_CLIENT.'pages/logout.php'?>">
                         <i class="fas fa-sign-out-alt"></i>Đăng xuất
                     </a>
 
