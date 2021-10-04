@@ -7,6 +7,7 @@ require_once '../../connect/dao/pdo_comment.php';
 $id = $_GET['id'];
 
 $selectAllCate = "SELECT * from `categories` where status = 0";
+$selectAllBookNew = "SELECT * from `books`";
 $categories = executeQuery($selectAllCate);
 
 $selectAllBook = "  SELECT books.*, categories.name as cate_name, authors.name as author_name
@@ -15,6 +16,12 @@ $selectAllBook = "  SELECT books.*, categories.name as cate_name, authors.name a
                         INNER JOIN authors ON books.author_id = authors.id
                         WHERE books.status = 0 and books.id=$id order by id desc";
 $books = executeQuery($selectAllBook, false);
+
+// $selectAllBookNew = "   SELECT books.*,authors.name as author_name 
+//                         from books join authors on books.author_id = authors.id 
+//                         where books.status = 0
+//                         order by id desc limit 6";
+$bookRelated = executeQuery($selectAllBookNew);
 
 $selectAllComment = "SELECT comments.*, books.name as book_name, users.name as user_name, users.avatar as user_avatar
                     FROM comments
@@ -84,12 +91,11 @@ $comments = executeQuery($selectAllComment);
                         </div>
 
                     </div>
-                    <div class="book-info__description">
+                    <!-- <div class="book-info__description">
                         <div class="book-description__text">
-                            <!-- <?= substr(strip_tags($books['description']), 0, 150); ?> -->
                             <?= $books['description'] ?>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="book-button-group">
                         <div class="book-button-item">
                             <a href="{{ route('Book.Order', ['id' => $book->id]) }}"
@@ -176,6 +182,61 @@ $comments = executeQuery($selectAllComment);
                 </div>
                 <div class="book-tabs__comment tab-pane" id="rating">
 
+                </div>
+            </div>
+        </div>
+        <div class="book-carouse">
+            <div class="book-carouse__header">
+                <div class="carouse-header__title">Sách mới nhất</div>
+            </div>
+            <div class="book-carouse__body">
+                <div class="related__slider owl-carousel">
+                    <?php foreach($bookRelated as $bookNew): ?>
+                    <div class="col-lg-3 col-md-4 col-sm-6 mix fresh-meat vegetables">
+                        <a href="">
+                            <div class="book-card">
+                                <div class="item__hot">Mới</div>
+                                <div class="book-card__img">
+                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookNew['id']?>">
+                                        <img src="<?= $bookNew['image']?>" alt="">
+                                    </a>
+                                </div>
+
+                                <div class="book-card__title">
+                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookNew['id']?>">
+                                        <h3><?=$bookNew['name'] ?></h3>
+                                    </a>
+                                </div>
+                                <div class="book-card__author" style="font-size: 10px">
+                                    Tác giả:
+                                    <a href="">
+                                        <?=$bookNew['author_name'] ?></a>
+                                </div>
+                                <div class="book-card__star">
+                                    <p> <span class="book-star">
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                    </p>
+                                </div>
+                                <div class="book-card__price">
+                                    <span><?=number_format($bookNew['sale'],0,'',',')?>đ</span>
+                                    <del><?=number_format($bookNew['price'],0,'',',')?>đ</del>
+                                </div>
+                                <div class="book-card__btn">
+                                    <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn"><i
+                                            class="fa fa-shopping-cart"></i></a>
+                                    <a href="{{ route('book.review', $book->slug) }}" class="review-btn">Chi tiết</a>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <?php endforeach ?>
+                </div>
+                <div class="book-user-comment__message">
+                    <p style="font-size:10pt; text-align:center"> Chưa có sách mới nào!</p>
                 </div>
             </div>
         </div>

@@ -135,6 +135,46 @@
         }
     });
 
+    $(".related__slider").owlCarousel({
+        loop: true,
+        margin: 0,
+        items: 6,
+        dots: false,
+        nav: true,
+        navText: ["<div class='fa fa-angle-left'><div/>", "<div class='fa fa-angle-right'><div/>"],
+        animateOut: 'fadeOut',
+        animateIn: 'fadeIn',
+        smartSpeed: 1200,
+        autoHeight: false,
+        autoplay: true,
+        responsive: {
+
+            0: {
+                items: 1,
+            },
+
+            165: {
+                items: 2,
+            },
+
+            330: {
+                items: 3,
+            },
+
+            496: {
+                items: 4,
+            },
+
+            661: {
+                items: 5,
+            },
+
+            992: {
+                items: 6,
+            }
+        }
+    });
+
     $('.hero__categories__all').on('click', function() {
         $('.hero__categories ul').slideToggle(400);
     });

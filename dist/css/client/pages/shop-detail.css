@@ -370,6 +370,129 @@
     margin-bottom: 1rem;
 }
 
+.books__slider .col-lg-3 {
+    max-width: 100%;
+}
+
+.books__slider.owl-carousel .owl-nav button {
+    font-size: 18px;
+    color: #1c1c1c;
+    height: 70px;
+    width: 30px;
+    line-height: 70px;
+    text-align: center;
+    border: 1px solid #ebebeb;
+    position: absolute;
+    left: -20px;
+    top: 50%;
+    -webkit-transform: translateY(-35px);
+    background: #ffffff;
+}
+
+.books__slider.owl-carousel .owl-nav button.owl-next {
+    left: auto;
+    right: -25px;
+}
+
+.book-carouse__body .book-card {
+    position: relative;
+    /* padding: 20px 10px 10px 10px; */
+    overflow: hidden;
+    border: 1px solid rgb(0 0 0 / 15%);
+}
+
+.book-card {
+    /* width: 23.5rem; */
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 1px 2px 8px 1px rgba(0, 0, 0, 0.25);
+}
+
+.book-carouse-background .book-card {
+    background-color: var(--white-color);
+}
+
+.book-card__img {
+    height: 15rem;
+}
+
+.book-card__img a {
+    text-decoration: none;
+}
+
+.book-card__img a img {
+    width: 100%;
+    height: 100%;
+    border-radius: .5rem;
+}
+
+.book-card__title {
+    margin-top: 1.6rem;
+}
+
+.book-card__title a {
+    text-decoration: none;
+}
+
+.book-card__title a h3 {
+    /* color:#343734; */
+    color: var(--black-secondary-color);
+    font-size: 1.6rem;
+    line-height: 1.6rem;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.book-card__author {
+    margin-top: 0.8rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.book-card__author a {
+    font-size: 1.4rem;
+    font-weight: 600;
+    line-height: 1.6rem;
+    /* color:#5c6468; */
+    color: var(--text-color3);
+    text-decoration: none;
+}
+
+.book-card__author a:hover,
+.book-card__author a:focus,
+.book-card__author a:active {
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.book-card__star {
+    margin-top: 0.3rem;
+    color: var(--base-color2);
+}
+
+.book-card__star i {
+    font-size: 10px;
+}
+
+.book-card__price del {
+    color: red;
+}
+
+.book-card__price span {
+    font-size: 10pt;
+    /* color: ; */
+}
+
+.book-card__btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.8rem;
+}
+
 .book-user-comment__date {}
 
 .book-user-comment__content {

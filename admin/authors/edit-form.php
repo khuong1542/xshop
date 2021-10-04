@@ -13,14 +13,12 @@ if (isset($_POST['submit'])) {
     $birthday = $_POST['birthday'];
     $status = $_POST['status'];
     $description = $_POST['description'];
-    $created_at = date('Y-m-d H:i:s');
+    $updated_at = date('Y-m-d H:i:s');
     $file = $_FILES['avatar'];
     require_once '../validate/authors/validate-add.php';
     if (!$error) {
-        $checkExistedQuery = "select * from authors where id = '$id'";
-        $existedBook = executeQuery($checkExistedQuery, false);
 
-        $updateBookQuery = "UPDATE `authors` SET `name`='$name',`slug`='$slug',`status`='$status',`description`='$description',`updated_at`='$updated_at'";
+        $updateBookQuery = "UPDATE `authors` SET `name`='$name',`slug`='$slug',`birthday`='$birthday',`status`='$status',`description`='$description',`updated_at`='$updated_at'";
         $name_image = "";
         if($file['size'] > 0){
             $name_image = uniqid() . '-' . $file['name'];
@@ -47,7 +45,7 @@ if (isset($_POST['submit'])) {
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title><?php require_once 'layouts/title_admin.php' ?></title>
+    <title><?php require_once '../layouts/title_admin.php' ?></title>
 
     <?php require_once '../layouts/css.php'; ?>
 </head>
@@ -91,7 +89,7 @@ if (isset($_POST['submit'])) {
                                     <div class="add-form__image m-t-10">
                                         <label for="">Ảnh</label>
                                         <input type="file" class="form-control" name="avatar">
-                                        <img src="<?php echo $result['avatar'] ?>" alt="">
+                                        <img src="<?php echo $result['avatar'] ?>" width="200" alt="">
                                     </div>
                                     <?php if (isset($error['image'])) : ?>
                                     <p class="text-danger"><?= $error['image'] ?></p>

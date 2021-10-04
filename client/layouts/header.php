@@ -76,7 +76,7 @@ sleep(1);
                     <a class="dropdown-item dropdown-item-custom" href="">
                         <i class="fas fa-user"></i>Hồ sơ cá nhân
                     </a>
-                    <a class="dropdown-item dropdown-item-custom" href="">
+                    <!-- <a class="dropdown-item dropdown-item-custom" href="">
                         <i class="fas fa-history"></i>Lịch sử mượn sách
                     </a>
                     <a class="dropdown-item dropdown-item-custom" href="">
@@ -84,7 +84,7 @@ sleep(1);
                     </a>
                     <a class="dropdown-item dropdown-item-custom" href="">
                         <i class="fas fa-star"></i>Đánh giá
-                    </a>
+                    </a> -->
                     <a class="dropdown-item dropdown-item-custom" href="<?=BASE_CLIENT.'pages/logout.php'?>">
                         <i class="fas fa-sign-out-alt"></i>Đăng xuất
                     </a>

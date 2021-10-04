@@ -13,8 +13,8 @@
     <script src="../dist/js/home/bootstrap.min.js"></script>
     <script src="../dist/js/home/jquery.nice-select.min.js"></script>
     <script src="../dist/js/home/jquery-ui.min.js"></script> -->
-    <script src="../dist/js/home/jquery.slicknav.js"></script>
-    <script src="../dist/js/home/mixitup.min.js"></script>
-    <script src="../dist/js/home/owl.carousel.min.js"></script>
+    <script src="<?= BASE.'dist/js/home/jquery.slicknav.js'?>"></script>
+    <script src="<?= BASE.'dist/js/home/mixitup.min.js'?>"></script>
+    <script src="<?= BASE.'dist/js/home/owl.carousel.min.js'?>"></script>
     <script src="<?= BASE.'dist/js/home/main.js'?>"></script>
     <script src="<?= BASE.'dist/js/search.js'?>"></script>
