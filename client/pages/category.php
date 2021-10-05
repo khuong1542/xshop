@@ -73,7 +73,7 @@
                         <ul class="filter-list ">
 
                             <?php foreach($categories as $category): ?>
-                            <a href="<?=BASE_CLIENT.'pages/category.php?id='.$category['id'] ?>"
+                            <a href="<?=BASE_CLIENT.'pages/category.php?id='.$category['id'].'&slug='.$category['slug']?>"
                                 class="filter-item__link  ">
                                 <li
                                     class="filter-item {{ Request::is('category/'.$category->slug) ? 'active' : null }}">
@@ -100,12 +100,12 @@
                     <?php foreach($books as $book): ?>
                     <div class="book-card ">
                         <div class="book-card__img">
-                            <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$book['id']?>">
+                            <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$book['id'].'&slug='.$book['slug']?>">
                                 <img src="<?=$book['image']?>" alt="">
                             </a>
                         </div>
                         <div class="book-card__title">
-                            <a href="<?=BASE_CLIENT.'pages/shop-detail.php'?>">
+                            <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$book['id'].'&slug='.$book['slug']?>">
                                 <h3> <?=$book['name']?> </h3>
                             </a>
                         </div>

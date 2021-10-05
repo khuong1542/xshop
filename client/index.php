@@ -77,7 +77,7 @@
                         <div class="categories__slider owl-carousel">
                             <?php foreach($category as $cate): ?>
                             <div class="col-lg-3 col-md-4 col-sm-6 mix fresh-meat vegetables">
-                                <a href="">
+                                <a href="<?=BASE_CLIENT.'pages/category.php?id='.$cate['id'].'&slug='.$cate['slug'] ?>">
                                     <div class="categories__item">
                                         <img src="<?= $cate['image']?>" alt="">
                                         <div class="featured__item__text">
@@ -107,13 +107,13 @@
                         <a href="">
                             <div class="book-card">
                                 <div class="book-card__img">
-                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookSpecial['id']?>">
+                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookSpecial['id'].'&slug='.$bookSpecial['slug']?>">
                                         <img src="<?= $bookSpecial['image']?>" alt="">
                                     </a>
                                 </div>
 
                                 <div class="book-card__title">
-                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookSpecial['id']?>">
+                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookSpecial['id'].'&slug='.$bookSpecial['slug']?>">
                                         <h3><?=$bookSpecial['name'] ?></h3>
                                     </a>
                                 </div>
@@ -170,13 +170,13 @@
                             <div class="book-card">
                                 <div class="item__hot">Mới</div>
                                 <div class="book-card__img">
-                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookNew['id']?>">
+                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookNew['id'].'&slug='.$bookNew['slug']?>">
                                         <img src="<?= $bookNew['image']?>" alt="">
                                     </a>
                                 </div>
 
                                 <div class="book-card__title">
-                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookNew['id']?>">
+                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookNew['id'].'&slug='.$bookNew['slug']?>">
                                         <h3><?=$bookNew['name'] ?></h3>
                                     </a>
                                 </div>
@@ -230,13 +230,13 @@
                         <a href="">
                             <div class="book-card">
                                 <div class="book-card__img">
-                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookFavorite['id']?>">
+                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookFavorite['id'].'&slug='.$bookFavorite['slug']?>">
                                         <img src="<?= $bookFavorite['image']?>" alt="">
                                     </a>
                                 </div>
 
                                 <div class="book-card__title">
-                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookFavorite['id']?>">
+                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookFavorite['id'].'&slug='.$bookFavorite['slug']?>">
                                         <h3><?=$bookFavorite['name'] ?></h3>
                                     </a>
                                 </div>

@@ -1,6 +1,5 @@
 
 <?php 
-// require '../../connect/check-login.php';
 session_start();
 ?>
 <!-- Sidebar -->
@@ -80,6 +79,19 @@ session_start();
         <div id="comments" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="">Danh sách</a>
+            </div>
+        </div>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#posts" aria-expanded="true"
+            aria-controls="posts">
+            <i class="fas fa-book-open"></i>
+            <span>Bài viết</span>
+        </a>
+        <div id="posts" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="<?php echo BASE_ADMIN . 'posts/list.php' ?>">Danh sách</a>
+                <a class="collapse-item" href="<?php echo BASE_ADMIN . 'posts/add-form.php' ?>">Thêm mới</a>
             </div>
         </div>
     </li>

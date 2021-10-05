@@ -76,7 +76,7 @@ if(isset($_POST['register']))
         <div class="col-md-12">
             <a href="../index.php" style="color:#fff; text-decoration:underline">
                 <i class="fa fa-arrow-left"></i>
-                <strong>Back To Home</strong>
+                <strong>Trở về trang chủ</strong>
             </a>
         </div>
         <div class="container">

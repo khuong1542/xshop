@@ -10,5 +10,3 @@
          header('location: ' . BASE_CLIENT . '');
             die;
      }
-
-?>	

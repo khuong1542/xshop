@@ -7,7 +7,7 @@ if(isset($_GET['id'])){
 	$select = "SELECT * from authors where id = $id";
 	$query = mysqli_query($connect,$select);
 	$row = mysqli_fetch_array($query);
-	$link_hinh= '../../dist/img/authors/'.$row['image'];
+	$link_hinh= '../../dist/img/authors/'.$row['avatar'];
 	if(is_file($link_hinh)) 
     {
         unlink($link_hinh);

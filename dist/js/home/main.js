@@ -101,7 +101,7 @@
         items: 6,
         dots: false,
         nav: true,
-        navText: ["<div class='fa fa-angle-left'><div/>", "<div class='fa fa-angle-right'><div/>"],
+        navText: ["<div class='fa fa-chevron-left'><div/>", "<div class='fa fa-angle-right'><div/>"],
         animateOut: 'fadeOut',
         animateIn: 'fadeIn',
         smartSpeed: 1200,
@@ -140,39 +140,13 @@
         margin: 0,
         items: 6,
         dots: false,
-        nav: true,
-        navText: ["<div class='fa fa-angle-left'><div/>", "<div class='fa fa-angle-right'><div/>"],
+        // nav: true,
+        navText: ["<div class='fa fa-chevron-left'><div/>", "<div class='fa fa-chevron-right'><div/>"],
         animateOut: 'fadeOut',
         animateIn: 'fadeIn',
         smartSpeed: 1200,
         autoHeight: false,
-        autoplay: true,
-        responsive: {
-
-            0: {
-                items: 1,
-            },
-
-            165: {
-                items: 2,
-            },
-
-            330: {
-                items: 3,
-            },
-
-            496: {
-                items: 4,
-            },
-
-            661: {
-                items: 5,
-            },
-
-            992: {
-                items: 6,
-            }
-        }
+        autoplay: true
     });
 
     $('.hero__categories__all').on('click', function() {
@@ -188,7 +162,7 @@
         items: 1,
         dots: false,
         nav: true,
-        navText: ["<span class='fa fa-angle-left'><span/>", "<span class='fa fa-angle-right'><span/>"],
+        navText: ["<span class='fa fa-angle-left'><span/>", "<span class='fa fa-chevron-right'><span/>"],
         smartSpeed: 1200,
         autoHeight: false,
         autoplay: true

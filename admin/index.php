@@ -3,13 +3,13 @@
 require_once '../connect/base.php';
 require_once '../connect/db.php';
 require_once '../connect/dao/pdo_count.php';
-// require_once '../connect/dao/pdo_category.php';
-$resultSlider = "SELECT *from `sliders`";
+// require_once '../connect/check-login.php';
 $resultCategory = "SELECT *from `categories`";
 $resultAuthor = "SELECT *from `authors`";
 $resultBook = "SELECT *from `books`";
 $resultComment = "SELECT *from `comments`";
 $resultUser = "SELECT *from `users`";
+$resultPost = "SELECT *from `posts`";
     
 
 ?>
@@ -47,21 +47,6 @@ $resultUser = "SELECT *from `users`";
                                 class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
                     </div>
                     <div class="row">
-                        <div class="col-xl-2 col-md-6 mb-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Slider</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo count(executeQuery($resultSlider)); ?></div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-sliders-h fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <div class="col-xl-2 col-md-6 mb-4">
                             <div class="card border-left-success shadow h-100 py-2">
                                 <div class="card-body">
@@ -142,8 +127,23 @@ $resultUser = "SELECT *from `users`";
                                 </div>
                             </div>
                         </div>
+                        <div class="col-xl-2 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Bài viết</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo count(executeQuery($resultPost)); ?></div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-sliders-h fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="col-xl-8 col-lg-7">
                             <div class="card shadow mb-4">
                                 <div
@@ -209,7 +209,7 @@ $resultUser = "SELECT *from `users`";
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <!-- <div class="row">
                         <div class="col-lg-6 mb-4">
                             <div class="card shadow mb-4">

@@ -7,21 +7,23 @@ require_once '../../connect/dao/pdo_comment.php';
 $id = $_GET['id'];
 
 $selectAllCate = "SELECT * from `categories` where status = 0";
-$selectAllBookNew = "SELECT * from `books`";
+// $selectAllBookRelated = "SELECT * from `books`";
 $categories = executeQuery($selectAllCate);
 
-$selectAllBook = "  SELECT books.*, categories.name as cate_name, authors.name as author_name
+$selectAllBook = "  SELECT books.*, categories.name as cate_name, categories.slug as cate_slug, authors.name as author_name
                         FROM books
                         INNER JOIN categories ON books.cate_id = categories.id
                         INNER JOIN authors ON books.author_id = authors.id
                         WHERE books.status = 0 and books.id=$id order by id desc";
 $books = executeQuery($selectAllBook, false);
 
-// $selectAllBookNew = "   SELECT books.*,authors.name as author_name 
-//                         from books join authors on books.author_id = authors.id 
-//                         where books.status = 0
-//                         order by id desc limit 6";
-$bookRelated = executeQuery($selectAllBookNew);
+$selectAllBookRelated = "   SELECT books.*,authors.name as author_name, categories.id as category_id, categories.name as cate_name
+                        from books 
+                        INNER JOIN authors on books.author_id = authors.id 
+                        INNER JOIN categories on books.cate_id = categories.id
+                        where books.status = 0
+                        order by rand() desc limit 6";
+$bookRelateds = executeQuery($selectAllBookRelated);
 
 $selectAllComment = "SELECT comments.*, books.name as book_name, users.name as user_name, users.avatar as user_avatar
                     FROM comments
@@ -81,7 +83,13 @@ $comments = executeQuery($selectAllComment);
                             </div>
                             <span class="review-count ">( )</span>
                         </div>
-                        <div class="book-info__price m-b-20">
+                        <div class="book-info__tags">
+                            <div class="info-tag__item">
+                                <a href="<?=BASE_CLIENT.'pages/category.php?id='.$books['cate_id'].'&slug='.$books['cate_slug']?>"
+                                    class="button button__outline-sm"><?=$books['cate_name'] ?></a>
+                            </div>
+                        </div>
+                        <div class="book-info__price m-b-20 m-t-10">
                             <?php if ($books['sale'] == $books['price']) : ?>
                             <span><?= number_format($books['sale'], 0, '', ',') ?>đ </span>
                             <?php else : ?>
@@ -176,7 +184,7 @@ $comments = executeQuery($selectAllComment);
                         </div>
                         <?php endforeach ?>
                         <?php else: ?>
-                        <p class="text-center m-t-20" style="font-weight: 300;">Chưa có bình luận nào</p>
+                        <p class="text-center m-t-20" style="font-weight: 300;">Sách chưa có bình luận nào!</p>
                         <?php endif ?>
                     </div>
                 </div>
@@ -185,32 +193,35 @@ $comments = executeQuery($selectAllComment);
                 </div>
             </div>
         </div>
+        
         <div class="book-carouse">
             <div class="book-carouse__header">
-                <div class="carouse-header__title">Sách mới nhất</div>
+                <div class="carouse-header__title">Sách cùng thể loại</div>
             </div>
             <div class="book-carouse__body">
-                <div class="related__slider owl-carousel">
-                    <?php foreach($bookRelated as $bookNew): ?>
+                <?php if(count($bookRelateds) > 0) : ?>
+                <div class="books__slider owl-carousel">
+                    <?php foreach($bookRelateds as $bookRelated): ?>
+                    <?php if($bookRelated['category_id'] == $books['cate_id']): ?>
+                    <?php if($bookRelated['cate_id']):?>
                     <div class="col-lg-3 col-md-4 col-sm-6 mix fresh-meat vegetables">
                         <a href="">
                             <div class="book-card">
-                                <div class="item__hot">Mới</div>
                                 <div class="book-card__img">
-                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookNew['id']?>">
-                                        <img src="<?= $bookNew['image']?>" alt="">
+                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookRelated['id'].'&slug='.$bookRelated['slug']?>">
+                                        <img src="<?= $bookRelated['image']?>" alt="">
                                     </a>
                                 </div>
 
                                 <div class="book-card__title">
-                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookNew['id']?>">
-                                        <h3><?=$bookNew['name'] ?></h3>
+                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookRelated['id'].'&slug='.$bookRelated['slug']?>">
+                                        <h3><?=$bookRelated['name'] ?></h3>
                                     </a>
                                 </div>
                                 <div class="book-card__author" style="font-size: 10px">
                                     Tác giả:
                                     <a href="">
-                                        <?=$bookNew['author_name'] ?></a>
+                                        <?=$bookRelated['author_name'] ?></a>
                                 </div>
                                 <div class="book-card__star">
                                     <p> <span class="book-star">
@@ -219,11 +230,13 @@ $comments = executeQuery($selectAllComment);
                                             <i class="far fa-star"></i>
                                             <i class="far fa-star"></i>
                                             <i class="far fa-star"></i>
+                                        </span>
                                     </p>
                                 </div>
+
                                 <div class="book-card__price">
-                                    <span><?=number_format($bookNew['sale'],0,'',',')?>đ</span>
-                                    <del><?=number_format($bookNew['price'],0,'',',')?>đ</del>
+                                    <span><?=number_format($bookRelated['sale'],0,'',',')?>đ</span>
+                                    <del><?=number_format($bookRelated['price'],0,'',',')?>đ</del>
                                 </div>
                                 <div class="book-card__btn">
                                     <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn"><i
@@ -233,11 +246,15 @@ $comments = executeQuery($selectAllComment);
                             </div>
                         </a>
                     </div>
+                    <?php endif ?>
+                    <?php endif ?>
                     <?php endforeach ?>
                 </div>
+                <?php else: ?>
                 <div class="book-user-comment__message">
-                    <p style="font-size:10pt; text-align:center"> Chưa có sách mới nào!</p>
+                    <p style="font-size:10pt; text-align:center"> Chưa có sách cùng loại nào!</p>
                 </div>
+                <?php endif ?>
             </div>
         </div>
     </div>

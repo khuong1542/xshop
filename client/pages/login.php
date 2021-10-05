@@ -16,6 +16,16 @@ if (isset($_POST['submit'])) {
     if (!$error) {
         $sqlUserQuery = "SELECT * FROM `users` WHERE email = '$email'";
         $user = executeQuery($sqlUserQuery, false);
+        // if($user['email'] != $email){
+        //     $error['email'] = 'Email không tồn tại';
+        //     header('location:../pages/login.php');
+        //     die;
+        // }
+        // if($user['password'] != $password){
+        //     $error['password'] = 'Sai mật khẩu';
+        //     header('location:../pages/login.php');
+        //     die;
+        // }
         if ($user && password_verify($password, $user['password'])) {
             $_SESSION['auth'] = [
                 "id" => $user['id'],
@@ -49,7 +59,7 @@ sleep(1);
         <div class="col-md-12">
             <a href="../index.php" style="color:#fff; text-decoration:underline">
                 <i class="fa fa-arrow-left"></i>
-                <strong>Back To Home</strong>
+                <strong>Trở về trang chủ</strong>
             </a>
         </div>
         <div class="container">
@@ -149,7 +159,6 @@ sleep(1);
 </div>
 
 <div id="dropDownSelect1"></div>
-
 <!--===============================================================================================-->
 <script src="../../dist/vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->
@@ -166,3 +175,23 @@ sleep(1);
 <script src="../../dist/vendor/countdowntime/countdowntime.js"></script>
 <!--===============================================================================================-->
 <script src="../../dist/js/main.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+<script>
+    // $().ready(function(){
+    //     $('form').validate({
+	// 	onfocusout: false,
+	// 	onkeyup: false,
+	// 	onclick: false,
+    //         rules:{
+    //             email: {required: true, maxlength: 20},
+    //             password: {required: true, email:true}
+    //         },
+    //         messages:{
+    //             email:{
+    //                 required: 'Họ tên không được để trống',
+    //                 maxlength: 'Họ tên không vượt quá 20 kí tự',
+    //             }
+    //         }
+    //     });
+    // });
+</script>
