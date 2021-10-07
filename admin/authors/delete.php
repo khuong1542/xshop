@@ -17,6 +17,6 @@ if(isset($_GET['id'])){
     $stmt = $conn->prepare($delete);
     $stmt->execute();
 
-	header('location:'.BASE_ADMIN.'authors/list.php');
+	header('location:'.$_SERVER['HTTP_REFERER']);
 }
 ?>

@@ -73,10 +73,10 @@
                         <ul class="filter-list ">
 
                             <?php foreach($categories as $category): ?>
-                            <a href="<?=BASE_CLIENT.'pages/category.php?id='.$category['id'].'&slug='.$category['slug']?>"
+                            <a href="<?=BASE_CLIENT.'pages/category.php?id='.$category['id']?>"
                                 class="filter-item__link  ">
                                 <li
-                                    class="filter-item {{ Request::is('category/'.$category->slug) ? 'active' : null }}">
+                                    class="filter-item {{ isset($_GET['id']) ? 'active' : null }}">
                                     <?=$category['name']?>
                                     <!-- <span class="filter-item__quantity"></span> -->
                                 </li>
@@ -100,12 +100,12 @@
                     <?php foreach($books as $book): ?>
                     <div class="book-card ">
                         <div class="book-card__img">
-                            <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$book['id'].'&slug='.$book['slug']?>">
+                            <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$book['id']?>">
                                 <img src="<?=$book['image']?>" alt="">
                             </a>
                         </div>
                         <div class="book-card__title">
-                            <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$book['id'].'&slug='.$book['slug']?>">
+                            <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$book['id']?>">
                                 <h3> <?=$book['name']?> </h3>
                             </a>
                         </div>
@@ -126,14 +126,10 @@
                             <?php endif ?>
                         </div>
                         <div class="book-card__btn">
-                            <!-- @if(DB::table('orders')->where('book_id', $book->id)->where('id_user', Auth::user()->id)
-                                    ->where('status', 'Đang mượn')->first() ) -->
-                            <!-- <a href="{{ route('book.read', $book->slug) }}" class="review-btn">Đọc sách</a>
-                                    @else -->
-                            <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn"><i
-                                    class="fa fa-shopping-cart"> Thêm giỏ hàng</i></a>
-                            <a href="{{ route('book.review', $book->slug) }}" class="review-btn">Chi tiết</a>
-                            <!-- @endif -->
+                            <a href="<?=BASE_CLIENT.'pages/cart-add.php?id='.$book['id']?>" class="borrow-btn">
+                                <i class="fa fa-shopping-cart"> Thêm giỏ hàng</i>
+                            </a>
+                            <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$book['id']?>" class="review-btn">Chi tiết</a>
                         </div>
                     </div>
                     <?php endforeach ?>

@@ -77,7 +77,7 @@
                         <div class="categories__slider owl-carousel">
                             <?php foreach($category as $cate): ?>
                             <div class="col-lg-3 col-md-4 col-sm-6 mix fresh-meat vegetables">
-                                <a href="<?=BASE_CLIENT.'pages/category.php?id='.$cate['id'].'&slug='.$cate['slug'] ?>">
+                                <a href="<?=BASE_CLIENT.'pages/category.php?id='.$cate['id'] ?>">
                                     <div class="categories__item">
                                         <img src="<?= $cate['image']?>" alt="">
                                         <div class="featured__item__text">
@@ -107,13 +107,13 @@
                         <a href="">
                             <div class="book-card">
                                 <div class="book-card__img">
-                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookSpecial['id'].'&slug='.$bookSpecial['slug']?>">
+                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookSpecial['id']?>">
                                         <img src="<?= $bookSpecial['image']?>" alt="">
                                     </a>
                                 </div>
 
                                 <div class="book-card__title">
-                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookSpecial['id'].'&slug='.$bookSpecial['slug']?>">
+                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookSpecial['id']?>">
                                         <h3><?=$bookSpecial['name'] ?></h3>
                                     </a>
                                 </div>
@@ -137,9 +137,10 @@
                                     <del><?=number_format($bookSpecial['price'],0,'',',')?>đ</del>
                                 </div>
                                 <div class="book-card__btn">
-                                    <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn"><i
-                                            class="fa fa-shopping-cart"></i></a>
-                                    <a href="{{ route('book.review', $book->slug) }}" class="review-btn">Chi tiết</a>
+                                    <a href="<?=BASE_CLIENT.'pages/cart-add.php?id='.$bookSpecial['id']?>"
+                                        class="borrow-btn"><i class="fa fa-shopping-cart"></i></a>
+                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookSpecial['id']?>"
+                                        class="review-btn">Chi tiết</a>
                                 </div>
 
                             </div>
@@ -170,13 +171,13 @@
                             <div class="book-card">
                                 <div class="item__hot">Mới</div>
                                 <div class="book-card__img">
-                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookNew['id'].'&slug='.$bookNew['slug']?>">
+                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookNew['id']?>">
                                         <img src="<?= $bookNew['image']?>" alt="">
                                     </a>
                                 </div>
 
                                 <div class="book-card__title">
-                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookNew['id'].'&slug='.$bookNew['slug']?>">
+                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookNew['id']?>">
                                         <h3><?=$bookNew['name'] ?></h3>
                                     </a>
                                 </div>
@@ -199,9 +200,15 @@
                                     <del><?=number_format($bookNew['price'],0,'',',')?>đ</del>
                                 </div>
                                 <div class="book-card__btn">
-                                    <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn"><i
-                                            class="fa fa-shopping-cart"></i></a>
-                                    <a href="{{ route('book.review', $book->slug) }}" class="review-btn">Chi tiết</a>
+                                    <?php if(isset($_SESSION['auth'])): ?>
+                                    <a href="<?=BASE_CLIENT.'pages/cart-add.php?id='.$bookNew['id']?>"
+                                        class="borrow-btn"><i class="fa fa-shopping-cart"></i></a>
+                                    <?php else: ?>
+                                        <a href="<?=BASE_CLIENT.'pages/login.php'?>"
+                                        class="borrow-btn"><i class="fa fa-shopping-cart"></i></a>
+                                    <?php endif ?>
+                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookNew['id']?>"
+                                        class="review-btn">Chi tiết</a>
                                 </div>
                             </div>
                         </a>
@@ -230,13 +237,13 @@
                         <a href="">
                             <div class="book-card">
                                 <div class="book-card__img">
-                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookFavorite['id'].'&slug='.$bookFavorite['slug']?>">
+                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookFavorite['id']?>">
                                         <img src="<?= $bookFavorite['image']?>" alt="">
                                     </a>
                                 </div>
 
                                 <div class="book-card__title">
-                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookFavorite['id'].'&slug='.$bookFavorite['slug']?>">
+                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookFavorite['id']?>">
                                         <h3><?=$bookFavorite['name'] ?></h3>
                                     </a>
                                 </div>
@@ -259,9 +266,10 @@
                                     <del><?=number_format($bookFavorite['price'],0,'',',')?>đ</del>
                                 </div>
                                 <div class="book-card__btn">
-                                    <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn"><i
-                                            class="fa fa-shopping-cart"></i></a>
-                                    <a href="{{ route('book.review', $book->slug) }}" class="review-btn">Chi tiết</a>
+                                    <a href="<?=BASE_CLIENT.'pages/cart-add.php?id='.$bookFavorite['id']?>"
+                                        class="borrow-btn"><i class="fa fa-shopping-cart"></i></a>
+                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookFavorite['id']?>"
+                                        class="review-btn">Chi tiết</a>
                                 </div>
                             </div>
                         </a>

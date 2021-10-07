@@ -342,16 +342,17 @@ header.header {
     justify-content: center;
     align-items: center;
     position: absolute;
-    top: -50%;
-    left: 50%;
+    top: -30%;
+    left: 100%;
     word-wrap: break-word;
     max-width: 5rem;
     overflow: hidden;
     text-overflow: ellipsis;
-    /* height: 1.5rem;
-    width: 1.5rem;
-    padding: .8rem;
-    border-radius: 50%; */
+    /* height: 2rem;
+    width: 2rem; */
+    padding: 0.5rem;
+    font-size: 1rem;
+    /* border-radius: 50%; */
     background-color: var(--base-color2);
     box-shadow: 0 0 0 2px #fff;
     font-weight: 800;

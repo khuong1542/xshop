@@ -85,7 +85,7 @@ $comments = executeQuery($selectAllComment);
                         </div>
                         <div class="book-info__tags">
                             <div class="info-tag__item">
-                                <a href="<?=BASE_CLIENT.'pages/category.php?id='.$books['cate_id'].'&slug='.$books['cate_slug']?>"
+                                <a href="<?=BASE_CLIENT.'pages/category.php?id='.$books['cate_id']?>"
                                     class="button button__outline-sm"><?=$books['cate_name'] ?></a>
                             </div>
                         </div>
@@ -106,12 +106,12 @@ $comments = executeQuery($selectAllComment);
                     </div> -->
                     <div class="book-button-group">
                         <div class="book-button-item">
-                            <a href="{{ route('Book.Order', ['id' => $book->id]) }}"
+                            <a href="<?=BASE_CLIENT.'pages/cart-add.php?id='.$books['id']?>"
                                 class="button button__background-lg"><i class="fa fa-shopping-cart"></i> Thêm giỏ
                                 hàng</a>
                         </div>
                         <div class="book-button-item">
-                            <a href="{{ route('book.review', $book->slug) }}" class="button button__outline-lg ">
+                            <a href="" class="button button__outline-lg ">
                                 <i class="fa fa-heart"></i> Yêu thích
                             </a>
                         </div>
@@ -193,7 +193,7 @@ $comments = executeQuery($selectAllComment);
                 </div>
             </div>
         </div>
-        
+
         <div class="book-carouse">
             <div class="book-carouse__header">
                 <div class="carouse-header__title">Sách cùng thể loại</div>
@@ -208,13 +208,15 @@ $comments = executeQuery($selectAllComment);
                         <a href="">
                             <div class="book-card">
                                 <div class="book-card__img">
-                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookRelated['id'].'&slug='.$bookRelated['slug']?>">
+                                    <a
+                                        href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookRelated['id']?>">
                                         <img src="<?= $bookRelated['image']?>" alt="">
                                     </a>
                                 </div>
 
                                 <div class="book-card__title">
-                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookRelated['id'].'&slug='.$bookRelated['slug']?>">
+                                    <a
+                                        href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookRelated['id']?>">
                                         <h3><?=$bookRelated['name'] ?></h3>
                                     </a>
                                 </div>
@@ -235,13 +237,17 @@ $comments = executeQuery($selectAllComment);
                                 </div>
 
                                 <div class="book-card__price">
+                                    <?php if($bookRelated['sale']==$bookRelated['price']):?>
+                                    <span><?=number_format($bookRelated['sale'],0,'',',')?>đ</span>
+                                    <?php else: ?>
                                     <span><?=number_format($bookRelated['sale'],0,'',',')?>đ</span>
                                     <del><?=number_format($bookRelated['price'],0,'',',')?>đ</del>
+                                    <?php endif ?>
                                 </div>
                                 <div class="book-card__btn">
-                                    <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn"><i
+                                    <a href="" class="borrow-btn"><i
                                             class="fa fa-shopping-cart"></i></a>
-                                    <a href="{{ route('book.review', $book->slug) }}" class="review-btn">Chi tiết</a>
+                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookRelated['id']?>" class="review-btn">Chi tiết</a>
                                 </div>
                             </div>
                         </a>

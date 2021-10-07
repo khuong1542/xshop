@@ -1,0 +1,19 @@
+.shopping-cart {
+    border-radius: 10px;
+    box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.25);
+}
+
+.table-responsive {
+    font-size: 1.5rem;
+}
+
+.table-responsive span {
+    margin-left: 10px;
+}
+
+.continue-shopping {
+    margin-right: 10px;
+    border: 1px solid #bdbdbd;
+    float: right;
+    padding: 0px 10px;
+}
