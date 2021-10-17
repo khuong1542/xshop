@@ -79,7 +79,13 @@ $books = executeQuery($selectAllBookFavorite);
                                             </td>
                                             <td class="text-center"><?= number_format($book['price'],0,'',',') ?>đ</td>
                                             <td class="text-center"><?= $book['percent'] ?>%</td>
-                                            <td class="text-center"><?= $book['view']?></td>
+                                            <td class="text-center">
+                                                <?php if($book['view']!="" || $book['view']!=0):?>
+                                                <?= $book['view']?>
+                                                <?php else: ?>
+                                                0
+                                                <?php endif ?>
+                                            </td>
                                             <td class="text-center">
                                                 <label class="custom-control custom-checkbox p-0 m-0 pointer"
                                                     style="cursor: pointer;">

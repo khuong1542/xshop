@@ -77,10 +77,7 @@ if (isset($_POST['submit'])) {
                         <div class="card-body">
                             <div class="table-responsive">
                                 <form action="" method="post" enctype="multipart/form-data">
-                                    <div class="add-form__name col-md-12" hidden>
-                                        <label for="">ID</label>
-                                        <input type="text" class="form-control" name="id" placeholder="Tên sách">
-                                    </div>
+                                    <input type="hidden" class="form-control" value="0" name="view">
                                     <div class="row">
                                         <div class="add-form__name col-md-6">
                                             <label for="">Tên sách</label>
