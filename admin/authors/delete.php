@@ -5,9 +5,10 @@ require_once '../../connect/db.php';
 if(isset($_GET['id'])){
 	$id = $_GET['id'];
 	$select = "SELECT * from authors where id = $id";
-	$query = mysqli_query($connect,$select);
-	$row = mysqli_fetch_array($query);
-	$link_hinh= '../../dist/img/authors/'.$row['avatar'];
+	$author = executeQuery($select,false);
+	// var_dump($author['avatar']);
+	$link_hinh= '../../dist/img/authors/'.$author['avatar'];
+
 	if(is_file($link_hinh)) 
     {
         unlink($link_hinh);

@@ -50,12 +50,13 @@ $books = executeQuery($selectAllBookFavorite);
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th width="200px">Tên sản phẩm</th>
+                                            <th width="180px">Tên sản phẩm</th>
                                             <th class="">Danh mục</th>
                                             <th class="">Tác giả</th>
                                             <th class="text-center">Ảnh</th>
                                             <th class="text-center">Giá</th>
-                                            <th class="text-center">Giảm giá</th>
+                                            <th class="text-center">Giảm giá(%)</th>
+                                            <th class="text-center">Lượt xem</th>
                                             <th class="text-center">Đặc biệt</th>
                                             <th class="text-center">Trạng thái</th>
                                             <th class="text-center">Hành động</th>
@@ -69,17 +70,18 @@ $books = executeQuery($selectAllBookFavorite);
                                         <tr>
                                             <td><?= $book['id'] ?></td>
                                             <td>
-                                                <a href="" style="text-decoration: underline;"><?= $book['name'] ?></a>
+                                                <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$book['id']?>" style="text-decoration: underline;"><?= $book['name'] ?></a>
                                             </td>
                                             <td class=""><?= $book['cate_name'] ?></td>
                                             <td class=""><?= $book['author_name'] ?></td>
                                             <td class="text-center">
-                                                <img src="<?= $book['image'] ?>" alt="Ảnh sản phẩm" width="70">
+                                                <img src="../../dist/img/books/<?=$book['image'] ?>" alt="Ảnh sản phẩm" width="70">
                                             </td>
                                             <td class="text-center"><?= number_format($book['price'],0,'',',') ?>đ</td>
-                                            <td class="text-center"><?= number_format($book['sale'],0,'',',') ?>đ</td>
+                                            <td class="text-center"><?= $book['percent'] ?>%</td>
+                                            <td class="text-center"><?= $book['view']?></td>
                                             <td class="text-center">
-                                                <label class="custom-control custom-checkbox p-0 m-0 pointer "
+                                                <label class="custom-control custom-checkbox p-0 m-0 pointer"
                                                     style="cursor: pointer;">
                                                     <input type="checkbox" class="custom-control-input toggle-class-special"
                                                         data-id="<?= $book['id'] ?>" name="my_checkbox"

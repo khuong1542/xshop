@@ -1,8 +1,8 @@
 <?php
+session_start();
 require_once("../../connect/base.php");
 require_once("../../connect/db.php");
 require_once("../layouts/css.php");
-session_start();
 $error = [];
 if (isset($_POST['submit'])) {
     $email = isset($_POST['email']) ? trim($_POST['email']) : "";
@@ -16,16 +16,6 @@ if (isset($_POST['submit'])) {
     if (!$error) {
         $sqlUserQuery = "SELECT * FROM `users` WHERE email = '$email'";
         $user = executeQuery($sqlUserQuery, false);
-        // if($user['email'] != $email){
-        //     $error['email'] = 'Email không tồn tại';
-        //     header('location:../pages/login.php');
-        //     die;
-        // }
-        // if($user['password'] != $password){
-        //     $error['password'] = 'Sai mật khẩu';
-        //     header('location:../pages/login.php');
-        //     die;
-        // }
         if ($user && password_verify($password, $user['password'])) {
             $_SESSION['auth'] = [
                 "id" => $user['id'],
@@ -39,7 +29,7 @@ if (isset($_POST['submit'])) {
                 "address" => $user['address'],
                 "role_id" => $user['role_id']
             ];
-            header('location: ../index.php');
+            header('location:'.BASE_CLIENT);
             die;
         }
 
@@ -57,7 +47,7 @@ sleep(1);
 <div class="limiter align-items-center">
     <div class="container-login100" style="background-image: url( <?=BASE.'dist/img/bg-01.jpg'?>);">
         <div class="col-md-12">
-            <a href="../index.php" style="color:#fff; text-decoration:underline">
+            <a href="<?=BASE_CLIENT?>" style="color:#fff; text-decoration:underline">
                 <i class="fa fa-arrow-left"></i>
                 <strong>Trở về trang chủ</strong>
             </a>

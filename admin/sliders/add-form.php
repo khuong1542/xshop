@@ -5,6 +5,7 @@ if (isset($_POST['submit'])) {
     $name = $_POST['name'];
     $status = $_POST['status'];
     $created_at = date('Y-m-d H:i:s');
+    $updated_at = date('Y-m-d H:i:s');
     $file = $_FILES['image'];
     require_once '../validate/sliders/validate-add.php';
     if (!$error) {
@@ -14,17 +15,22 @@ if (isset($_POST['submit'])) {
 
         $name_image = "";
         if($file['size'] > 0){
-            $name_image = uniqid() . '-' . $file['name'];
+            $name_image = uniqid() . '-' . str_replace(' ','-',trim($file['name']));
+            move_uploaded_file($file['tmp_name'], '../../dist/img/sliders/' . $name_image);
+            $filename = $name_image;
+        }
+        elseif(empty($file['size'])){
+            $name_image = 'default.png';
             move_uploaded_file($file['tmp_name'],'../../dist/img/sliders/' . $name_image);
             $filename = trim($name_image);
         }
 
         $insertNewBookQuery = "INSERT INTO sliders 
                                         (name, image, 
-                                        status, created_at)
+                                        status, created_at, updated_at)
                                 VALUES 
                                         ('$name', '$filename', 
-                                        '$status', '$created_at')";
+                                        '$status', '$created_at', '$updated_at')";
         executeQuery($insertNewBookQuery);
 
         header('location:' . BASE_ADMIN . 'sliders/list.php'); 
@@ -85,6 +91,8 @@ if (isset($_POST['submit'])) {
                                     </div>
                                     <div class="add-form__image m-t-10">
                                         <button class="btn btn-primary" name="submit">Lưu</button>
+                                        <input class="btn btn-warning" type="reset" value="Đặt lại">
+                                        <a href="<?=BASE_ADMIN.'sliders/list.php'?>" class="btn btn-danger">Hủy</a>
                                     </div>
                                 </form>
                             </div>

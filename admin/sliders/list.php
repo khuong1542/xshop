@@ -2,8 +2,8 @@
 // session_start();
 require_once '../../connect/base.php'; 
 require_once '../../connect/db.php'; 
-$getListProductQuery = "SELECT * FROM `sliders` order by id ASC";
-$sliders = executeQuery($getListProductQuery);
+$getListSliderQuery = "SELECT * FROM `sliders` order by id ASC";
+$sliders = executeQuery($getListSliderQuery);
 
 ?>
 <!DOCTYPE html>
@@ -58,7 +58,7 @@ $sliders = executeQuery($getListProductQuery);
                                             <td><?= $slide['id'] ?></td>
                                             <td><?= $slide['name'] ?></td>
                                             <td class="text-center">
-                                                <img src="<?=BASE?>/dist/img/sliders/<?= $slide['image'] ?>" alt="" width="100">
+                                                <img src="<?=BASE.'dist/img/sliders/'. $slide['image'] ?>" alt="Ảnh slider" width="100">
                                             </td>
                                             <td class="text-center"><?= date('d-m-Y',strtotime($slide['created_at'])) ?></td>
                                             <!-- <td>

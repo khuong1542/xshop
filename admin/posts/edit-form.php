@@ -20,9 +20,15 @@ if (isset($_POST['submit'])) {
         $updatePostQuery = "UPDATE `posts` SET `title`='$title',`slug`='$slug',`content`='$content',`status`='$status',`updated_at`='$updated_at'";
         $name_image = "";
         if($file['size'] > 0){
-            $name_image = uniqid() . '-' . $file['name'];
+            $select = "SELECT * from posts where id = $id";
+            $book_unlink = executeQuery($select, false);
+            $link_hinh = '../../dist/img/posts/' . $book_unlink['image'];
+            if (is_file($link_hinh)) {
+                unlink($link_hinh);
+            }
+            $name_image = uniqid() . '-' . str_replace(' ', '-', trim($file['name']));
             move_uploaded_file($file['tmp_name'],'../../dist/img/posts/' . $name_image);
-            $filename = BASE.'dist/img/posts/' .$name_image;
+            $filename = $name_image;
             $updatePostQuery .= ", image = '$filename'";
         }
 
@@ -59,7 +65,7 @@ if (isset($_POST['submit'])) {
                 <div class="container-fluid">
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Sửa slider</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Sửa bài viết</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -86,7 +92,7 @@ if (isset($_POST['submit'])) {
                                         <div class="add-form__image col-md-6">
                                             <label for="">Ảnh</label>
                                             <input type="file" class="form-control" name="image">
-                                            <img src="<?php echo $result['image'] ?>" width="200" alt="">
+                                            <img src="../../dist/img/posts/<?php echo $result['image'] ?>" width="200" alt="">
                                             <?php if (isset($error['image'])) : ?>
                                             <p class="text-danger"><?= $error['image'] ?></p>
                                             <?php endif ?>
@@ -115,6 +121,7 @@ if (isset($_POST['submit'])) {
                                     <?php endif ?>
                                     <div class="add-form__image m-t-10">
                                         <button class="btn btn-primary" name="submit">Lưu</button>
+                                        <a href="<?=BASE_ADMIN.'posts/list.php'?>" class="btn btn-danger">Hủy</a>
                                     </div>
                                 </form>
                             </div>

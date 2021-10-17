@@ -13,21 +13,23 @@ if (isset($_POST['submit'])) {
     $file = $_FILES['image'];
     require_once '../validate/sliders/validate-add.php';
     if (!$error) {
-
-        $checkExistedQuery = "select * from sliders where name = '$name'";
-        $existedBook = executeQuery($checkExistedQuery, false);
-
-        $updateBookQuery = "UPDATE `sliders` SET `name`='$name',`status`='$status',`updated_at`='$updated_at'";
+        $updateSliderQuery = "UPDATE `sliders` SET `name`='$name',`status`='$status',`updated_at`='$updated_at'";
         $name_image = "";
         if($file['size'] > 0){
-            $name_image = uniqid() . '-' . $file['name'];
+            $select = "SELECT * from sliders where id = $id";
+            $book_unlink = executeQuery($select, false);
+            $link_hinh = '../../dist/img/sliders/' . $book_unlink['image'];
+            if (is_file($link_hinh)) {
+                unlink($link_hinh);
+            }
+            $name_image = uniqid() . '-' . str_replace(' ', '-', trim($file['name']));
             move_uploaded_file($file['tmp_name'],'../../dist/img/sliders/' . $name_image);
-            $filename = trim($name_image);
-            $updateBookQuery .= ", image = '$filename'";
+            $filename = $name_image;
+            $updateSliderQuery .= ", image = '$filename'";
         }
 
-        $updateBookQuery .= "where id = $id";
-        executeQuery($updateBookQuery);
+        $updateSliderQuery .= "where id = $id";
+        executeQuery($updateSliderQuery);
 
         header('location:' . BASE_ADMIN . 'sliders/list.php'); 
     }
@@ -74,7 +76,7 @@ if (isset($_POST['submit'])) {
                                     <div class="add-form__image m-t-10">
                                         <label for="">Ảnh</label>
                                         <input type="file" class="form-control" name="image">
-                                        <img width="300" style="margin-top:10px" src="<?= BASE . 'dist/img/sliders/' . $result['image'] ?>" alt="">
+                                        <img width="300" style="margin-top:10px" src="<?=BASE.'dist/img/sliders/'.$result['image'] ?>" alt="">
                                     </div>
                                     <?php if (isset($error['image'])) : ?>
                                         <p class="text-danger"><?= $error['image'] ?></p>
@@ -88,6 +90,7 @@ if (isset($_POST['submit'])) {
                                     </div>
                                     <div class="add-form__image m-t-10">
                                         <button class="btn btn-primary" name="submit">Lưu</button>
+                                        <a href="<?=BASE_ADMIN.'sliders/list.php'?>" class="btn btn-danger">Hủy</a>
                                     </div>
                                 </form>
                             </div>

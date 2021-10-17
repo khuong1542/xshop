@@ -79,7 +79,7 @@
                             <div class="col-lg-3 col-md-4 col-sm-6 mix fresh-meat vegetables">
                                 <a href="<?=BASE_CLIENT.'pages/category.php?id='.$cate['id'] ?>">
                                     <div class="categories__item">
-                                        <img src="<?= $cate['image']?>" alt="">
+                                        <img src="<?=BASE.'dist/img/categories/'. $cate['image']?>" alt="">
                                         <div class="featured__item__text">
                                             <h4><?php echo $cate['name'] ?></h4>
                                         </div>
@@ -95,25 +95,25 @@
         <!-- End Category -->
 
         <!-- Product Special -->
+        <?php if (count($bookSpecials) > 0): ?>
         <div class="book-carouse special">
             <div class="book-carouse__header">
                 <div class="carouse-header__title">Sách đặc biệt</div>
             </div>
             <div class="book-carouse__body">
-                <?php if (count($bookSpecials) > 0): ?>
                 <div class="books__slider owl-carousel">
                     <?php foreach($bookSpecials as $bookSpecial): ?>
                     <div class="col-lg-3 col-md-4 col-sm-6">
                         <a href="">
                             <div class="book-card">
                                 <div class="book-card__img">
-                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookSpecial['id']?>">
-                                        <img src="<?= $bookSpecial['image']?>" alt="">
+                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookSpecial['id'].'&cate_id='.$bookSpecial['cate_id']?>">
+                                        <img src="<?=BASE.'dist/img/books/'.$bookSpecial['image']?>" alt="">
                                     </a>
                                 </div>
 
                                 <div class="book-card__title">
-                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookSpecial['id']?>">
+                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookSpecial['id'].'&cate_id='.$bookSpecial['cate_id']?>">
                                         <h3><?=$bookSpecial['name'] ?></h3>
                                     </a>
                                 </div>
@@ -133,12 +133,25 @@
                                 </div>
 
                                 <div class="book-card__price">
+                                    <?php if($bookSpecial['sale'] == $bookSpecial['price']): ?>
+                                    <span><?=number_format($bookSpecial['sale'],0,'',',')?>đ</span>
+                                    <?php else: ?>
                                     <span><?=number_format($bookSpecial['sale'],0,'',',')?>đ</span>
                                     <del><?=number_format($bookSpecial['price'],0,'',',')?>đ</del>
+                                    <?php endif ?>
                                 </div>
                                 <div class="book-card__btn">
+                                    <?php if(isset($_SESSION['auth'])): ?>
                                     <a href="<?=BASE_CLIENT.'pages/cart-add.php?id='.$bookSpecial['id']?>"
-                                        class="borrow-btn"><i class="fa fa-shopping-cart"></i></a>
+                                        class="shopping-btn"><i class="fa fa-shopping-cart"></i></a>
+                                    <a href="<?=BASE_CLIENT.'pages/login.php'?>" class="heart-btn"><i
+                                            class="far fa-heart"></i></a>
+                                    <?php else: ?>
+                                    <a href="<?=BASE_CLIENT.'pages/login.php'?>" class="shopping-btn"><i
+                                            class="fa fa-shopping-cart"></i></a>
+                                    <a href="<?=BASE_CLIENT.'pages/login.php'?>" class="heart-btn"><i
+                                            class="far fa-heart"></i></a>
+                                    <?php endif ?>
                                     <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookSpecial['id']?>"
                                         class="review-btn">Chi tiết</a>
                                 </div>
@@ -148,13 +161,9 @@
                     </div>
                     <?php endforeach ?>
                 </div>
-                <?php else: ?>
-                <div class="book-user-comment__message">
-                    <p style="font-size:10pt; text-align:center"> Chưa có sách đặc biệt nào!</p>
-                </div>
-                <?php endif ?>
             </div>
         </div>
+        <?php endif ?>
         <!-- End Book Special -->
 
         <!-- Book New -->
@@ -171,13 +180,13 @@
                             <div class="book-card">
                                 <div class="item__hot">Mới</div>
                                 <div class="book-card__img">
-                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookNew['id']?>">
-                                        <img src="<?= $bookNew['image']?>" alt="">
+                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookNew['id'].'&cate_id='.$bookNew['cate_id']?>">
+                                        <img src="<?= BASE.'dist/img/books/'.$bookNew['image']?>" alt="">
                                     </a>
                                 </div>
 
                                 <div class="book-card__title">
-                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookNew['id']?>">
+                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookNew['id'].'&cate_id='.$bookNew['cate_id']?>">
                                         <h3><?=$bookNew['name'] ?></h3>
                                     </a>
                                 </div>
@@ -196,16 +205,24 @@
                                     </p>
                                 </div>
                                 <div class="book-card__price">
+                                    <?php if($bookNew['sale'] == 0): ?>
+                                    <span><?=number_format($bookNew['price']-$bookNew['price']*$bookNew['sale']/100,0,'',',')?>đ</span>
+                                    <?php else: ?>
                                     <span><?=number_format($bookNew['sale'],0,'',',')?>đ</span>
                                     <del><?=number_format($bookNew['price'],0,'',',')?>đ</del>
+                                    <?php endif ?>
                                 </div>
                                 <div class="book-card__btn">
                                     <?php if(isset($_SESSION['auth'])): ?>
                                     <a href="<?=BASE_CLIENT.'pages/cart-add.php?id='.$bookNew['id']?>"
-                                        class="borrow-btn"><i class="fa fa-shopping-cart"></i></a>
+                                        class="shopping-btn"><i class="fa fa-shopping-cart"></i></a>
+                                    <a href="<?=BASE_CLIENT.'pages/login.php'?>" class="heart-btn"><i
+                                            class="far fa-heart"></i></a>
                                     <?php else: ?>
-                                        <a href="<?=BASE_CLIENT.'pages/login.php'?>"
-                                        class="borrow-btn"><i class="fa fa-shopping-cart"></i></a>
+                                    <a href="<?=BASE_CLIENT.'pages/login.php'?>" class="shopping-btn"><i
+                                            class="fa fa-shopping-cart"></i></a>
+                                    <a href="<?=BASE_CLIENT.'pages/login.php'?>" class="heart-btn"><i
+                                            class="far fa-heart"></i></a>
                                     <?php endif ?>
                                     <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookNew['id']?>"
                                         class="review-btn">Chi tiết</a>
@@ -237,13 +254,13 @@
                         <a href="">
                             <div class="book-card">
                                 <div class="book-card__img">
-                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookFavorite['id']?>">
-                                        <img src="<?= $bookFavorite['image']?>" alt="">
+                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookFavorite['id'].'&cate_id='.$bookFavorite['cate_id']?>">
+                                        <img src="<?= BASE.'dist/img/books/'.$bookFavorite['image']?>" alt="">
                                     </a>
                                 </div>
 
                                 <div class="book-card__title">
-                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookFavorite['id']?>">
+                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookFavorite['id'].'&cate_id='.$bookFavorite['cate_id']?>">
                                         <h3><?=$bookFavorite['name'] ?></h3>
                                     </a>
                                 </div>
@@ -262,12 +279,25 @@
                                     </p>
                                 </div>
                                 <div class="book-card__price">
+                                    <?php if($bookFavorite['sale'] == $bookFavorite['price']): ?>
+                                    <span><?=number_format($bookFavorite['sale'],0,'',',')?>đ</span>
+                                    <?php else: ?>
                                     <span><?=number_format($bookFavorite['sale'],0,'',',')?>đ</span>
                                     <del><?=number_format($bookFavorite['price'],0,'',',')?>đ</del>
+                                    <?php endif ?>
                                 </div>
                                 <div class="book-card__btn">
+                                    <?php if(isset($_SESSION['auth'])): ?>
                                     <a href="<?=BASE_CLIENT.'pages/cart-add.php?id='.$bookFavorite['id']?>"
-                                        class="borrow-btn"><i class="fa fa-shopping-cart"></i></a>
+                                        class="shopping-btn"><i class="fa fa-shopping-cart"></i></a>
+                                    <a href="<?=BASE_CLIENT.'pages/login.php'?>" class="heart-btn"><i
+                                            class="far fa-heart"></i></a>
+                                    <?php else: ?>
+                                    <a href="<?=BASE_CLIENT.'pages/login.php'?>" class="shopping-btn"><i
+                                            class="fa fa-shopping-cart"></i></a>
+                                    <a href="<?=BASE_CLIENT.'pages/login.php'?>" class="heart-btn"><i
+                                            class="far fa-heart"></i></a>
+                                    <?php endif ?>
                                     <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookFavorite['id']?>"
                                         class="review-btn">Chi tiết</a>
                                 </div>

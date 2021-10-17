@@ -3,7 +3,7 @@ session_start();
 require_once '../../connect/base.php';
 require_once '../../connect/db.php';
 // session_destroy();
-
+// if(isset($_POST['']))
 $id = isset($_GET['id']) ? $_GET['id'] : "";
 
 $cart = isset($_SESSION['CART']) ? $_SESSION['CART'] : null;

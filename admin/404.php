@@ -1,3 +1,7 @@
+<?php 
+require_once '../connect/base.php';
+require_once '../connect/db.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,8 +21,10 @@
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
+        <?php require_once './layouts/css.php'; ?>
+        <?php require_once './layouts/script.php'; ?>
     <!-- Custom styles for this template-->
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="<?=BASE_ADMIN.'dist/css/sb-admin-2.min.css' ?>" rel="stylesheet">
 
 </head>
 

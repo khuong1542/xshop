@@ -5,25 +5,28 @@ require_once '../../connect/db.php';
 require_once '../../connect/dao/pdo_comment.php';
 
 $id = $_GET['id'];
+$cate_id = $_GET['cate_id'];
 
 $selectAllCate = "SELECT * from `categories` where status = 0";
-// $selectAllBookRelated = "SELECT * from `books`";
+// $selectAllCate = "SELECT * from `wishlists` where status = 0";
 $categories = executeQuery($selectAllCate);
 
-$selectAllBook = "  SELECT books.*, categories.name as cate_name, categories.slug as cate_slug, authors.name as author_name
+$selectOneBook = "  SELECT books.*, categories.name as cate_name, categories.slug as cate_slug, authors.name as author_name
                         FROM books
                         INNER JOIN categories ON books.cate_id = categories.id
                         INNER JOIN authors ON books.author_id = authors.id
                         WHERE books.status = 0 and books.id=$id order by id desc";
-$books = executeQuery($selectAllBook, false);
+$books = executeQuery($selectOneBook, false);
 
 $selectAllBookRelated = "   SELECT books.*,authors.name as author_name, categories.id as category_id, categories.name as cate_name
                         from books 
                         INNER JOIN authors on books.author_id = authors.id 
                         INNER JOIN categories on books.cate_id = categories.id
-                        where books.status = 0
+                        where books.status = 0 and books.id != $id and books.cate_id = $cate_id
                         order by rand() desc limit 6";
 $bookRelateds = executeQuery($selectAllBookRelated);
+// echo count($bookRelateds);
+// die;
 
 $selectAllComment = "SELECT comments.*, books.name as book_name, users.name as user_name, users.avatar as user_avatar
                     FROM comments
@@ -46,6 +49,8 @@ $comments = executeQuery($selectAllComment);
 </head>
 
 <body>
+    <?php if($books['id'] == $_GET['id'] && $books['cate_id'] == $_GET['cate_id']): ?>
+    <?php executeQuery("UPDATE `books` SET view=view + 1 WHERE id = $id and status=0"); ?>
     <header class="header">
         <?php require_once '../layouts/header.php'; ?>
     </header>
@@ -54,7 +59,7 @@ $comments = executeQuery($selectAllComment);
 
             <div class="col-md-4 book-cover">
                 <div class="book-cover__wrapper">
-                    <img src="<?= $books['image'] ?>" class="book-cover__image" alt="">
+                    <img src="<?= BASE.'dist/img/books/'.$books['image'] ?>" class="book-cover__image" alt="Ảnh sản phẩm">
                 </div>
             </div>
 
@@ -168,7 +173,7 @@ $comments = executeQuery($selectAllComment);
                         <?php foreach($comments as $comment): ?>
                         <div class="book-user-comment">
                             <div class="comment-box__image">
-                                <img src="<?=$comment['user_avatar']?>" alt="">
+                                <img src="<?=BASE.'dist/img/users/'.$comment['user_avatar']?>" alt="">
                             </div>
                             <div class="book-user-comment__body js-comment-body">
                                 <div class="book-user-comment__heading">
@@ -202,21 +207,17 @@ $comments = executeQuery($selectAllComment);
                 <?php if(count($bookRelateds) > 0) : ?>
                 <div class="books__slider owl-carousel">
                     <?php foreach($bookRelateds as $bookRelated): ?>
-                    <?php if($bookRelated['category_id'] == $books['cate_id']): ?>
-                    <?php if($bookRelated['cate_id']):?>
                     <div class="col-lg-3 col-md-4 col-sm-6 mix fresh-meat vegetables">
                         <a href="">
                             <div class="book-card">
                                 <div class="book-card__img">
-                                    <a
-                                        href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookRelated['id']?>">
-                                        <img src="<?= $bookRelated['image']?>" alt="">
+                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookRelated['id']?>">
+                                        <img src="<?= BASE.'dist/img/books/'.$bookRelated['image']?>" alt="Ảnh sản phẩm liên quan">
                                     </a>
                                 </div>
 
                                 <div class="book-card__title">
-                                    <a
-                                        href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookRelated['id']?>">
+                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookRelated['id']?>">
                                         <h3><?=$bookRelated['name'] ?></h3>
                                     </a>
                                 </div>
@@ -245,15 +246,28 @@ $comments = executeQuery($selectAllComment);
                                     <?php endif ?>
                                 </div>
                                 <div class="book-card__btn">
-                                    <a href="" class="borrow-btn"><i
+                                    <?php if(isset($_SESSION['auth'])): ?>
+                                    <a href="<?=BASE_CLIENT.'pages/cart-add.php?id='.$bookRelated['id']?>"
+                                        class="shopping-btn"><i class="fa fa-shopping-cart"></i></a>
+                                    <!-- <a href="<?=BASE_CLIENT.'pages/delete-heart.php?id='.$bookRelated['id']?>" class="heart-btn"><i
+                                            class="fas fa-heart"></i></a> -->
+                                    <form action="<?=BASE_CLIENT.'pages/add-heart.php?id='.$bookRelated['id']?>" method="post">
+                                        <input type="hidden" value="<?=$_SESSION['auth']['id']?>" name="user_id">
+                                        <input type="hidden" value="<?=$bookRelated['id']?>" name="book_id">
+                                        <button type="submit" class="heart-btn"><i class="far fa-heart"></i></button>
+                                    </form>
+                                    <?php else: ?>
+                                    <a href="<?=BASE_CLIENT.'pages/login.php'?>" class="shopping-btn"><i
                                             class="fa fa-shopping-cart"></i></a>
-                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookRelated['id']?>" class="review-btn">Chi tiết</a>
+                                    <a href="<?=BASE_CLIENT.'pages/login.php'?>" class="heart-btn"><i
+                                            class="far fa-heart"></i></a>
+                                    <?php endif ?>
+                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookRelated['id']?>"
+                                        class="review-btn">Chi tiết</a>
                                 </div>
                             </div>
                         </a>
                     </div>
-                    <?php endif ?>
-                    <?php endif ?>
                     <?php endforeach ?>
                 </div>
                 <?php else: ?>
@@ -268,6 +282,9 @@ $comments = executeQuery($selectAllComment);
         <?php require_once '../layouts/footer.php'; ?>
     </footer>
     <?php include '../layouts/script.php' ?>
+    <?php else: ?>
+    <?php header('location:'.BASE.'404.php') ?>
+    <?php endif ?>
 
 </body>
 

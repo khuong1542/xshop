@@ -18,6 +18,11 @@
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
+        <?php require_once '../connect/db.php'; ?>
+        <?php require_once '../connect/base.php'; ?>
+        <?php require_once './layouts/css.php'; ?>
+
+<?php require_once './layouts/script.php'; ?>
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>

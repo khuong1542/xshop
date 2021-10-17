@@ -1,10 +1,12 @@
 <?php 
 session_start(); 
 
+
+//kiểm tra giỏ hàng 
 $totalItemOnCart = 0;
 $totalPrice = 0;
 $cart = '';
-$cart = isset($_SESSION['CART']) ? $_SESSION['CART'] : null;
+$cart = isset($_SESSION[CART]) ? $_SESSION[CART] : null;
 if($cart != ''){
     foreach ($cart as $item) {
         $totalItemOnCart += $item['quantity'];
@@ -12,16 +14,23 @@ if($cart != ''){
         $totalPrice += $itemTotal;
     }
 }
+$logo = executeQuery("SELECT * from logo where status = 0 limit 1");
 ?>
 
 <?php
-sleep(1);
+// sleep(1);
 ?>
 
 <header class="header header-desktop container">
 
     <div class="header__logo">
-        <a href=""><img src="<?=BASE.'dist/img/logo.png'?>" alt="" class="header__logo-img"></a>
+        <?php foreach($logo as $lo):?>
+        <?php if($lo['status']==0): ?>
+        <a href="<?=BASE?>"><img src="<?=BASE.'dist/img/logo/'.$lo['image']?>" alt="" class="header__logo-img"></a>
+        <?php else: ?>
+        <a href="<?=BASE?>"><img src="https://jobseekers.vn/wp-content/uploads/2017/04/default-logo.png" alt="Logo" class="header__logo-img"></a>
+        <?php endif ?>
+        <?php endforeach ?>
     </div>
 
     <ul class="header__nav">
@@ -63,7 +72,7 @@ sleep(1);
                     <i class="fas fa-users-cog"></i>Quản trị
                 </a>
                 <?php endif ?>
-                <a class="dropdown-item dropdown-item-custom" href="">
+                <a class="dropdown-item dropdown-item-custom" href="<?=BASE_CLIENT.'pages/infomation.php?id='.$_SESSION['auth']['id']?>">
                     <i class="fas fa-user"></i>Hồ sơ cá nhân
                 </a>
                 <!-- <a class="dropdown-item dropdown-item-custom" href="">

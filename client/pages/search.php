@@ -81,7 +81,7 @@ if (isset($_POST['submit'])) {
                     <div class="book-card ">
                         <div class="book-card__img">
                             <a href="">
-                                <img src="<?=$book['image']?>" alt="">
+                                <img src="<?=BASE.'dist/img/books/'.$book['image']?>" alt="">
                             </a>
                         </div>
                         <div class="book-card__title">

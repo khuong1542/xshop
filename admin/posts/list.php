@@ -57,10 +57,10 @@ $posts = executeQuery($getListPostQuery);
                                                 foreach($posts as $post):?>
                                         <tr>
                                             <td><?= $post['id'] ?></td>
-                                            <td><a href=""
+                                            <td><a href="<?=BASE_CLIENT.'pages/post-detail.php?id='.$post['id']?>"
                                                     style="text-decoration: underline;"><?= $post['title'] ?></a></td>
                                             <td class="text-center">
-                                                <img src="<?= $post['image'] ?>" alt="Ảnh tác giả" width="100">
+                                                <img src="../../dist/img/posts/<?= $post['image'] ?>" alt="Ảnh bài viết" width="100">
                                             </td>
                                             <td width="400" ><?= substr($post['content'],0,100) ?>...</td>
                                             <td class="text-center">

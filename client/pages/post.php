@@ -14,6 +14,11 @@
 
     $selectAllPost = "SELECT * from posts where status = 0";
     $posts  = executeQuery($selectAllPost);
+    $selectCommentPost = executeQuery("SELECT comment_posts.*, posts.title as post_title, users.name as user_name, users.avatar as user_avatar
+                        FROM comment_posts
+                        INNER JOIN posts ON comment_posts.post_id = posts.id
+                        INNER JOIN users ON comment_posts.user_id = users.id
+                        order by id desc");
     
 ?>
 <!DOCTYPE html>
@@ -65,7 +70,7 @@
                         <div class="post-item__aside col-md-2">
                             <div class="post-user-avatar">
                                 <a href="<?=BASE_CLIENT.'pages/post-detail.php?id='.$post['id']?>" class="post-user-avatar__link">
-                                    <img class="post-image" src="<?=$post['image']?>" alt="">
+                                    <img class="post-image" src="<?=BASE.'dist/img/posts/'.$post['image']?>" alt="">
                                 </a>
                             </div>
                         </div>
@@ -102,13 +107,13 @@
                                     </div>
                                     <div class="post-view">
                                         <span class="post-view__span"><i class=" fa fa-eye"></i>
-                                            5
+                                            <?=$post['view']?>
                                             Lượt xem
                                         </span>
                                     </div>
                                     <div class="post-comment">
                                         <span class="post-comment__span"><i class=" fa fa-comments"></i>
-                                            3
+                                            <?=count($selectCommentPost)?>
                                             bình luận
                                         </span>
                                     </div>

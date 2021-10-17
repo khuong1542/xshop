@@ -100,12 +100,12 @@
                     <?php foreach($books as $book): ?>
                     <div class="book-card ">
                         <div class="book-card__img">
-                            <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$book['id']?>">
-                                <img src="<?=$book['image']?>" alt="">
+                            <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$book['id'].'&cate_id='.$book['cate_id']?>">
+                                <img src="<?=BASE.'dist/img/books/'.$book['image']?>" alt="">
                             </a>
                         </div>
                         <div class="book-card__title">
-                            <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$book['id']?>">
+                            <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$book['id'].'&cate_id='.$book['cate_id']?>">
                                 <h3> <?=$book['name']?> </h3>
                             </a>
                         </div>
@@ -115,6 +115,10 @@
                                 <?=$book['author_name'] ?></a>
                         </div>
                         <div class="book-card__star">
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
                             <i class="far fa-star"></i>
                         </div>
                         <div class="book-card__price">

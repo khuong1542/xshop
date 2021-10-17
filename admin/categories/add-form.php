@@ -5,29 +5,27 @@ require_once '../../connect/db.php';
 require_once '../../connect/dao/pdo_category.php';
 if (isset($_POST['submit'])) {
     $name = $_POST['name'];
-    $slug = $_POST['slug'];
+    $slug = $_POST['slug'].'-'.strtotime(date('Y-m-d H:i:s'));
     $status = $_POST['status'];
     $created_at = date('Y-m-d H:i:s');
+    $updated_at = date('Y-m-d H:i:s');
     $file = $_FILES['image'];
     require_once '../validate/categories/validate-add.php';
     if (!$error) {
-       
-        $checkExistedQuery = "select * from categories where name = '$name'";
-        $existedBook = executeQuery($checkExistedQuery, false);
 
         $name_image = "";
         if($file['size'] > 0){
-            $name_image = uniqid() . '-' . $file['name'];
+            $name_image = uniqid() . '-' . str_replace(' ','-',trim($file['name']));
             move_uploaded_file($file['tmp_name'],'../../dist/img/categories/' . $name_image);
-            $filename = BASE.'dist/img/categories/'.$name_image;
+            $filename = $name_image;
         }
         elseif(empty($file['size'])){
-            $name_image = 'https://tonsmb.org/wp-content/uploads/2014/03/default_image_01.png';
+            $name_image = 'default.png';
             move_uploaded_file($file['tmp_name'],'../../dist/img/categories/' . $name_image);
             $filename = trim($name_image);
         }
 
-        insert($name,$slug,$filename,$status,$created_at);
+        insert($name,$slug,$filename,$status,$created_at,$updated_at);
 
         header('location:' . BASE_ADMIN . 'categories/list.php'); 
     }
@@ -94,6 +92,8 @@ if (isset($_POST['submit'])) {
                                     </div>
                                     <div class="add-form__image m-t-10">
                                         <button class="btn btn-primary" name="submit">Lưu</button>
+                                        <input class="btn btn-warning" type="reset" value="Đặt lại">
+                                        <a href="<?=BASE_ADMIN.'categories/list.php'?>" class="btn btn-danger">Hủy</a>
                                     </div>
                                 </form>
                             </div>

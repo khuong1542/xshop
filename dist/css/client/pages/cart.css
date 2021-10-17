@@ -11,9 +11,60 @@
     margin-left: 10px;
 }
 
-.continue-shopping {
-    margin-right: 10px;
+.shopping-button {
+    overflow: hidden;
+    padding: 10px;
+}
+
+.continue-shopping a {
+    margin: 10px;
+    padding: 5px;
     border: 1px solid #bdbdbd;
+    color: #000;
+    float: left;
+    font-size: 1.5rem;
+}
+
+.continue-shopping a:hover {
+    box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.25);
+}
+
+.shopping-cart-left {
+    float: left;
+}
+
+.shopping-cart-right {
     float: right;
-    padding: 0px 10px;
+}
+
+.shopping-cart-right a {
+    padding: 5px;
+    border: 1px solid #bdbdbd;
+    color: #fff;
+    float: left;
+    font-size: 1.5rem;
+}
+
+.shopping-cart-left a {
+    padding: 5px;
+    border: 1px solid #bdbdbd;
+    color: #fff;
+    float: left;
+    font-size: 1.5rem;
+}
+
+.shopping-cart-left a:hover {
+    box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.25);
+}
+
+.shopping-cart-left button {
+    padding: 5px;
+    border: 1px solid #bdbdbd;
+    color: #fff;
+    float: left;
+    font-size: 1.5rem;
+}
+
+.shopping-cart-left button:hover {
+    box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.25);
 }

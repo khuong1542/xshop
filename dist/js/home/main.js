@@ -98,7 +98,7 @@
     $(".books__slider").owlCarousel({
         loop: true,
         margin: 0,
-        items: 6,
+        items: 5,
         dots: false,
         nav: true,
         navText: ["<div class='fa fa-chevron-left'><div/>", "<div class='fa fa-angle-right'><div/>"],
@@ -113,24 +113,20 @@
                 items: 1,
             },
 
-            165: {
+            240: {
                 items: 2,
             },
 
-            330: {
+            480: {
                 items: 3,
             },
 
-            496: {
+            720: {
                 items: 4,
             },
 
-            661: {
+            960: {
                 items: 5,
-            },
-
-            992: {
-                items: 6,
             }
         }
     });

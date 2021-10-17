@@ -21,6 +21,11 @@
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
     <!-- Custom styles for this page -->
+        <?php require_once '../connect/db.php'; ?>
+        <?php require_once '../connect/base.php'; ?>
+        <?php require_once './layouts/css.php'; ?>
+
+<?php require_once './layouts/script.php'; ?>
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 </head>

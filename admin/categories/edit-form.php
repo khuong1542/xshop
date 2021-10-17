@@ -11,7 +11,7 @@ if (isset($_POST['submit'])) {
     $name = $_POST['name'];
     $slug = $_POST['slug'];
     $status = $_POST['status'];
-    $created_at = date('Y-m-d H:i:s');
+    $updated_at = date('Y-m-d H:i:s');
     $file = $_FILES['image'];
     require_once '../validate/categories/validate-add.php';
     if (!$error) {
@@ -22,9 +22,15 @@ if (isset($_POST['submit'])) {
         $updateBookQuery = "UPDATE `categories` SET `name`='$name',`slug`='$slug',`status`='$status',`updated_at`='$updated_at'";
         $name_image = "";
         if($file['size'] > 0){
-            $name_image = rand(100,999) . '-' . $file['name'];
+            $select = "SELECT * from categories where id = $id";
+            $book_unlink = executeQuery($select, false);
+            $link_hinh = '../../dist/img/categories/' . $book_unlink['image'];
+            if (is_file($link_hinh)) {
+                unlink($link_hinh);
+            }
+            $name_image = uniqid() . '-' . str_replace(' ', '-', trim($file['name']));
             move_uploaded_file($file['tmp_name'],'../../dist/img/categories/' . $name_image);
-            $filename = BASE.'dist/img/categories/'.$name_image;
+            $filename = $name_image;
             $updateBookQuery .= ", image = '$filename'";
         }
 
@@ -61,7 +67,7 @@ if (isset($_POST['submit'])) {
                 <div class="container-fluid">
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Sửa slider</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Sửa danh mục</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -69,7 +75,7 @@ if (isset($_POST['submit'])) {
                                     <div class="add-form__name">
                                         <label for="">Tên slide</label>
                                         <input type="text" class="form-control" id="name" name="name"
-                                            placeholder="Tên silde" value="<?php echo $result['name'] ?>">
+                                            placeholder="Tên danh mục" value="<?php echo $result['name'] ?>">
                                     </div>
                                     <?php if (isset($error['name'])) : ?>
                                     <p class="text-danger"><?= $error['name'] ?></p>
@@ -77,7 +83,7 @@ if (isset($_POST['submit'])) {
                                     <div class="add-form__slug m-t-10">
                                         <label for="">Tên slide</label>
                                         <input type="text" class="form-control" id="slug" name="slug"
-                                            placeholder="Tên silde" value="<?php echo $result['slug'] ?>">
+                                            placeholder="Tên danh mục" value="<?php echo $result['slug'] ?>">
                                     </div>
                                     <?php if (isset($error['slug'])) : ?>
                                     <p class="text-danger"><?= $error['slug'] ?></p>
@@ -86,7 +92,7 @@ if (isset($_POST['submit'])) {
                                         <label for="">Ảnh</label>
                                         <input type="file" class="form-control" name="image">
                                         <img width="300" style="margin-top:10px"
-                                            src="<?= BASE . 'dist/img/categories/' . $result['image'] ?>" alt="">
+                                            src="<?=$result['image'] ?>" alt="">
                                     </div>
                                     <?php if (isset($error['image'])) : ?>
                                     <p class="text-danger"><?= $error['image'] ?></p>
@@ -102,6 +108,7 @@ if (isset($_POST['submit'])) {
                                     </div>
                                     <div class="add-form__image m-t-10">
                                         <button class="btn btn-primary" name="submit">Lưu</button>
+                                        <a href="<?=BASE_ADMIN.'categories/list.php'?>" class="btn btn-danger">Hủy</a>
                                     </div>
                                 </form>
                             </div>

@@ -5,10 +5,12 @@ require_once '../../connect/db.php';
 require_once '../../connect/dao/pdo_post.php';
 if (isset($_POST['submit'])) {
     $title = $_POST['title'];
-    $slug = $_POST['slug'].'-'.rand(100,999);
+    $slug = $_POST['slug'].'-'.strtotime(date('Y-m-d H:i:s'));
     $content = $_POST['content'];
+    $view = 0;
     $status = $_POST['status'];
     $created_at = date('Y-m-d H:i:s');
+    $updated_at = date('Y-m-d H:i:s');
     $file = $_FILES['image'];
     require_once '../validate/posts/validate-add.php';
     if (!$error) {
@@ -18,17 +20,17 @@ if (isset($_POST['submit'])) {
 
         $name_image = "";
         if($file['size'] > 0){
-            $name_image =  uniqid() . '-' . $file['name'];
+            $name_image = uniqid() . '-' . str_replace(' ','-',trim($file['name']));
             move_uploaded_file($file['tmp_name'], '../../dist/img/posts/' . $name_image);
-            $filename = BASE.'dist/img/posts/' .$name_image;
+            $filename = $name_image;
         }
         elseif(empty($file['size'])){
-            $name_image = 'https://tonsmb.org/wp-content/uploads/2014/03/default_image_01.png';
+            $name_image = 'default.png';
             move_uploaded_file($file['tmp_name'],'../../dist/img/posts/' . $name_image);
             $filename = trim($name_image);
         }
 
-        insert($title,$slug,$filename,$content,$status,$created_at);
+        insert($title,$slug,$filename,$content,$view,$status,$created_at,$updated_at);
 
         header('location:' . BASE_ADMIN . 'posts/list.php'); 
     }
@@ -109,6 +111,8 @@ if (isset($_POST['submit'])) {
                                     <?php endif ?>
                                     <div class="add-form__image m-t-10">
                                         <button class="btn btn-primary" name="submit">Lưu</button>
+                                        <input class="btn btn-warning" type="reset" name="reset" value="Đặt lại">
+                                        <a href="<?=BASE_ADMIN.'posts/list.php'?>" name="cancel" class="btn btn-danger">Hủy</a>
                                     </div>
                                 </form>
                             </div>

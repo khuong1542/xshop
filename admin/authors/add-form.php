@@ -5,11 +5,12 @@ require_once '../../connect/db.php';
 require_once '../../connect/dao/pdo_author.php';
 if (isset($_POST['submit'])) {
     $name = $_POST['name'];
-    $slug = $_POST['slug'].'-'.rand(100,999);
+    $slug = $_POST['slug'].'-'.strtotime(date('Y-m-d H:i:s'));
     $birthday = $_POST['birthday'];
     $status = $_POST['status'];
     $description = $_POST['description'];
     $created_at = date('Y-m-d H:i:s');
+    $updated_at = date('Y-m-d H:i:s');
     $file = $_FILES['avatar'];
     require_once '../validate/authors/validate-add.php';
     if (!$error) {
@@ -19,17 +20,17 @@ if (isset($_POST['submit'])) {
 
         $name_image = "";
         if($file['size'] > 0){
-            $name_image = uniqid() . '-' . $file['name'];
+            $name_image = uniqid() . '-' . str_replace(' ','-',trim($file['name']));
             move_uploaded_file($file['tmp_name'], '../../dist/img/authors/' . $name_image);
-            $filename = BASE.'dist/img/authors/' .$name_image;
+            $filename = $name_image;
         }
         elseif(empty($file['size'])){
-            $name_image = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQB9HZzNjwK62BVEEvSWHDzZdIQHcsu8qoaxj1ochXZuZkqgfdz6txVvaNmkz_OAY6kOE&usqp=CAU';
+            $name_image = 'default-author.png';
             move_uploaded_file($file['tmp_name'],'../../dist/img/authors/' . $name_image);
             $filename = trim($name_image);
         }
 
-        insert($name,$slug,$birthday,$filename,$status,$description,$created_at);
+        insert($name,$slug,$birthday,$filename,$status,$description,$created_at,$updated_at);
 
         header('location:' . BASE_ADMIN . 'authors/list.php'); 
     }
@@ -66,27 +67,40 @@ if (isset($_POST['submit'])) {
                         <div class="card-body">
                             <div class="table-responsive">
                                 <form action="" method="post" enctype="multipart/form-data">
-                                    <div class="add-form__name">
-                                        <label for="">Tên tác giả</label>
-                                        <input type="text" class="form-control" id="name" name="name" placeholder="Tên tác giả">
+                                    <div class="row">
+                                        <div class="add-form__name col-md-6">
+                                            <label for="">Tên tác giả</label>
+                                            <input type="text" class="form-control" id="name" name="name"
+                                                placeholder="Tên tác giả">
+                                        </div>
+                                        <?php if (isset($error['name'])) : ?>
+                                        <p class="text-danger"><?= $error['name'] ?></p>
+                                        <?php endif ?>
+                                        <div class="add-form__slug col-md-6">
+                                            <label for="">Đường dẫn</label>
+                                            <input type="text" class="form-control" id="slug" name="slug"
+                                                placeholder="Đường dẫn">
+                                        </div>
+                                        <?php if (isset($error['slug'])) : ?>
+                                        <p class="text-danger"><?= $error['slug'] ?></p>
+                                        <?php endif ?>
                                     </div>
-                                    <?php if (isset($error['name'])) : ?>
-                                    <p class="text-danger"><?= $error['name'] ?></p>
-                                    <?php endif ?>
-                                    <div class="add-form__slug m-t-10">
-                                        <label for="">Đường dẫn</label>
-                                        <input type="text" class="form-control" id="slug" name="slug" placeholder="Đường dẫn">
+                                    <div class="row">
+                                        <div class="add-form__birthday m-t-10 col-md-6">
+                                            <label for="">Ngày sinh</label>
+                                            <input type="date" class="form-control" name="birthday">
+                                        </div>
+                                        <?php if (isset($error['birthday'])) : ?>
+                                        <p class="text-danger"><?= $error['birthday'] ?></p>
+                                        <?php endif ?>
+                                        <div class="add-form__image m-t-10 col-md-6">
+                                            <label for="">Trạng thái</label>
+                                            <select name="status" id="" class="form-control">
+                                                <option value="0">Hiện</option>
+                                                <option value="1">Ẩn</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                    <?php if (isset($error['slug'])) : ?>
-                                    <p class="text-danger"><?= $error['slug'] ?></p>
-                                    <?php endif ?>
-                                    <div class="add-form__birthday m-t-10">
-                                        <label for="">Ngày sinh</label>
-                                        <input type="date" class="form-control" name="birthday">
-                                    </div>
-                                    <?php if (isset($error['birthday'])) : ?>
-                                    <p class="text-danger"><?= $error['birthday'] ?></p>
-                                    <?php endif ?>
                                     <div class="add-form__image m-t-10">
                                         <label for="">Ảnh</label>
                                         <input type="file" class="form-control" name="avatar">
@@ -94,16 +108,10 @@ if (isset($_POST['submit'])) {
                                     <?php if (isset($error['image'])) : ?>
                                     <p class="text-danger"><?= $error['image'] ?></p>
                                     <?php endif ?>
-                                    <div class="add-form__image m-t-10">
-                                        <label for="">Trạng thái</label>
-                                        <select name="status" id="" class="form-control">
-                                            <option value="0">Hiện</option>
-                                            <option value="1">Ẩn</option>
-                                        </select>
-                                    </div>
                                     <div class="add-form__slug m-t-10">
                                         <label for="">Giới thiệu tác giả</label>
-                                        <textarea id="editor1" name="description" cols="30" rows="10" class="form-control" placeholder="Giới thiệu tác giả"></textarea>
+                                        <textarea id="editor1" name="description" cols="30" rows="10"
+                                            class="form-control" placeholder="Giới thiệu tác giả"></textarea>
                                         <!-- <input type="text" class="form-control" id="slug" name="slug" placeholder="Đường dẫn"> -->
                                     </div>
                                     <?php if (isset($error['slug'])) : ?>
@@ -111,6 +119,8 @@ if (isset($_POST['submit'])) {
                                     <?php endif ?>
                                     <div class="add-form__image m-t-10">
                                         <button class="btn btn-primary" name="submit">Lưu</button>
+                                        <input class="btn btn-warning" type="reset" value="Đặt lại">
+                                        <a href="<?=BASE_ADMIN.'authors/list.php'?>" class="btn btn-danger">Hủy</a>
                                     </div>
                                 </form>
                             </div>

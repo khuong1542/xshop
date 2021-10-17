@@ -2,8 +2,13 @@
 // session_start();
 require_once '../../connect/base.php'; 
 require_once '../../connect/db.php'; 
-$getListAuthorQuery = "SELECT * FROM `authors` order by id ASC";
-$authors = executeQuery($getListAuthorQuery);
+require_once '../../connect/dao/pdo_author.php'; 
+$authors = select_all_author();
+$selectCommentPost = executeQuery("SELECT books.*, authors.name as author_name
+                        FROM books
+                        INNER JOIN authors ON books.author_id = authors.id
+                        where books.cate_id = 1
+                        order by id desc");
 
 ?>
 <!DOCTYPE html>
@@ -32,7 +37,7 @@ $authors = executeQuery($getListAuthorQuery);
                 <div class="container-fluid">
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Danh sách Tác giả</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Danh sách tác giả</h6>
                             <a href="<?php echo BASE_ADMIN.'authors/add-form.php' ?>"
                                 class="btn btn-primary add-form">Thêm mới</a>
                         </div>
@@ -43,8 +48,8 @@ $authors = executeQuery($getListAuthorQuery);
                                         <tr>
                                             <th>ID</th>
                                             <th>Tên tác giả</th>
-                                            <th>Đường dẫn</th>
                                             <th class="text-center">Ảnh</th>
+                                            <!-- <th class="text-center">Số sản phẩm</th> -->
                                             <th class="text-center">Ngày sinh</th>
                                             <th class="text-center">Trạng thái</th>
                                             <th class="text-center">Hành động</th>
@@ -57,12 +62,12 @@ $authors = executeQuery($getListAuthorQuery);
                                                 foreach($authors as $author):?>
                                         <tr>
                                             <td><?= $author['id'] ?></td>
-                                            <td><?= $author['name'] ?></td>
-                                            <td><a href=""
-                                                    style="text-decoration: underline;"><?= $author['slug'] ?></a></td>
+                                            <td><a href="<?=BASE_CLIENT.'pages/author.php?id='.$author['id']?>"
+                                                    style="text-decoration: underline;"><?= $author['name'] ?></a></td>
                                             <td class="text-center">
-                                                <img src="<?= $author['avatar'] ?>" alt="Ảnh tác giả" width="70">
+                                                <img src="../../dist/img/authors/<?= $author['avatar'] ?>" alt="Ảnh tác giả" width="70">
                                             </td>
+                                            <!-- <td class="text-center"><?=count($selectCommentPost)?></td> -->
                                             <td class="text-center">
                                                 <?php if($author['birthday']!="0000-00-00"): ?>
                                                 <?= date('d-m-Y',strtotime($author['birthday'])) ?>

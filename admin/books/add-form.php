@@ -10,16 +10,17 @@ $categories = executeQuery($selectCategories);
 $authors = executeQuery($selectAuthor);
 if (isset($_POST['submit'])) {
     $name = $_POST['name'];
-    $slug = $_POST['slug'].'-'.rand(100,999);
+    $slug = $_POST['slug'].'-'.strtotime(date('Y-m-d H:i:s'));
     $cate_id = $_POST['cate_id'];
     $author_id = $_POST['author_id'];
     $price = $_POST['price'];
-    $sale = ($_POST['price'] - ($_POST['price']*$_POST['sale']/100));
-    // var_dump($sale);
+    $percent = $_POST['percent'];
+    $sale = ($price - ($price*$percent/100));
     $status = $_POST['status'];
     $special = $_POST['special'];
     $description = $_POST['description'];
     $created_at = date('Y-m-d H:i:s');
+    $updated_at = date('Y-m-d H:i:s');
     $file = $_FILES['image'];
     require_once '../validate/books/validate-add.php';
     if (!$error) {
@@ -29,16 +30,16 @@ if (isset($_POST['submit'])) {
 
         $name_image = "";
         if($file['size'] > 0){
-            $name_image = uniqid() . '-' . $file['name'];
+            $name_image = uniqid() . '-' . str_replace(' ','-',trim($file['name']));
             move_uploaded_file($file['tmp_name'], '../../dist/img/books/' . $name_image);
-            $filename = BASE.'dist/img/books/' .$name_image;
+            $filename = $name_image;
         }
         elseif(empty($file['size'])){
-            $name_image = 'https://tonsmb.org/wp-content/uploads/2014/03/default_image_01.png';
-            move_uploaded_file($file['tmp_name'],'../../dist/img/authors/' . $name_image);
+            $name_image = 'default.png';
+            move_uploaded_file($file['tmp_name'],'../../dist/img/books/' . $name_image);
             $filename = trim($name_image);
         }
-        insert($name,$slug,$price,$sale,$filename,$description,$special,$cate_id,$author_id,$status,$created_at);
+        insert($name,$slug,$price,$percent,$sale,$filename,$description,$special,$cate_id,$author_id,$status,$created_at,$updated_at);
 
         // executeQuery("INSERT INTO category_book(book_id, category_id) VALUES ((SELECT id FROM books WHERE name = '$name'), $cate_id)");
 
@@ -78,17 +79,17 @@ if (isset($_POST['submit'])) {
                             <div class="table-responsive">
                                 <form action="" method="post" enctype="multipart/form-data">
                                     <div class="add-form__name col-md-12" hidden>
-                                        <label for="">Tên sách</label>
+                                        <label for="">ID</label>
                                         <input type="text" class="form-control" name="id" placeholder="Tên sách">
                                     </div>
                                     <div class="row">
                                         <div class="add-form__name col-md-6">
                                             <label for="">Tên sách</label>
+                                            <input type="text" class="form-control" id="name" name="name"
+                                                placeholder="Tên sách">
                                             <?php if (isset($error['name'])) : ?>
                                             <p class="text-danger"><?= $error['name'] ?></p>
                                             <?php endif ?>
-                                            <input type="text" class="form-control" id="name" name="name"
-                                                placeholder="Tên sách">
                                         </div>
                                         <div class="add-form__slug col-md-6">
                                             <label for="">Đường dẫn</label>
@@ -96,16 +97,14 @@ if (isset($_POST['submit'])) {
                                                 placeholder="Đường dẫn">
                                         </div>
                                     </div>
-                                    <?php if (isset($error['slug'])) : ?>
-                                    <p class="text-danger"><?= $error['slug'] ?></p>
-                                    <?php endif ?>
                                     <div class="row">
                                         <div class="add-form__cate m-t-10 col-md-6">
                                             <label for="">Danh mục</label>
                                             <div class="select-box-a">
-                                                <select class="my-select form-control" name="cate_id"
+                                                <select class="selectpicker form-control" name="cate_id"
                                                     data-live-search="true">
                                                     <?php foreach($categories as $cate): ?>
+                                                    <option value="">Không xác định</option>
                                                     <option value="<?= $cate['id']?>"><?= $cate['name']?></option>
                                                     <?php endforeach ?>
                                                 </select>
@@ -114,9 +113,10 @@ if (isset($_POST['submit'])) {
                                         <div class="add-form__cate m-t-10 col-md-6">
                                             <label for="">Tác giả</label>
                                             <div class="select-box">
-                                                <select class="my-select form-control" name="author_id"
+                                                <select class="selectpicker form-control" name="author_id"
                                                     data-live-search="true">
                                                     <?php foreach($authors as $author): ?>
+                                                    <option value="">Không xác định</option>
                                                     <option value="<?= $author['id']?>"><?= $author['name']?></option>
                                                     <?php endforeach ?>
                                                 </select>
@@ -130,55 +130,51 @@ if (isset($_POST['submit'])) {
                                         <div class="add-form__price m-t-10 col-md-6">
                                             <label for="">Giá</label>
                                             <input type="number" class="form-control" name="price">
+                                            <?php if (isset($error['price'])) : ?>
+                                            <p class="text-danger"><?= $error['price'] ?></p>
+                                            <?php endif ?>
                                         </div>
-                                        <?php if (isset($error['price'])) : ?>
-                                        <p class="text-danger"><?= $error['price'] ?></p>
-                                        <?php endif ?>
                                         <div class="add-form__sale m-t-10 col-md-6">
                                             <label for="">Giảm giá (%)</label>
                                             <input type="number" class="form-control" name="sale" value="0">
+                                            <?php if (isset($error['sale'])) : ?>
+                                            <p class="text-danger"><?= $error['sale'] ?></p>
+                                            <?php endif ?>
                                         </div>
-                                        <?php if (isset($error['sale'])) : ?>
-                                        <p class="text-danger"><?= $error['sale'] ?></p>
-                                        <?php endif ?>
                                     </div>
                                     <div class="row">
                                         <div class="add-form__image m-t-10 col-md-6">
-                                            <label for="">Ảnh</label>
-                                            <input type="file" class="form-control" name="image">
-                                        </div>
-                                        <?php if (isset($error['image'])) : ?>
-                                        <p class="text-danger"><?= $error['image'] ?></p>
-                                        <?php endif ?>
-                                        <div class="add-form__image m-t-10 col-md-6">
                                             <label for="">Đặc biệt</label>
                                             <select name="special" id="" class="form-control">
-                                                <option value="0">Đặc biệt</option>
                                                 <option value="1">Không đặc biệt</option>
+                                                <option value="0">Đặc biệt</option>
                                             </select>
                                         </div>
+
+                                        <div class="add-form__image m-t-10 col-md-6">
+                                            <label for="">Trạng thái</label>
+                                            <select name="status" id="" class="form-control">
+                                                <option value="0">Hiện</option>
+                                                <option value="1">Ẩn</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="add-form__image m-t-10">
+                                        <label for="">Ảnh</label>
+                                        <input type="file" class="form-control" name="image">
                                         <?php if (isset($error['image'])) : ?>
                                         <p class="text-danger"><?= $error['image'] ?></p>
                                         <?php endif ?>
                                     </div>
-                                    <div class="add-form__image m-t-10">
-                                        <label for="">Trạng thái</label>
-                                        <select name="status" id="" class="form-control">
-                                            <option value="0">Hiện</option>
-                                            <option value="1">Ẩn</option>
-                                        </select>
-                                    </div>
-                                    <div class="add-form__slug m-t-10">
+                                    <div class="add-form__description m-t-10">
                                         <label for="">Giới thiệu sách</label>
                                         <textarea name="description" id="editor1" cols="30" rows="10"
                                             class="form-control" placeholder="Giới thiệu sách"></textarea>
-                                        <!-- <input type="text" class="form-control" id="slug" name="slug" placeholder="Đường dẫn"> -->
                                     </div>
-                                    <?php if (isset($error['slug'])) : ?>
-                                    <p class="text-danger"><?= $error['slug'] ?></p>
-                                    <?php endif ?>
                                     <div class="add-form__image m-t-10">
                                         <button class="btn btn-primary" name="submit">Lưu</button>
+                                        <input class="btn btn-warning" type="reset" value="Đặt lại">
+                                        <a href="<?=BASE_ADMIN.'books/list.php'?>" class="btn btn-danger">Hủy</a>
                                     </div>
                                 </form>
                             </div>
