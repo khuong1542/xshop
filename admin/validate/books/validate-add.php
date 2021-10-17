@@ -3,9 +3,6 @@
     if (empty($name)) {
         $error['name'] = 'Tên sách không được để trống';
     }
-    if (empty($image)) {
-        $error['image'] = 'Ảnh không được để trống';
-    }
     if (empty($price)) {
         $error['price'] = 'Giá không được để trống';
     }
