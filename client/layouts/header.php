@@ -63,7 +63,7 @@ $logo = executeQuery("SELECT * from logo where status = 0 limit 1");
         <div>
             <a id="navbarDropdown" class="nav-link  header__information-info" href="#" role="button"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                <img src="<?php echo $_SESSION['auth']['avatar'] ?>" alt="">
+                <img src="<?php echo BASE.'dist/img/users/'.$_SESSION['auth']['avatar'] ?>" alt="">
                 <i class="fas fa-caret-down"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-right dropdown-custom" aria-labelledby="navbarDropdown">

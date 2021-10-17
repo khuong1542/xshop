@@ -55,7 +55,7 @@
                         <form action="" method="POST" enctype="multipart/form-data">
                             <div class="profile-img__wrapper">
                                 <div class="profile-img-item">
-                                    <img src="<?= $_SESSION['auth']['avatar'] ?>" alt="">
+                                    <img src="<?= BASE.'dist/img/users/'.$_SESSION['auth']['avatar'] ?>" alt="">
                                 </div>
                                 <div class="profile-img-upload">
                                     <input type="file" id="actual-btn" hidden name="avatar" />

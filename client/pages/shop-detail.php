@@ -148,7 +148,7 @@ $comments = executeQuery($selectAllComment);
                     <?php if (isset($_SESSION['auth'])) : ?>
                     <div class="comment-box__wrapper">
                         <div class="comment-box__image">
-                            <img src="<?= $_SESSION['auth']['avatar'] ?>" alt="" id="js-user-avatar">
+                            <img src="<?= BASE.'dist/img/users/'.$_SESSION['auth']['avatar'] ?>" alt="" id="js-user-avatar">
                         </div>
                         <div class="comment-box__content">
                             <form action="<?= BASE_CLIENT . 'pages/comment.php' ?>" method="post">
