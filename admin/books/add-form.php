@@ -3,7 +3,6 @@
 require_once '../../connect/base.php'; 
 require_once '../../connect/db.php';
 require_once '../../connect/dao/pdo_book.php';
-require_once '../../connect/dao/pdo_category_book.php';
 $selectCategories = "SELECT * from categories where `status` = '0'";
 $selectAuthor = "SELECT * from authors where `status` = '0'";
 $categories = executeQuery($selectCategories);

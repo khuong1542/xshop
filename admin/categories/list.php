@@ -52,7 +52,7 @@ $books = executeQuery($selectAllBook);
                                             <th>ID</th>
                                             <th>Tên danh mục</th>
                                             <th class="text-center">Ảnh</th>
-                                            <th class="text-center">Số sản phẩm</th>
+                                            <!-- <th class="text-center">Số sản phẩm</th> -->
                                             <th class="text-center">Ngày đăng</th>
                                             <th class="text-center">Trạng thái</th>
                                             <th class="text-center">Hành động</th>
@@ -73,7 +73,7 @@ $books = executeQuery($selectAllBook);
                                                     <td class="text-center">
                                                         <img src="../../dist/img/categories/<?= $category['image'] ?>" alt="" width="100">
                                                     </td>
-                                                    <td></td>
+                                                    <!-- <td></td> -->
                                                     <td class="text-center"><?= date('d-m-Y', strtotime($category['created_at'])) ?></td>
                                                     <td class="text-center">
                                                         <label class="custom-control custom-checkbox p-0 m-0 pointer " style="cursor: pointer;">
