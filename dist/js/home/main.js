@@ -134,7 +134,7 @@
     $(".related__slider").owlCarousel({
         loop: true,
         margin: 0,
-        items: 6,
+        items: 5,
         dots: false,
         // nav: true,
         navText: ["<div class='fa fa-chevron-left'><div/>", "<div class='fa fa-chevron-right'><div/>"],

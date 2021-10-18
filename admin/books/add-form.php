@@ -81,7 +81,7 @@ if (isset($_POST['submit'])) {
                                     <div class="row">
                                         <div class="add-form__name col-md-6">
                                             <label for="">Tên sách</label>
-                                            <input type="text" class="form-control" id="name" name="name"
+                                            <input type="text" class="form-control" id="name" name="name" value="<?php if(isset($_POST['name'])) echo $name?>"
                                                 placeholder="Tên sách">
                                             <?php if (isset($error['name'])) : ?>
                                             <p class="text-danger"><?= $error['name'] ?></p>
@@ -89,7 +89,7 @@ if (isset($_POST['submit'])) {
                                         </div>
                                         <div class="add-form__slug col-md-6">
                                             <label for="">Đường dẫn</label>
-                                            <input type="text" class="form-control" id="slug" name="slug"
+                                            <input type="text" class="form-control" id="slug" name="slug" value="<?php if(isset($_POST['slug'])) echo $slug?>"
                                                 placeholder="Đường dẫn">
                                         </div>
                                     </div>
@@ -101,7 +101,7 @@ if (isset($_POST['submit'])) {
                                                     data-live-search="true">
                                                     <option value="">Không xác định</option>
                                                     <?php foreach($categories as $cate): ?>
-                                                    <option value="<?= $cate['id']?>"><?= $cate['name']?></option>
+                                                    <option value="<?= $cate['id']?>" <?php if(isset($_POST['cate_id'])&&$cate_id==$cate['id']) echo 'selected'?>><?=$cate['name']?></option>
                                                     <?php endforeach ?>
                                                 </select>
                                             </div>
@@ -113,7 +113,7 @@ if (isset($_POST['submit'])) {
                                                     data-live-search="true">
                                                     <option value="">Không xác định</option>
                                                     <?php foreach($authors as $author): ?>
-                                                    <option value="<?= $author['id']?>"><?= $author['name']?></option>
+                                                    <option value="<?= $author['id']?>" <?php if(isset($_POST['author_id'])&&$author_id==$author['id']) echo 'selected'?>><?= $author['name']?></option>
                                                     <?php endforeach ?>
                                                 </select>
                                             </div>
@@ -125,14 +125,14 @@ if (isset($_POST['submit'])) {
                                     <div class="row">
                                         <div class="add-form__price m-t-10 col-md-6">
                                             <label for="">Giá</label>
-                                            <input type="number" class="form-control" name="price">
+                                            <input type="number" class="form-control" name="price" placeholder="Giá sản phẩm" value="<?php if(isset($_POST['price'])) echo $price?>">
                                             <?php if (isset($error['price'])) : ?>
                                             <p class="text-danger"><?= $error['price'] ?></p>
                                             <?php endif ?>
                                         </div>
                                         <div class="add-form__percent m-t-10 col-md-6">
                                             <label for="">Giảm giá (%)</label>
-                                            <input type="number" class="form-control" name="percent" value="0">
+                                            <input type="number" class="form-control" name="percent" value="<?php if(isset($_POST['percent'])) echo $percent; else echo 0?>">
                                             <?php if (isset($error['percent'])) : ?>
                                             <p class="text-danger"><?= $error['percent'] ?></p>
                                             <?php endif ?>
@@ -150,8 +150,8 @@ if (isset($_POST['submit'])) {
                                         <div class="add-form__image m-t-10 col-md-6">
                                             <label for="">Trạng thái</label>
                                             <select name="status" id="" class="form-control">
-                                                <option value="0">Hiện</option>
-                                                <option value="1">Ẩn</option>
+                                                <option value="0" <?php if(isset($_POST['status'])) echo 'selected'?>>Hiện</option>
+                                                <option value="1" <?php if(isset($_POST['status'])) echo 'selected'?>>Ẩn</option>
                                             </select>
                                         </div>
                                     </div>

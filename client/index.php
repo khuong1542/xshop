@@ -7,14 +7,23 @@
     // $selectAllBookCate = "select b.*,c.name as cate_name from books b join categories c
     //                         on b.cate_id = c.id order by id desc limit 6";
     $selectAllBookSpecial = "SELECT books.*,authors.name as author_name 
-                            from books  join authors on books.author_id = authors.id 
-                            where special = 0 order by id desc limit 6";
+                            from books  
+                            join authors on books.author_id = authors.id 
+                            where special = 0 and books.status = 0
+                            order by id desc limit 6";
     $selectAllBookNew = "SELECT books.*,authors.name as author_name 
-                        from books join authors on books.author_id = authors.id 
+                        from books 
+                        join authors on books.author_id = authors.id 
+                        where books.status = 0
                         order by id desc limit 6";
-    $selectAllBookFavorite = "SELECT books.*,authors.name as author_name 
-                        from books join authors on books.author_id = authors.id 
-                        where view > 0 order by view desc limit 10";
+    $selectAllBookFavorite = "SELECT wishlists.*, authors.id as author_id, authors.name as author_name, 
+                                                categories.id as cate_id, categories.name as cate_name, 
+                                                books.id as book_id,books.name as book_name, books.image as book_image, books.price as book_price, books.sale as book_sale
+                            FROM wishlists
+                            INNER JOIN books ON books.id = wishlists.book_id
+                            INNER JOIN categories ON books.cate_id = categories.id && books.id = wishlists.book_id
+                            INNER JOIN authors ON books.author_id = authors.id && books.id = wishlists.book_id
+                            ORDER by id desc";
     $bookSpecials = executeQuery($selectAllBookSpecial);
     $bookNews = executeQuery($selectAllBookNew);
     $bookFavorites  = executeQuery($selectAllBookFavorite);
@@ -254,14 +263,14 @@
                         <a href="">
                             <div class="book-card">
                                 <div class="book-card__img">
-                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookFavorite['id'].'&cate_id='.$bookFavorite['cate_id']?>">
-                                        <img src="<?= BASE.'dist/img/books/'.$bookFavorite['image']?>" alt="">
+                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookFavorite['book_id'].'&cate_id='.$bookFavorite['cate_id']?>">
+                                        <img src="<?= BASE.'dist/img/books/'.$bookFavorite['book_image']?>" alt="">
                                     </a>
                                 </div>
 
                                 <div class="book-card__title">
-                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookFavorite['id'].'&cate_id='.$bookFavorite['cate_id']?>">
-                                        <h3><?=$bookFavorite['name'] ?></h3>
+                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookFavorite['book_id'].'&cate_id='.$bookFavorite['cate_id']?>">
+                                        <h3><?=$bookFavorite['book_name'] ?></h3>
                                     </a>
                                 </div>
                                 <div class="book-card__author" style="font-size: 10px">
@@ -279,11 +288,11 @@
                                     </p>
                                 </div>
                                 <div class="book-card__price">
-                                    <?php if($bookFavorite['sale'] == $bookFavorite['price']): ?>
-                                    <span><?=number_format($bookFavorite['sale'],0,'',',')?>đ</span>
+                                    <?php if($bookFavorite['book_sale'] == $bookFavorite['book_price']): ?>
+                                    <span><?=number_format($bookFavorite['book_sale'],0,'',',')?>đ</span>
                                     <?php else: ?>
-                                    <span><?=number_format($bookFavorite['sale'],0,'',',')?>đ</span>
-                                    <del><?=number_format($bookFavorite['price'],0,'',',')?>đ</del>
+                                    <span><?=number_format($bookFavorite['book_sale'],0,'',',')?>đ</span>
+                                    <del><?=number_format($bookFavorite['book_price'],0,'',',')?>đ</del>
                                     <?php endif ?>
                                 </div>
                                 <div class="book-card__btn">

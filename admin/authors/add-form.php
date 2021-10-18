@@ -72,27 +72,28 @@ if (isset($_POST['submit'])) {
                                             <label for="">Tên tác giả</label>
                                             <input type="text" class="form-control" id="name" name="name"
                                                 placeholder="Tên tác giả">
+                                            <?php if (isset($error['name'])) : ?>
+                                            <p class="text-danger"><?= $error['name'] ?></p>
+                                            <?php endif ?>
                                         </div>
-                                        <?php if (isset($error['name'])) : ?>
-                                        <p class="text-danger"><?= $error['name'] ?></p>
-                                        <?php endif ?>
                                         <div class="add-form__slug col-md-6">
                                             <label for="">Đường dẫn</label>
                                             <input type="text" class="form-control" id="slug" name="slug"
                                                 placeholder="Đường dẫn">
+                                            <?php if (isset($error['slug'])) : ?>
+                                            <p class="text-danger"><?= $error['slug'] ?></p>
+                                            <?php endif ?>
                                         </div>
-                                        <?php if (isset($error['slug'])) : ?>
-                                        <p class="text-danger"><?= $error['slug'] ?></p>
-                                        <?php endif ?>
                                     </div>
                                     <div class="row">
                                         <div class="add-form__birthday m-t-10 col-md-6">
                                             <label for="">Ngày sinh</label>
-                                            <input type="date" class="form-control" name="birthday">
+                                            <input type="date" class="form-control" name="birthday" value="<?=$birthday
+                                            ?>">
+                                            <?php if (isset($error['birthday'])) : ?>
+                                            <p class="text-danger"><?= $error['birthday'] ?></p>
+                                            <?php endif ?>
                                         </div>
-                                        <?php if (isset($error['birthday'])) : ?>
-                                        <p class="text-danger"><?= $error['birthday'] ?></p>
-                                        <?php endif ?>
                                         <div class="add-form__image m-t-10 col-md-6">
                                             <label for="">Trạng thái</label>
                                             <select name="status" id="" class="form-control">
@@ -104,19 +105,18 @@ if (isset($_POST['submit'])) {
                                     <div class="add-form__image m-t-10">
                                         <label for="">Ảnh</label>
                                         <input type="file" class="form-control" name="avatar">
+                                        <?php if (isset($error['image'])) : ?>
+                                        <p class="text-danger"><?= $error['image'] ?></p>
+                                        <?php endif ?>
                                     </div>
-                                    <?php if (isset($error['image'])) : ?>
-                                    <p class="text-danger"><?= $error['image'] ?></p>
-                                    <?php endif ?>
                                     <div class="add-form__slug m-t-10">
                                         <label for="">Giới thiệu tác giả</label>
                                         <textarea id="editor1" name="description" cols="30" rows="10"
                                             class="form-control" placeholder="Giới thiệu tác giả"></textarea>
-                                        <!-- <input type="text" class="form-control" id="slug" name="slug" placeholder="Đường dẫn"> -->
+                                        <?php if (isset($error['slug'])) : ?>
+                                        <p class="text-danger"><?= $error['slug'] ?></p>
+                                        <?php endif ?>
                                     </div>
-                                    <?php if (isset($error['slug'])) : ?>
-                                    <p class="text-danger"><?= $error['slug'] ?></p>
-                                    <?php endif ?>
                                     <div class="add-form__image m-t-10">
                                         <button class="btn btn-primary" name="submit">Lưu</button>
                                         <input class="btn btn-warning" type="reset" value="Đặt lại">
