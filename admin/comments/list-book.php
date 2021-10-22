@@ -10,6 +10,7 @@ $selectAllComment = "SELECT comments.*, books.name as book_name, books.image as 
                     FROM comments
                     INNER JOIN books ON comments.book_id = books.id
                     INNER JOIN users ON comments.user_id = users.id
+                    group by books.name
                     order by id desc";
 $comments = executeQuery($selectAllComment);
 
@@ -68,7 +69,7 @@ $comments = executeQuery($selectAllComment);
                                             <td class="text-center">
                                                 <a data-target="#list-comment-<?=$comment['id']?>"
                                                     data-toggle="modal">
-                                                    <img width="50" src="../../dist/img/books/<?= $comment['book_image'] ?>"
+                                                    <img width="50" src="<?=BASE.'dist/img/books/'.$comment['book_image'] ?>"
                                                         alt="<?= $comment['book_image'] ?>">
                                                 </a>
                                                 <div class="modal fade bd-example-modal-lg" id="list-comment-<?=$comment['id']?>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">

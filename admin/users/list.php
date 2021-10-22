@@ -81,7 +81,7 @@ $users = executeQuery($getListUserQuery);
                                                     <!-- <td><?= $user['name'] ?></td> -->
                                                     <td><?= $user['username'] ?></td>
                                                     <td>
-                                                        <img src="../../dist/img/users/<?= $user['avatar'] ?>" alt="Ảnh khách hàng"
+                                                        <img src="<?=BASE.'dist/img/users/'.$user['avatar'] ?>" alt="Ảnh khách hàng"
                                                             width="70">
                                                     </td>
                                                     <td><?=$user['email']?></td>

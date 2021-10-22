@@ -1,6 +1,6 @@
 <?php
     require_once '../../connect/base.php'; 
-    require_once '../../connect/db.php'; 
+    require_once '../../connect/db.php';
     if (isset($_GET['page'])) {
         $page = $_GET['page'];
     } else {
@@ -15,9 +15,9 @@
     $total_pages_sql = "SELECT * FROM books";
     $total_rows = count(executeQuery($total_pages_sql));
     $total_pages = ceil($total_rows / $no_of_records_per_page);
-
-    $selectAllCate = "SELECT * from `categories` where status = 0";
-    $categories = executeQuery($selectAllCate);
+    $id = $_GET['id'];
+    $selectOneAuthor = "SELECT * from `authors` where status = 0 and id = $id";
+    $authors = executeQuery($selectOneAuthor,false);
     if(!isset($_GET['id']) || $_GET['id'] == ""){
         $selectAllBook = "  SELECT books.*, categories.name as cate_name, authors.name as author_name
                             FROM books
@@ -36,6 +36,14 @@
                             ORDER by id desc LIMIT $offset, $no_of_records_per_page";
         $books = executeQuery($selectAllBook);
     }
+    
+$selectAllBookRelated = "   SELECT books.*,authors.name as author_name, categories.id as category_id, categories.name as cate_name
+from books 
+INNER JOIN authors on books.author_id = authors.id 
+INNER JOIN categories on books.cate_id = categories.id
+where books.status = 0 and books.author_id = $id
+order by books.author_id desc limit 6";
+$bookRelateds = executeQuery($selectAllBookRelated);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,7 +54,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>XSHOP</title>
     <?php include '../layouts/css.php' ?>
-    <link rel="stylesheet" href="<?=BASE.'dist/css/client/pages/category.css" type="text/css'?>">
+    <link rel="stylesheet" href="<?=BASE.'dist/css/client/pages/author.css" type="text/css'?>">
 </head>
 
 <body>
@@ -54,116 +62,124 @@
         <?php require_once '../layouts/header.php'; ?>
     </header>
     <div class="container">
-        <div class="row cate-desktop">
-            <div class="col-md-3 book-category__aside ">
-                <div class="book-search__aside ">
+        <div class="book-detail-content row">
 
-                    <div class=" filter-group ">
-                        <ul class="filter-list ">
-                            <a href="<?=BASE_CLIENT.'pages/category.php'?>" class="filter-item__link ">
-                                <li class="filter-item">
-                                    <h3 style="font-weight:700">Tất cả danh mục</h3>
-                                    <span class="filter-item__quantity"><?=$total_rows?></span>
-                                </li>
-                            </a>
+            <div class="col-md-4 book-cover">
+                <div class="book-cover__wrapper">
+                    <img src="<?= BASE.'dist/img/authors/'.$authors['avatar'] ?>" class="book-cover__image"
+                        alt="Ảnh tác giả">
+                </div>
+            </div>
 
-                        </ul>
+            <div class="col-md-8">
+                <div class="book-detail-info">
+                    <div class="book-info__header">
+                        <div class="book-info__title">
+                            <h2>
+                                <?= $authors['name'] ?>
+                            </h2>
+                        </div>
+                        <div class="book-info__authors m-t-10">
+                            <span class="info-authors__name">
+                                Ngày sinh: <?php if($authors['birthday']!="0000-00-00"): ?>
+                                            <?= date('d-m-Y',strtotime($authors['birthday'])) ?>
+                                            <?php else : ?>
+                                            Chưa xác định
+                                            <?php endif ?>
+                            </span>
+                        </div>
                     </div>
-                    <div class=" filter-group ">
-                        <ul class="filter-list ">
-
-                            <?php foreach($categories as $category): ?>
-                            <a href="<?=BASE_CLIENT.'pages/category.php?id='.$category['id']?>"
-                                class="filter-item__link  ">
-                                <li
-                                    class="filter-item {{ isset($_GET['id']) ? 'active' : null }}">
-                                    <?=$category['name']?>
-                                    <!-- <span class="filter-item__quantity"></span> -->
-                                </li>
-                            </a>
-                            <?php endforeach ?>
-                        </ul>
+                    <div class="book-info__description">
+                        <div class="book-description__text">
+                        <?= $authors['description'] ?>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-9 book-category__content ">
-                <?php if(count($books)<=0): ?>
-                <div class="search-result">
-                    <div class="search-text">
-                        <p>Không có cuốn sách nào!</p>
-                    </div>
-                </div>
-                <?php endif ?>
-
-                <div class="book-card-collection">
-                    <?php if(count($books) >0 ): ?>
-                    <?php foreach($books as $book): ?>
-                    <div class="book-card ">
+        </div>
+        <div class="book-author">
+            <div class="book-author__title">
+                <h2></h2>
+            </div>
+            <div class="book-carouse">
+            <div class="book-carouse__header">
+                <div class="carouse-header__title">Sản phẩm</div>
+            </div>
+            <div class="book-carouse__body">
+                <?php if(count($bookRelateds) > 0) : ?>
+                <div class="row">
+                    <?php foreach($bookRelateds as $bookRelated): ?>
+                    <!-- <div class="col-md-3"> -->
+                    <div class="book-card">
                         <div class="book-card__img">
-                            <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$book['id']?>">
-                                <img src="<?=BASE.'dist/img/books/'.$book['image']?>" alt="">
+                            <a
+                                href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookRelated['id'].'&cate_id='.$bookRelated['cate_id']?>">
+                                <img src="<?= BASE.'dist/img/books/'.$bookRelated['image']?>"
+                                    alt="Ảnh sản phẩm liên quan">
                             </a>
                         </div>
+
                         <div class="book-card__title">
-                            <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$book['id']?>">
-                                <h3> <?=$book['name']?> </h3>
+                            <a
+                                href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookRelated['id'].'&cate_id='.$bookRelated['cate_id']?>">
+                                <h3><?=$bookRelated['name'] ?></h3>
                             </a>
                         </div>
-                        <div class="book-card__author" style="font-size:10px">
+                        <div class="book-card__author" style="font-size: 10px">
                             Tác giả:
                             <a href="">
-                                <?=$book['author_name'] ?></a>
+                                <?=$bookRelated['author_name'] ?></a>
                         </div>
                         <div class="book-card__star">
-                            <i class="far fa-star"></i>
+                            <p> <span class="book-star">
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </span>
+                            </p>
                         </div>
+
                         <div class="book-card__price">
-                            <?php if($book['sale']==$book['price']):?>
-                            <span><?=number_format($book['sale'],0,'',',')?>đ</span>
+                            <?php if($bookRelated['sale']==$bookRelated['price']):?>
+                            <span><?=number_format($bookRelated['sale'],0,'',',')?>đ</span>
                             <?php else: ?>
-                            <span><?=number_format($book['sale'],0,'',',')?>đ</span>
-                            <del><?=number_format($book['price'],0,'',',')?>đ</del>
+                            <span><?=number_format($bookRelated['sale'],0,'',',')?>đ</span>
+                            <del><?=number_format($bookRelated['price'],0,'',',')?>đ</del>
                             <?php endif ?>
                         </div>
                         <div class="book-card__btn">
-                            <a href="<?=BASE_CLIENT.'pages/cart-add.php?id='.$book['id']?>" class="borrow-btn">
-                                <i class="fa fa-shopping-cart"> Thêm giỏ hàng</i>
-                            </a>
-                            <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$book['id']?>" class="review-btn">Chi tiết</a>
+                            <?php if(isset($_SESSION['auth'])): ?>
+                            <a href="<?=BASE_CLIENT.'pages/cart-add.php?id='.$bookRelated['id']?>"
+                                class="shopping-btn"><i class="fa fa-shopping-cart"></i></a>
+                            <!-- <a href="<?=BASE_CLIENT.'pages/delete-heart.php?id='.$bookRelated['id']?>" class="heart-btn"><i
+                                            class="fas fa-heart"></i></a> -->
+                            <form action="<?=BASE_CLIENT.'pages/add-heart.php?id='.$bookRelated['id']?>" method="post">
+                                <input type="hidden" value="<?=$_SESSION['auth']['id']?>" name="user_id">
+                                <input type="hidden" value="<?=$bookRelated['id']?>" name="book_id">
+                                <button type="submit" class="heart-btn"><i class="far fa-heart"></i></button>
+                            </form>
+                            <?php else: ?>
+                            <a href="<?=BASE_CLIENT.'pages/login.php'?>" class="shopping-btn"><i
+                                    class="fa fa-shopping-cart"></i></a>
+                            <a href="<?=BASE_CLIENT.'pages/login.php'?>" class="heart-btn"><i
+                                    class="far fa-heart"></i></a>
+                            <?php endif ?>
+                            <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookRelated['id'].'&cate_id='.$bookRelated['cate_id']?>"
+                                class="review-btn">Chi tiết</a>
                         </div>
                     </div>
+                    <!-- </div> -->
                     <?php endforeach ?>
-                    <?php endif ?>
                 </div>
-                <div class="text-center">
-                    <div class="category-pagination__wrap">
-                        <div class="ui pagination menu category-pagination" role="navigation">
-                            <li class="page-item <?php if($page <= 1){ echo 'disabled'; } ?>">
-                                <a class="page-link"
-                                    href="<?php if($page <= 1){ echo '#'; } else { echo "?page=".($page - 1); } ?>">
-                                    <i class="fa fa-chevron-left"></i>
-                                </a>
-                            </li>
-                            <?php for($i=1;$i<=$total_pages; $i++): ?>
-                            <li class="page-item"><a class="page-link" href="<?='?page='.$i?>"><?=$i?></a></li>
-                            <?php endfor ?>
-                            <li class="page-item <?php if($page >= $total_pages){ echo 'disabled'; } ?>">
-                                <a class="page-link"
-                                    href="<?php if($page >= $total_pages){ echo '#'; } else { echo "?page=".($page + 1); } ?>">
-                                    <i class="fa fa-chevron-right "></i>
-                                </a>
-                            </li>
-                        </div>
-                    </div>
+                <?php else: ?>
+                <div class="book-user-comment__message">
+                    <p style="font-size:10pt; text-align:center"> Chưa có sách cùng loại nào!</p>
                 </div>
+                <?php endif ?>
             </div>
-            <script>
-            $(document).ready(function() {
-                $('.show-cate').click(function() {
-                    $('.book-category__aside').slideToggle();
-                })
-            })
-            </script>
+        </div>
         </div>
     </div>
     <footer class="footer">

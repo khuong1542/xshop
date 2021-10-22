@@ -20,7 +20,8 @@ if(isset($_POST['register']))
     $email=trim($_POST['email']);
     $password=password_hash($_POST['password'], PASSWORD_DEFAULT);
     $created_at = date('Y-m-d H:i:s');
-    $avatar= 'https://c0.klipartz.com/pngpicture/136/22/gratis-png-perfil-de-usuario-computadora-iconos-chica-cliente-avatar.png';
+    $updated_at = date('Y-m-d H:i:s');
+    $avatar= 'default-author.png';
     
     if(empty($name)) {
         $error['name'] = 'Tên không được để trống';
@@ -63,7 +64,7 @@ if(isset($_POST['register']))
     
     
     if(!$error){
-        insert($name,$username,$avatar,$email,$password,0,$created_at);
+        insert($name,$username,$avatar,$email,$password,0,$created_at,$updated_at);
         echo '<meta http-equiv="refresh" content="1;url=login.php">';
         die();
     }

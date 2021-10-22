@@ -16,6 +16,7 @@ if(!isset($_SESSION[CART]) || $_SESSION[CART] == null){
 		'price' => $books['price'],
 		'sale' => $books['sale'],
 		'image' => $books['image'],
+		'cate_id' => $books['cate_id'],
 		'quantity' => 1
 	];
 }else{
@@ -36,6 +37,7 @@ if(!isset($_SESSION[CART]) || $_SESSION[CART] == null){
 			'price' => $books['price'],
 			'sale' => $books['sale'],
 			'image' => $books['image'],
+			'cate_id' => $books['cate_id'],
 			'quantity' => 1
 		];
 	}else{
@@ -45,6 +47,6 @@ if(!isset($_SESSION[CART]) || $_SESSION[CART] == null){
 
 }
 
-header('location: ' . BASE);
+header('location: ' .  $_SERVER['HTTP_REFERER']);
 
  ?>

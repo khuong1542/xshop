@@ -71,7 +71,7 @@ $books = executeQuery($selectAllBook);
                                                         </a>
                                                     </td>
                                                     <td class="text-center">
-                                                        <img src="../../dist/img/categories/<?= $category['image'] ?>" alt="" width="100">
+                                                        <img src="<?=BASE.'dist/img/categories/'.$category['image'] ?>" alt="" width="100">
                                                     </td>
                                                     <!-- <td></td> -->
                                                     <td class="text-center"><?= date('d-m-Y', strtotime($category['created_at'])) ?></td>

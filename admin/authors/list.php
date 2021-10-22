@@ -65,7 +65,7 @@ $selectCommentPost = executeQuery("SELECT books.*, authors.name as author_name
                                             <td><a href="<?=BASE_CLIENT.'pages/author.php?id='.$author['id']?>"
                                                     style="text-decoration: underline;"><?= $author['name'] ?></a></td>
                                             <td class="text-center">
-                                                <img src="../../dist/img/authors/<?= $author['avatar'] ?>" alt="Ảnh tác giả" width="70">
+                                                <img src="<?=BASE.'dist/img/authors/'.$author['avatar'] ?>" alt="Ảnh tác giả" width="70">
                                             </td>
                                             <!-- <td class="text-center"><?=count($selectCommentPost)?></td> -->
                                             <td class="text-center">

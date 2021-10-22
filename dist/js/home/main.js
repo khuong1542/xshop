@@ -101,7 +101,7 @@
         items: 5,
         dots: false,
         nav: true,
-        navText: ["<div class='fa fa-chevron-left'><div/>", "<div class='fa fa-angle-right'><div/>"],
+        navText: ["<div class='fa fa-chevron-left'><div/>", "<div class='fa fa-chevron-right'><div/>"],
         animateOut: 'fadeOut',
         animateIn: 'fadeIn',
         smartSpeed: 1200,
@@ -158,7 +158,7 @@
         items: 1,
         dots: false,
         nav: true,
-        navText: ["<span class='fa fa-angle-left'><span/>", "<span class='fa fa-chevron-right'><span/>"],
+        navText: ["<span class='fa fa-chevron-left'><span/>", "<span class='fa fa-chevron-right'><span/>"],
         smartSpeed: 1200,
         autoHeight: false,
         autoplay: true

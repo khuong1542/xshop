@@ -1,0 +1,287 @@
+.book-cover__wrapper {
+    padding: 2rem;
+    height: 50rem;
+    background-color: var(--white-color);
+    border-radius: 1rem;
+    box-shadow: 1px 2px 8px 1px rgba(0, 0, 0, 0.25);
+}
+
+.book-info__title h2 {
+    font-size: 3rem;
+    font-weight: 700;
+}
+
+.book-cover__image {
+    width: 100%;
+    height: 100%;
+    border-radius: .5rem;
+}
+
+.book-info__authors {
+    margin-bottom: 1rem;
+}
+
+.info-authors__name {
+    color: var(--text-color3);
+    font-size: 1.5rem;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.info-authors__name a {
+    text-decoration: none;
+    color: var(--text-color3);
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+.info-authors__name a:hover {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+.book-info__description {
+    margin-bottom: 1.5rem;
+}
+
+.book-description__text {
+    text-align: justify;
+    width: 100%;
+    height: 400px;
+    font-size: 1.3rem;
+    overflow: scroll;
+}
+
+.book-carousel__wrapper {
+    display: flex;
+    gap: 2.6rem;
+    padding: 1rem 0;
+}
+
+.book-carouse__body .col-3 {
+    padding: 1.5rem;
+}
+
+.book-carouse__body .book-card {
+    position: relative;
+    /* padding: 20px 10px 10px 10px; */
+    overflow: hidden;
+    border: 1px solid rgb(0 0 0 / 15%);
+}
+
+.book-card {
+    margin: 10px;
+    width: 19.5rem;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 1px 2px 8px 1px rgba(0, 0, 0, 0.25);
+}
+
+.book-carouse-background .book-card {
+    background-color: var(--white-color);
+}
+
+.book-carouse-background .book-user-comment__message p {
+    font-size: 16pt;
+    color: var(--text-color2);
+    text-align: center;
+}
+
+.book-card__img {
+    height: 20rem;
+}
+
+.book-card__img a {
+    text-decoration: none;
+}
+
+.book-card__img a img {
+    width: 100%;
+    height: 100%;
+    border-radius: .5rem;
+    padding: 5px;
+}
+
+.book-card__title {
+    margin-top: 1.6rem;
+}
+
+.book-card__title a {
+    text-decoration: none;
+}
+
+.book-card__title a h3 {
+    /* color:#343734; */
+    color: var(--black-secondary-color);
+    font-size: 1.6rem;
+    line-height: 1.6rem;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.book-card__author {
+    margin-top: 0.8rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.book-card__author a {
+    font-size: 1.4rem;
+    font-weight: 600;
+    line-height: 1.6rem;
+    /* color:#5c6468; */
+    color: var(--text-color3);
+    text-decoration: none;
+}
+
+.book-card__author a:hover,
+.book-card__author a:focus,
+.book-card__author a:active {
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.book-card__star {
+    margin-top: 0.3rem;
+    color: var(--base-color2);
+}
+
+.book-card__star i {
+    font-size: 10px;
+}
+
+.book-card__price del {
+    color: red;
+}
+
+.book-card__price span {
+    font-size: 10pt;
+    /* color: ; */
+}
+
+.book-card__btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.8rem;
+}
+
+.book-carouse__header {
+    margin-bottom: 2rem;
+}
+
+.book-carouse__body .col-3 {
+    padding: 1.5rem;
+}
+
+.book-carouse__body .book-card {
+    position: relative;
+    /* padding: 20px 10px 10px 10px; */
+    overflow: hidden;
+    border: 1px solid rgb(0 0 0 / 15%);
+}
+
+.book-carouse-background .book-card {
+    background-color: var(--white-color);
+}
+
+.book-carouse-background .book-user-comment__message p {
+    font-size: 16pt;
+    color: var(--text-color2);
+    text-align: center;
+}
+
+.book-carouse {
+    margin-top: 3rem;
+    border: 1px solid var(--text-color2);
+    border-radius: 1rem;
+    padding: 3rem;
+}
+
+.book-carouse__header {
+    margin-bottom: 2rem;
+}
+
+.carouse-header__title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--base-color);
+}
+
+.shopping-btn {
+    padding: 0.5rem 1.1rem;
+    border-radius: 1rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border: none;
+    border: 1px solid var(--base-color);
+    background-color: var(--base-color);
+    color: var(--text-color2);
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 1px 2px 3px 0 rgba(0, 0, 0, 0.25);
+}
+
+.shopping-btn:focus,
+.shopping-btn:active {
+    text-decoration: none;
+    color: var(--text-color2);
+}
+
+.heart-btn {
+    padding: 0.5rem 1.1rem;
+    border-radius: 1rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border: 1px solid var(--base-color);
+    background-color: var(--white-color);
+    color: var(--base-color);
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 1px 2px 3px 0 rgba(0, 0, 0, 0.25);
+}
+
+.heart-btn:hover {
+    box-shadow: 1px 2px 3px 0 rgba(0, 0, 0, 0.5);
+    text-decoration: none;
+    color: var(--base-color);
+    opacity: 1;
+}
+
+.review-btn {
+    padding: 0.5rem 1.3rem;
+    border-radius: 1rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border: 1px solid var(--base-color);
+    background-color: var(--white-color);
+    color: var(--base-color);
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 1px 2px 3px 0 rgba(0, 0, 0, 0.25);
+}
+
+.review-btn:hover {
+    box-shadow: 1px 2px 3px 0 rgba(0, 0, 0, 0.5);
+    text-decoration: none;
+    color: var(--base-color);
+    opacity: 1;
+}
+
+.borrow-btn:hover {
+    box-shadow: 1px 2px 3px 0 rgba(0, 0, 0, 0.5);
+    text-decoration: none;
+    color: var(--text-color2);
+}
+
+.review-btn:focus,
+.review-btn:active {
+    text-decoration: none;
+    color: var(--base-color);
+}

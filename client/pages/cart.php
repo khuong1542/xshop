@@ -49,12 +49,12 @@ $totalPrice = 0;
                             <?php foreach ($cart as $item) : ?>
                                 <tr>
                                     <td class="text-center">
-                                        <a href="<?= BASE_CLIENT . "shop-detail.php?id=" . $item['id'] ?>" class="cart-img">
+                                        <a href="<?= BASE_CLIENT . "pages/shop-detail.php?id=".$item['id'].'&cate_id='.$item['cate_id'] ?>" class="cart-img">
                                             <img width="70" src="<?=BASE.'dist/img/books/'.$item['image'] ?>" alt="">
                                         </a>
                                     </td>
                                     <td>
-                                        <a href="<?= BASE_CLIENT . "shop-detail.php?id=" . $item['id'] ?>"><?= $item['name'] ?></a>
+                                        <a href="<?= BASE_CLIENT . "pages/shop-detail.php?id=".$item['id'] ?>"><?= $item['name'] ?></a>
                                     </td>
                                     <td class="text-center">
                                         <form action="<?=BASE_CLIENT.'pages/cart-update.php?id='.$item['id'] ?>" method="post" class="cart-action">

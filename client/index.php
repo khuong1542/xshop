@@ -23,7 +23,8 @@
                             INNER JOIN books ON books.id = wishlists.book_id
                             INNER JOIN categories ON books.cate_id = categories.id && books.id = wishlists.book_id
                             INNER JOIN authors ON books.author_id = authors.id && books.id = wishlists.book_id
-                            ORDER by id desc";
+                            GROUP BY wishlists.book_id
+                            ORDER by count(wishlists.book_id) desc";
     $bookSpecials = executeQuery($selectAllBookSpecial);
     $bookNews = executeQuery($selectAllBookNew);
     $bookFavorites  = executeQuery($selectAllBookFavorite);
@@ -116,19 +117,21 @@
                         <a href="">
                             <div class="book-card">
                                 <div class="book-card__img">
-                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookSpecial['id'].'&cate_id='.$bookSpecial['cate_id']?>">
+                                    <a
+                                        href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookSpecial['id'].'&cate_id='.$bookSpecial['cate_id']?>">
                                         <img src="<?=BASE.'dist/img/books/'.$bookSpecial['image']?>" alt="">
                                     </a>
                                 </div>
 
                                 <div class="book-card__title">
-                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookSpecial['id'].'&cate_id='.$bookSpecial['cate_id']?>">
+                                    <a
+                                        href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookSpecial['id'].'&cate_id='.$bookSpecial['cate_id']?>">
                                         <h3><?=$bookSpecial['name'] ?></h3>
                                     </a>
                                 </div>
                                 <div class="book-card__author" style="font-size: 10px">
                                     Tác giả:
-                                    <a href="">
+                                    <a href="<?=BASE_CLIENT.'pages/author.php?id='.$bookSpecial['author_id']?>">
                                         <?=$bookSpecial['author_name'] ?></a>
                                 </div>
                                 <div class="book-card__star">
@@ -161,7 +164,7 @@
                                     <a href="<?=BASE_CLIENT.'pages/login.php'?>" class="heart-btn"><i
                                             class="far fa-heart"></i></a>
                                     <?php endif ?>
-                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookSpecial['id']?>"
+                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookSpecial['id'].'&cate_id='.$bookSpecial['cate_id']?>"
                                         class="review-btn">Chi tiết</a>
                                 </div>
 
@@ -189,19 +192,21 @@
                             <div class="book-card">
                                 <div class="item__hot">Mới</div>
                                 <div class="book-card__img">
-                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookNew['id'].'&cate_id='.$bookNew['cate_id']?>">
+                                    <a
+                                        href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookNew['id'].'&cate_id='.$bookNew['cate_id']?>">
                                         <img src="<?= BASE.'dist/img/books/'.$bookNew['image']?>" alt="">
                                     </a>
                                 </div>
 
                                 <div class="book-card__title">
-                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookNew['id'].'&cate_id='.$bookNew['cate_id']?>">
+                                    <a
+                                        href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookNew['id'].'&cate_id='.$bookNew['cate_id']?>">
                                         <h3><?=$bookNew['name'] ?></h3>
                                     </a>
                                 </div>
                                 <div class="book-card__author" style="font-size: 10px">
                                     Tác giả:
-                                    <a href="">
+                                    <a href="<?=BASE_CLIENT.'pages/author.php?id='.$bookNew['author_id']?>">
                                         <?=$bookNew['author_name'] ?></a>
                                 </div>
                                 <div class="book-card__star">
@@ -222,18 +227,37 @@
                                     <?php endif ?>
                                 </div>
                                 <div class="book-card__btn">
-                                    <?php if(isset($_SESSION['auth'])): ?>
+                                    <?php if(isset($_SESSION['auth'])){ ?>
                                     <a href="<?=BASE_CLIENT.'pages/cart-add.php?id='.$bookNew['id']?>"
                                         class="shopping-btn"><i class="fa fa-shopping-cart"></i></a>
-                                    <a href="<?=BASE_CLIENT.'pages/login.php'?>" class="heart-btn"><i
-                                            class="far fa-heart"></i></a>
-                                    <?php else: ?>
+                                    <?php 
+                                            $user_id = $_SESSION['auth']['id'];
+                                            $id = $bookNew['id'];
+                                            $wishlist = executeQuery(("SELECT * FROM wishlists where book_id = $id and user_id = $user_id and status = 'Đã thích'"),false);
+                                            if($wishlist){ 
+                                    ?>
+                                    <form action="<?=BASE_CLIENT.'pages/add-heart.php?id='.$bookNew['id']?>"
+                                        method="post">
+                                        <input type="hidden" name="book_id" value="<?=$bookNew['id']?>">
+                                        <input type="hidden" name="user_id" value="<?=$_SESSION['auth']['id']?>">
+                                        <button onclick="alert()" class="heart-btn" name="delete_wishlist_books"><i
+                                                class="fa fa-heart"></i></button>
+                                    </form>
+                                    <?php }else{ ?>
+                                    <form action="<?=BASE_CLIENT.'pages/add-heart.php?id='.$bookNew['id']?>"
+                                        method="post">
+                                        <input type="hidden" name="book_id" value="<?=$bookNew['id']?>">
+                                        <input type="hidden" name="user_id" value="<?=$_SESSION['auth']['id']?>">
+                                        <button onclick="alert()" class="heart-btn" name="add_wishlist_books"><i
+                                                class="far fa-heart"></i></button>
+                                    </form>
+                                    <?php }}else{ ?>
                                     <a href="<?=BASE_CLIENT.'pages/login.php'?>" class="shopping-btn"><i
                                             class="fa fa-shopping-cart"></i></a>
                                     <a href="<?=BASE_CLIENT.'pages/login.php'?>" class="heart-btn"><i
                                             class="far fa-heart"></i></a>
-                                    <?php endif ?>
-                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookNew['id']?>"
+                                    <?php } ?>
+                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookNew['id'].'&cate_id='.$bookNew['cate_id']?>"
                                         class="review-btn">Chi tiết</a>
                                 </div>
                             </div>
@@ -263,19 +287,21 @@
                         <a href="">
                             <div class="book-card">
                                 <div class="book-card__img">
-                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookFavorite['book_id'].'&cate_id='.$bookFavorite['cate_id']?>">
+                                    <a
+                                        href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookFavorite['book_id'].'&cate_id='.$bookFavorite['cate_id']?>">
                                         <img src="<?= BASE.'dist/img/books/'.$bookFavorite['book_image']?>" alt="">
                                     </a>
                                 </div>
 
                                 <div class="book-card__title">
-                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookFavorite['book_id'].'&cate_id='.$bookFavorite['cate_id']?>">
+                                    <a
+                                        href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookFavorite['book_id'].'&cate_id='.$bookFavorite['cate_id']?>">
                                         <h3><?=$bookFavorite['book_name'] ?></h3>
                                     </a>
                                 </div>
                                 <div class="book-card__author" style="font-size: 10px">
                                     Tác giả:
-                                    <a href="">
+                                    <a href="<?=BASE_CLIENT.'pages/author.php?id='.$bookFavorite['author_id']?>">
                                         <?=$bookFavorite['author_name'] ?></a>
                                 </div>
                                 <div class="book-card__star">
@@ -296,18 +322,37 @@
                                     <?php endif ?>
                                 </div>
                                 <div class="book-card__btn">
-                                    <?php if(isset($_SESSION['auth'])): ?>
+                                    <?php if(isset($_SESSION['auth'])){ ?>
                                     <a href="<?=BASE_CLIENT.'pages/cart-add.php?id='.$bookFavorite['id']?>"
                                         class="shopping-btn"><i class="fa fa-shopping-cart"></i></a>
-                                    <a href="<?=BASE_CLIENT.'pages/login.php'?>" class="heart-btn"><i
-                                            class="far fa-heart"></i></a>
-                                    <?php else: ?>
+                                    <?php 
+                                            $user_id = $_SESSION['auth']['id'];
+                                            $id = $bookFavorite['book_id'];
+                                            $wishlist = executeQuery(("SELECT * FROM wishlists where book_id = $id and user_id = $user_id and status = 'Đã thích'"),false);
+                                            if($wishlist){ 
+                                    ?>
+                                    <form action="<?=BASE_CLIENT.'pages/add-heart.php?id='.$bookFavorite['id']?>"
+                                        method="post">
+                                        <input type="hidden" name="book_id" value="<?=$bookFavorite['book_id']?>">
+                                        <input type="hidden" name="user_id" value="<?=$_SESSION['auth']['id']?>">
+                                        <button onclick="alert()" class="heart-btn" name="delete_wishlist_books"><i
+                                                class="fa fa-heart"></i></button>
+                                    </form>
+                                    <?php }else{ ?>
+                                    <form action="<?=BASE_CLIENT.'pages/add-heart.php?id='.$bookFavorite['id']?>"
+                                        method="post">
+                                        <input type="hidden" name="book_id" value="<?=$bookFavorite['book_id']?>">
+                                        <input type="hidden" name="user_id" value="<?=$_SESSION['auth']['id']?>">
+                                        <button onclick="alert()" class="heart-btn" name="add_wishlist_books"><i
+                                                class="far fa-heart"></i></button>
+                                    </form>
+                                    <?php }}else{ ?>
                                     <a href="<?=BASE_CLIENT.'pages/login.php'?>" class="shopping-btn"><i
                                             class="fa fa-shopping-cart"></i></a>
                                     <a href="<?=BASE_CLIENT.'pages/login.php'?>" class="heart-btn"><i
                                             class="far fa-heart"></i></a>
-                                    <?php endif ?>
-                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookFavorite['id']?>"
+                                    <?php } ?>
+                                    <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$bookFavorite['book_id'].'&cate_id='.$bookFavorite['cate_id']?>"
                                         class="review-btn">Chi tiết</a>
                                 </div>
                             </div>

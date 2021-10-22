@@ -70,12 +70,12 @@ $books = executeQuery($selectAllBookFavorite);
                                         <tr>
                                             <td><?= $book['id'] ?></td>
                                             <td>
-                                                <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$book['id']?>" style="text-decoration: underline;"><?= $book['name'] ?></a>
+                                                <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$book['id'].'&cate_id='.$book['cate_id']?>" style="text-decoration: underline;"><?= $book['name'] ?></a>
                                             </td>
                                             <td class=""><?= $book['cate_name'] ?></td>
                                             <td class=""><?= $book['author_name'] ?></td>
                                             <td class="text-center">
-                                                <img src="../../dist/img/books/<?=$book['image'] ?>" alt="Ảnh sản phẩm" width="70">
+                                                <img src="<?=BASE.'dist/img/books/'.$book['image'] ?>" alt="Ảnh sản phẩm" width="70">
                                             </td>
                                             <td class="text-center"><?= number_format($book['price'],0,'',',') ?>đ</td>
                                             <td class="text-center"><?= $book['percent'] ?>%</td>
@@ -100,7 +100,7 @@ $books = executeQuery($selectAllBookFavorite);
                                                 <label class="custom-control custom-checkbox p-0 m-0 pointer "
                                                     style="cursor: pointer;">
                                                     <input type="checkbox" class="custom-control-input toggle-class"
-                                                        data-id="<?= $book['id'] ?>" data-on="On" name="my_checkbox"
+                                                        data-id="<?= $book['id'] ?>" data-cate_id="<?= $book['cate_id'] ?>" data-on="On" name="my_checkbox"
                                                         data-on="On" data-off="Off"
                                                         <?php echo $book['status']=='0' ? 'checked' : ''?>>
                                                     <span class="custom-control-indicator p-0 m-0 "></span>
@@ -147,7 +147,6 @@ $books = executeQuery($selectAllBookFavorite);
         $('.toggle-class-special').change(function() {
             var special = $(this).prop('checked') == true ? '0' : '1';
             var id = $(this).data('id');
-            console.log(special, id)
             $.ajax({
                 type: "POST",
                 dataType: "json",
@@ -165,13 +164,15 @@ $books = executeQuery($selectAllBookFavorite);
         $('.toggle-class').change(function() {
             var status = $(this).prop('checked') == true ? '0' : '1';
             var id = $(this).data('id');
-            console.log(status, id)
+            var cate_id = $(this).data('cate_id');
+            console.log(status, id, cate_id)
             $.ajax({
                 type: "POST",
                 dataType: "json",
                 url: 'update-status.php',
                 data: {
                     'status': status,
+                    'cate_id': cate_id,
                     'id': id
                 },
                 success: function(response) {

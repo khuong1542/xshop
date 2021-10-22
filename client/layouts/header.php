@@ -1,6 +1,6 @@
 <?php 
 session_start(); 
-
+$user_id = isset($_SESSION['auth']['id'])? $_SESSION['auth']['id'] : null;
 
 //kiểm tra giỏ hàng 
 $totalItemOnCart = 0;
@@ -15,6 +15,10 @@ if($cart != ''){
     }
 }
 $logo = executeQuery("SELECT * from logo where status = 0 limit 1");
+if(isset($_SESSION['auth'])){
+    $user_id = $_SESSION['auth']['id'];
+    $users = executeQuery(("SELECT*FROM `users`where id = $user_id"),false);
+}
 ?>
 
 <?php
@@ -40,7 +44,7 @@ $logo = executeQuery("SELECT * from logo where status = 0 limit 1");
         <li class="header__nav-li"><a class="link" href="<?=BASE_CLIENT.'pages/contact.php'?>">Liên Hệ</a></li>
     </ul>
     <div class="header__search">
-        <form action="<?=BASE_CLIENT.'pages/search.php' ?>" method="post" class="search-form"
+        <form action="<?=BASE_CLIENT.'pages/search.php'?>" method="post" class="search-form"
             enctype="multipart/form-data">
             <input class="search-input" name="keyword" id="js-header-search-desktop" type="text"
                 placeholder="Tìm kiếm theo tên sách" value="">
@@ -63,7 +67,7 @@ $logo = executeQuery("SELECT * from logo where status = 0 limit 1");
         <div>
             <a id="navbarDropdown" class="nav-link  header__information-info" href="#" role="button"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                <img src="<?php echo BASE.'dist/img/users/'.$_SESSION['auth']['avatar'] ?>" alt="">
+                <img src="<?php echo BASE.'dist/img/users/'.$users['avatar'] ?>" alt="">
                 <i class="fas fa-caret-down"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-right dropdown-custom" aria-labelledby="navbarDropdown">
@@ -75,15 +79,15 @@ $logo = executeQuery("SELECT * from logo where status = 0 limit 1");
                 <a class="dropdown-item dropdown-item-custom" href="<?=BASE_CLIENT.'pages/infomation.php?id='.$_SESSION['auth']['id']?>">
                     <i class="fas fa-user"></i>Hồ sơ cá nhân
                 </a>
-                <!-- <a class="dropdown-item dropdown-item-custom" href="">
-                        <i class="fas fa-history"></i>Lịch sử mượn sách
-                    </a>
-                    <a class="dropdown-item dropdown-item-custom" href="">
-                        <i class="fas fa-address-book"></i>Bài viết của tôi
-                    </a>
-                    <a class="dropdown-item dropdown-item-custom" href="">
-                        <i class="fas fa-star"></i>Đánh giá
-                    </a> -->
+                <a class="dropdown-item dropdown-item-custom" href="">
+                    <i class="fas fa-history"></i>Đơn hàng
+                </a>
+                <a class="dropdown-item dropdown-item-custom" href="<?=BASE_CLIENT.'pages/wishlists.php?user_id='.$_SESSION['auth']['id']?>">
+                    <i class="fas fa-address-book"></i>Sản phẩm yêu thích
+                </a>
+                <a class="dropdown-item dropdown-item-custom" href="">
+                    <i class="fas fa-star"></i>Đánh giá
+                </a>
                 <a class="dropdown-item dropdown-item-custom" href="<?=BASE_CLIENT.'pages/logout.php'?>">
                     <i class="fas fa-sign-out-alt"></i>Đăng xuất
                 </a>

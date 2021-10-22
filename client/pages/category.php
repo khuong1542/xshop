@@ -12,11 +12,11 @@
     // $total_pages = "SELECT * FROM books where cate_id=".$_GET['id'];
     // $total_row = count(executeQuery($total_pages));
     
-    $total_pages_sql = "SELECT * FROM books";
-    $total_rows = count(executeQuery($total_pages_sql));
+    $total_rows = count(executeQuery("SELECT * FROM books where status = 0"));
     $total_pages = ceil($total_rows / $no_of_records_per_page);
 
     $selectAllCate = "SELECT * from `categories` where status = 0";
+    // $selectBook = executeQuery("SELECT * from `books` where status = 0 and cate_id = 3");
     $categories = executeQuery($selectAllCate);
     if(!isset($_GET['id']) || $_GET['id'] == ""){
         $selectAllBook = "  SELECT books.*, categories.name as cate_name, authors.name as author_name
@@ -24,7 +24,7 @@
                             INNER JOIN categories ON books.cate_id = categories.id
                             INNER JOIN authors ON books.author_id = authors.id
                             WHERE books.status = 0
-                            ORDER by id desc LIMIT $offset, $no_of_records_per_page";
+                            ORDER by books.id desc LIMIT $offset, $no_of_records_per_page";
         $books = executeQuery($selectAllBook);
     }else{
         $id = $_GET['id'];
@@ -71,7 +71,6 @@
                     </div>
                     <div class=" filter-group ">
                         <ul class="filter-list ">
-
                             <?php foreach($categories as $category): ?>
                             <a href="<?=BASE_CLIENT.'pages/category.php?id='.$category['id']?>"
                                 class="filter-item__link  ">
@@ -111,7 +110,7 @@
                         </div>
                         <div class="book-card__author" style="font-size:10px">
                             Tác giả:
-                            <a href="">
+                            <a href="<?=BASE_CLIENT.'pages/author.php?id='.$book['author_id']?>">
                                 <?=$book['author_name'] ?></a>
                         </div>
                         <div class="book-card__star">
@@ -133,7 +132,7 @@
                             <a href="<?=BASE_CLIENT.'pages/cart-add.php?id='.$book['id']?>" class="borrow-btn">
                                 <i class="fa fa-shopping-cart"> Thêm giỏ hàng</i>
                             </a>
-                            <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$book['id']?>" class="review-btn">Chi tiết</a>
+                            <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$book['id'].'&cate_id='.$book['cate_id']?>" class="review-btn">Chi tiết</a>
                         </div>
                     </div>
                     <?php endforeach ?>

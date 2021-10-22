@@ -66,7 +66,7 @@ $comment_posts = executeQuery($selectAllCommentPost);
                                         <tr>
                                             <td><?= $comment_post['id'] ?></td>
                                             <td class="text-center">
-                                                <img width="70" src="../../dist/img/posts/<?= $comment_post['post_image'] ?>" alt="<?= $comment_post['post_image'] ?>">
+                                                <img width="70" src="<?=BASE.'dist/img/posts/'.$comment_post['post_image'] ?>" alt="<?= $comment_post['post_image'] ?>">
                                             </td>
                                             <td class=""><?= $comment_post['post_title'] ?></td>
                                             <td class="text-center"><?= $comment_post['user_name'] ?></td>

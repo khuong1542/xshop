@@ -18,3 +18,8 @@
     <script src="<?= BASE.'dist/js/home/owl.carousel.min.js'?>"></script>
     <script src="<?= BASE.'dist/js/home/main.js'?>"></script>
     <script src="<?= BASE.'dist/js/search.js'?>"></script>
+    <script>
+        function alert(){
+            swal("Good job!", "You clicked the button!", "success");
+        }
+    </script>

@@ -57,7 +57,7 @@ $logo = executeQuery("SELECT *from logo");
                                         <tr>
                                             <td><?= $lo['id'] ?></td>
                                             <td class="text-center">
-                                                <img src="../../dist/img/logo/<?= $lo['image'] ?>" alt="Ảnh logo" width="70">
+                                                <img src="<?=BASE.'dist/img/logo/'.$lo['image'] ?>" alt="Ảnh logo" width="70">
                                             </td>
                                             <td class="text-center">
                                                 <?php if($lo['created_at']!="0000-00-00"): ?>

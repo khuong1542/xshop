@@ -25,3 +25,4 @@
 
     <link rel="stylesheet" href="<?=BASE.'dist/css/client/pages/home/owl.carousel.min.css" type="text/css'?>">
     <!-- <link rel="stylesheet" href="<?=BASE.'dist/css/client/pages/home/style.css" type="text/css'?>"> -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">

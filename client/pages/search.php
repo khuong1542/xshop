@@ -7,12 +7,12 @@ $selectAllCate = "SELECT * from `categories` where status = 0";
     
 //lấy sản phẩm theo tìm kiếm bằng like 
 if (isset($_POST['submit'])) {
-    $search = $_POST['keyword'];
+    $keyword = $_POST['keyword'];
     $sqlSearch = "SELECT books.*, categories.name as cate_name, authors.name as author_name
                     FROM books
                     INNER JOIN categories ON books.cate_id = categories.id
                     INNER JOIN authors ON books.author_id = authors.id
-                    WHERE books.status = 0 AND books.name like '%$search%'  order by id desc";
+                    WHERE books.status = 0 AND books.name like '%$keyword%'  order by id desc";
     $books = executeQuery($sqlSearch);
   }
 ?>
@@ -52,11 +52,10 @@ if (isset($_POST['submit'])) {
                     </div>
                     <div class=" filter-group ">
                         <ul class="filter-list ">
-
                             <?php foreach($categories as $category): ?>
-                            <a href="{{route('book.category',$category->slug)}}" class="filter-item__link  ">
-                                <li
-                                    class="filter-item {{ Request::is('category/'.$category->slug) ? 'active' : null }}">
+                            <a href="<?=BASE_CLIENT.'pages/category.php?id='.$category['id']?>"
+                                class="filter-item__link  ">
+                                <li class="filter-item {{ isset($_GET['id']) ? 'active' : null }}">
                                     <?=$category['name']?>
                                     <!-- <span class="filter-item__quantity"></span> -->
                                 </li>
@@ -67,25 +66,19 @@ if (isset($_POST['submit'])) {
                 </div>
             </div>
             <div class="col-md-9 book-category__content ">
-                <?php if(count($books)<=0): ?>
-                <div class="search-result">
-                    <div class="search-text">
-                        <p>Không có cuốn sách nào!</p>
-                    </div>
-                </div>
-                <?php endif ?>
-
                 <div class="book-card-collection">
                     <?php if(count($books) >0 ): ?>
                     <?php foreach($books as $book): ?>
                     <div class="book-card ">
                         <div class="book-card__img">
-                            <a href="">
+                            <a
+                                href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$book['id'].'&cate_id='.$book['cate_id']?>">
                                 <img src="<?=BASE.'dist/img/books/'.$book['image']?>" alt="">
                             </a>
                         </div>
                         <div class="book-card__title">
-                            <a href="">
+                            <a
+                                href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$book['id'].'&cate_id='.$book['cate_id']?>">
                                 <h3> <?=$book['name']?> </h3>
                             </a>
                         </div>
@@ -98,23 +91,23 @@ if (isset($_POST['submit'])) {
                             <i class="far fa-star"></i>
                         </div>
                         <div class="book-card__btn">
-                            <!-- @if(DB::table('orders')->where('book_id', $book->id)->where('id_user', Auth::user()->id)
-                                ->where('status', 'Đang mượn')->first() ) -->
-                            <!-- <a href="{{ route('book.read', $book->slug) }}" class="review-btn">Đọc sách</a>
-                                @else -->
-                            <a href="{{ route('Book.Order', $book->id) }}" class="borrow-btn"><i
+                            <a href="<?=BASE_CLIENT.'pages/cart-add.php?id='.$book['id']?>" class="borrow-btn"><i
                                     class="fa fa-shopping-cart"> Thêm giỏ hàng</i></a>
-                            <a href="{{ route('book.review', $book->slug) }}" class="review-btn">Chi tiết</a>
-                            <!-- @endif -->
+                            <a href="<?=BASE_CLIENT.'pages/shop-detail.php?id='.$book['id'].'&cate_id='.$book['cate_id']?>"
+                                class="review-btn">Chi tiết</a>
                         </div>
                     </div>
                     <?php endforeach ?>
+                    <?php else: ?>
+
+                    <div class="search-result">
+                        <div class="search-text">
+                            <p>Không có cuốn sách nào!</p>
+                        </div>
+                    </div>
                     <?php endif ?>
 
                 </div>
-                <!-- @if(isset($books) )
-                {{ $books->links('vendor.pagination.category-pagination') }}
-                @endif -->
             </div>
         </div>
     </div>
